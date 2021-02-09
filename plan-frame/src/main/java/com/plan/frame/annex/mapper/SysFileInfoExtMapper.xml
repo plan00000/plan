@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmgps.tocc.frame.annex.dao.SysFileInfoExtDao" >
+
+  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+    <id column="FILE_ID" property="fileId" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_TYPE" property="fileType" jdbcType="VARCHAR" />
+    <result column="FILE_DIR" property="fileDir" jdbcType="VARCHAR" />
+    <result column="REL_ID" property="relId" jdbcType="VARCHAR" />
+    <result column="FILE_NO" property="fileNo" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="DECIMAL" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="FILE_TITLE" property="fileTitle" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="BaseColumnList" >
+    FILE_ID, FILE_NAME, FILE_TYPE, FILE_DIR, REL_ID, FILE_NO, ORDER_NO, CREATE_USER,
+    UPDATE_USER, CREATE_TIME, UPDATE_TIME, FILE_TITLE
+  </sql>
+  
+  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.annex.dto.FileReqDto" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM sys_file_info
+    <where >
+      <if test="fileId != null" >
+         AND file_id = #{fileId,jdbcType=VARCHAR}
+      </if>
+      <if test="fileName != null" >
+         AND file_name = #{fileName,jdbcType=VARCHAR}
+      </if>
+      <if test="fileType != null" >
+         AND file_type = #{fileType,jdbcType=VARCHAR}
+      </if>
+      <if test="fileDir != null" >
+         AND file_dir = #{fileDir,jdbcType=VARCHAR}
+      </if>
+      <if test="relId != null" >
+         AND rel_id = #{relId,jdbcType=VARCHAR}
+      </if>
+      <if test="fileNo != null" >
+         AND file_no = #{fileNo,jdbcType=VARCHAR}
+      </if>
+      <if test="orderNo != null" >
+         AND order_no = #{orderNo,jdbcType=INTEGER}
+      </if>
+      <if test="createUser != null" >
+         AND create_user = #{createUser,jdbcType=VARCHAR}
+      </if>
+      <if test="updateUser != null" >
+         AND update_user = #{updateUser,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+         AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+         AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="fileTitle != null" >
+         AND file_title = #{fileTitle,jdbcType=VARCHAR}
+      </if>
+      <if test="relIdList != null and relIdList.size()>0">
+        and rel_id in (
+        <foreach collection="relIdList" item="item" separator=",">
+          #{item}
+        </foreach>
+        )
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysLogDao" >
+  
+  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysLog" >
+    <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+    <result column="REQ_IP" property="reqIp" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATE_TIME" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="OPERATE_TYPE" property="operateType" jdbcType="VARCHAR" />
+    <result column="LOG_TITLE" property="logTitle" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="LOG_TYPE" property="logType" jdbcType="VARCHAR" />
+    <result column="REQ_URL" property="reqUrl" jdbcType="VARCHAR" />
+    <result column="REQ_PARAMS" property="reqParams" jdbcType="VARCHAR" />
+    <result column="ERROR_MSG" property="errorMsg" jdbcType="VARCHAR" />
+    <result column="REQ_METHOD" property="reqMethod" jdbcType="VARCHAR" />
+    <result column="TIMEOUT" property="timeout" jdbcType="DECIMAL" />
+    <result column="BROWSER" property="browser" jdbcType="VARCHAR" />
+    <result column="OSNAME" property="osname" jdbcType="VARCHAR" />
+    <result column="VISIABLE" property="visiable" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    LOG_ID, REQ_IP, OPERATOR, OPERATE_TIME, OPERATE_TYPE, LOG_TITLE, CREATE_TIME, CREATE_USER, 
+    UPDATE_TIME, UPDATE_USER, LOG_TYPE, REQ_URL, REQ_PARAMS, ERROR_MSG, REQ_METHOD, TIMEOUT, 
+    BROWSER, OSNAME, VISIABLE
+  </sql>
+  
+  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysLog" >
+    INSERT INTO SYS_LOG (LOG_ID, REQ_IP, OPERATOR, 
+      OPERATE_TIME, OPERATE_TYPE, LOG_TITLE, 
+      CREATE_TIME, CREATE_USER, UPDATE_TIME, 
+      UPDATE_USER, LOG_TYPE, REQ_URL, 
+      REQ_PARAMS, ERROR_MSG, REQ_METHOD, 
+      TIMEOUT, BROWSER, OSNAME, 
+      VISIABLE)
+    VALUES (#{logId,jdbcType=VARCHAR}, #{reqIp,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{operateTime,jdbcType=TIMESTAMP}, #{operateType,jdbcType=VARCHAR}, #{logTitle,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{logType,jdbcType=VARCHAR}, #{reqUrl,jdbcType=VARCHAR}, 
+      #{reqParams,jdbcType=VARCHAR}, #{errorMsg,jdbcType=VARCHAR}, #{reqMethod,jdbcType=VARCHAR}, 
+      #{timeout,jdbcType=DECIMAL}, #{browser,jdbcType=VARCHAR}, #{osname,jdbcType=VARCHAR}, 
+      #{visiable,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO SYS_LOG (LOG_ID, 
+      REQ_IP, OPERATOR, OPERATE_TIME, 
+      OPERATE_TYPE, LOG_TITLE, CREATE_TIME, 
+      CREATE_USER, UPDATE_TIME, UPDATE_USER, 
+      LOG_TYPE, REQ_URL, REQ_PARAMS, 
+      ERROR_MSG, REQ_METHOD, TIMEOUT, 
+      BROWSER, OSNAME, VISIABLE
+      )
+    <foreach collection="list" item="item" index="index" separator=" UNION ALL "> select #{item.logId,jdbcType=VARCHAR}, 
+      #{item.reqIp,jdbcType=VARCHAR}, #{item.operator,jdbcType=VARCHAR}, #{item.operateTime,jdbcType=TIMESTAMP}, 
+      #{item.operateType,jdbcType=VARCHAR}, #{item.logTitle,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.createUser,jdbcType=VARCHAR}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.updateUser,jdbcType=VARCHAR}, 
+      #{item.logType,jdbcType=VARCHAR}, #{item.reqUrl,jdbcType=VARCHAR}, #{item.reqParams,jdbcType=VARCHAR}, 
+      #{item.errorMsg,jdbcType=VARCHAR}, #{item.reqMethod,jdbcType=VARCHAR}, #{item.timeout,jdbcType=DECIMAL}, 
+      #{item.browser,jdbcType=VARCHAR}, #{item.osname,jdbcType=VARCHAR}, #{item.visiable,jdbcType=VARCHAR}
+       from dual </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysLog" >
+    INSERT INTO SYS_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="reqIp != null" >
+        REQ_IP,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME,
+      </if>
+      <if test="operateType != null" >
+        OPERATE_TYPE,
+      </if>
+      <if test="logTitle != null" >
+        LOG_TITLE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="logType != null" >
+        LOG_TYPE,
+      </if>
+      <if test="reqUrl != null" >
+        REQ_URL,
+      </if>
+      <if test="reqParams != null" >
+        REQ_PARAMS,
+      </if>
+      <if test="errorMsg != null" >
+        ERROR_MSG,
+      </if>
+      <if test="reqMethod != null" >
+        REQ_METHOD,
+      </if>
+      <if test="timeout != null" >
+        TIMEOUT,
+      </if>
+      <if test="browser != null" >
+        BROWSER,
+      </if>
+      <if test="osname != null" >
+        OSNAME,
+      </if>
+      <if test="visiable != null" >
+        VISIABLE,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="reqIp != null" >
+        #{reqIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateType != null" >
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="logTitle != null" >
+        #{logTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null" >
+        #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="reqUrl != null" >
+        #{reqUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="reqParams != null" >
+        #{reqParams,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null" >
+        #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="reqMethod != null" >
+        #{reqMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="timeout != null" >
+        #{timeout,jdbcType=DECIMAL},
+      </if>
+      <if test="browser != null" >
+        #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="osname != null" >
+        #{osname,jdbcType=VARCHAR},
+      </if>
+      <if test="visiable != null" >
+        #{visiable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysLog" >
+    UPDATE SYS_LOG
+    SET REQ_IP = #{reqIp,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      OPERATE_TYPE = #{operateType,jdbcType=VARCHAR},
+      LOG_TITLE = #{logTitle,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      LOG_TYPE = #{logType,jdbcType=VARCHAR},
+      REQ_URL = #{reqUrl,jdbcType=VARCHAR},
+      REQ_PARAMS = #{reqParams,jdbcType=VARCHAR},
+      ERROR_MSG = #{errorMsg,jdbcType=VARCHAR},
+      REQ_METHOD = #{reqMethod,jdbcType=VARCHAR},
+      TIMEOUT = #{timeout,jdbcType=DECIMAL},
+      BROWSER = #{browser,jdbcType=VARCHAR},
+      OSNAME = #{osname,jdbcType=VARCHAR},
+      VISIABLE = #{visiable,jdbcType=VARCHAR}
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysLog" >
+    UPDATE SYS_LOG
+    <set >
+      <if test="reqIp != null" >
+        REQ_IP = #{reqIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateType != null" >
+        OPERATE_TYPE = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="logTitle != null" >
+        LOG_TITLE = #{logTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null" >
+        LOG_TYPE = #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="reqUrl != null" >
+        REQ_URL = #{reqUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="reqParams != null" >
+        REQ_PARAMS = #{reqParams,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null" >
+        ERROR_MSG = #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="reqMethod != null" >
+        REQ_METHOD = #{reqMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="timeout != null" >
+        TIMEOUT = #{timeout,jdbcType=DECIMAL},
+      </if>
+      <if test="browser != null" >
+        BROWSER = #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="osname != null" >
+        OSNAME = #{osname,jdbcType=VARCHAR},
+      </if>
+      <if test="visiable != null" >
+        VISIABLE = #{visiable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM SYS_LOG
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_LOG
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysLog" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_LOG
+    <where >
+      <if test="logId != null" >
+         AND LOG_ID = #{logId,jdbcType=VARCHAR}
+      </if>
+      <if test="reqIp != null" >
+         AND REQ_IP = #{reqIp,jdbcType=VARCHAR}
+      </if>
+      <if test="operator != null" >
+         AND OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="operateTime != null" >
+         AND OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="operateType != null" >
+         AND OPERATE_TYPE = #{operateType,jdbcType=VARCHAR}
+      </if>
+      <if test="logTitle != null" >
+         AND LOG_TITLE = #{logTitle,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+         AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createUser != null" >
+         AND CREATE_USER = #{createUser,jdbcType=VARCHAR}
+      </if>
+      <if test="updateTime != null" >
+         AND UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateUser != null" >
+         AND UPDATE_USER = #{updateUser,jdbcType=VARCHAR}
+      </if>
+      <if test="logType != null" >
+         AND LOG_TYPE = #{logType,jdbcType=VARCHAR}
+      </if>
+      <if test="reqUrl != null" >
+         AND REQ_URL = #{reqUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="reqParams != null" >
+         AND REQ_PARAMS = #{reqParams,jdbcType=VARCHAR}
+      </if>
+      <if test="errorMsg != null" >
+         AND ERROR_MSG = #{errorMsg,jdbcType=VARCHAR}
+      </if>
+      <if test="reqMethod != null" >
+         AND REQ_METHOD = #{reqMethod,jdbcType=VARCHAR}
+      </if>
+      <if test="timeout != null" >
+         AND TIMEOUT = #{timeout,jdbcType=DECIMAL}
+      </if>
+      <if test="browser != null" >
+         AND BROWSER = #{browser,jdbcType=VARCHAR}
+      </if>
+      <if test="osname != null" >
+         AND OSNAME = #{osname,jdbcType=VARCHAR}
+      </if>
+      <if test="visiable != null" >
+         AND VISIABLE = #{visiable,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

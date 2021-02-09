@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE generatorConfiguration  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <!--<classPathEntry location="D:\mycode\mybatis-generator-core\src\main\lib\ojdbc6-11.2.0.2.0.jar" />-->
+
+  <context id="xyl-1" targetRuntime="MyBatis3Dao" defaultModelType="flat">
+    <property name="autoDelimitKeywords" value="false" />
+    <property name="beginningDelimiter" value="`" />
+    <property name="endingDelimiter" value="`" />
+    <property name="javaFileEncoding" value="UTF-8" />
+
+    <commentGenerator type="org.mybatis.generator.internal.XylCommentGenerator">
+      <!--  关闭自动生成的注释  -->
+      <property name="suppressAllComments" value="true" />
+      <property name="addApiModelProperty" value="true" />  <!--生成Swagger ui注解-->
+      <property name="daoAnnotationClass" value="com.xmgps.tocc.frame.mybatis.MyBatisPrimaryDao"/>
+    </commentGenerator>
+
+    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+                    connectionURL="jdbc:oracle:thin:@10.5.18.125:1521:xxpttest"
+                    userId="TL_PT_YLYL"
+                    password="TL_PT_YLYL">
+      <!-- 字段注释，针对oracle数据库 -->
+      <property name="remarksReporting" value="true"></property>
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <!-- false时把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和NUMERIC 类型解析为java.math.BigDecimal -->
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <!--生成Model类存放位置-->
+    <javaModelGenerator targetProject="D:\mycode\tongling\trunk\数据分析决策系统\综合交通运力运量分析子系统\ylyl-api\src\main\java" targetPackage="com.xmgps.tocc.ylyl.base.entity">
+      <property name="enableSubPackages" value="false" />
+      <property name="trimStrings" value="false" />
+
+    </javaModelGenerator>
+
+    <!--生成映射文件存放位置-->
+    <sqlMapGenerator targetProject="D:\mycode\tongling\trunk\数据分析决策系统\综合交通运力运量分析子系统\ylyl-api\src\main\java" targetPackage="com.xmgps.tocc.ylyl.base.mapper">
+      <property name="enableSubPackages" value="false" />
+    </sqlMapGenerator>
+
+    <!--生成Dao类存放位置-->
+    <javaClientGenerator type="SPRING" targetProject="D:\mycode\tongling\trunk\数据分析决策系统\综合交通运力运量分析子系统\ylyl-api\src\main\java" targetPackage="com.xmgps.tocc.ylyl.base.dao">
+      <property name="enableSubPackages" value="false" />
+      <!--<property name="rootClass" value="xyl.dao.MybatisBaseDao" />-->
+    </javaClientGenerator>
+
+    <!--生成controller、service 、dto-->
+    <javaControllerAndServiceGenerator targetProject="D:\mycode\tongling\trunk\数据分析决策系统\综合交通运力运量分析子系统\ylyl-api\src\main\java">
+      <property name="resultClass" value="com.xmgps.tocc.frame.entity.Result"></property>
+      <property name="resultHelperClass" value="com.xmgps.tocc.frame.helper.ResultHelper"></property>
+      <property name="pageinationClass" value="com.xmgps.tocc.frame.entity.PageinationDto"></property>
+
+      <property name="controllerTargetPackage" value="com.xmgps.tocc.ylyl.controller"></property>
+      <property name="serviceTargetPackage" value="com.xmgps.tocc.ylyl.service"></property>
+      <property name="dtoTargetPackage" value="com.xmgps.tocc.ylyl.dto"></property>
+
+      <property name="addMethod" value="true"></property>
+      <property name="updateMethod" value="true"></property>
+      <property name="deleteMethod" value="true"></property>
+      <property name="getMethod" value="true"></property>
+      <property name="findMethod" value="true"></property>
+      <property name="importMethod" value="true"></property>
+      <property name="exportMethod" value="true"></property>
+    </javaControllerAndServiceGenerator>
+
+
+    <!--<table schema="TL_PT_YLYL" tableName="TBPT_COMPLAINT">-->
+    <!--<columnOverride column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+    <!--<columnOverride column="DEAL_RESULT" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+    <!--</table>-->
+    <table schema="TL_PT_YLYL" tableName="TRRT_HORIDAY"></table>
+
+  </context>
+</generatorConfiguration>

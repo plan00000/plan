@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysFileInfoDao" >
+  
+  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+    <id column="FILE_ID" property="fileId" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_TYPE" property="fileType" jdbcType="VARCHAR" />
+    <result column="FILE_DIR" property="fileDir" jdbcType="VARCHAR" />
+    <result column="REL_ID" property="relId" jdbcType="VARCHAR" />
+    <result column="FILE_NO" property="fileNo" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="DECIMAL" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="FILE_TITLE" property="fileTitle" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    FILE_ID, FILE_NAME, FILE_TYPE, FILE_DIR, REL_ID, FILE_NO, ORDER_NO, CREATE_USER, 
+    UPDATE_USER, CREATE_TIME, UPDATE_TIME, FILE_TITLE
+  </sql>
+  
+  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+    INSERT INTO SYS_FILE_INFO (FILE_ID, FILE_NAME, FILE_TYPE, 
+      FILE_DIR, REL_ID, FILE_NO, 
+      ORDER_NO, CREATE_USER, UPDATE_USER, 
+      CREATE_TIME, UPDATE_TIME, FILE_TITLE
+      )
+    VALUES (#{fileId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, 
+      #{fileDir,jdbcType=VARCHAR}, #{relId,jdbcType=VARCHAR}, #{fileNo,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=DECIMAL}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{fileTitle,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO SYS_FILE_INFO (FILE_ID, 
+      FILE_NAME, FILE_TYPE, FILE_DIR, 
+      REL_ID, FILE_NO, ORDER_NO, 
+      CREATE_USER, UPDATE_USER, CREATE_TIME, 
+      UPDATE_TIME, FILE_TITLE)
+    <foreach collection="list" item="item" index="index" separator=" UNION ALL "> select #{item.fileId,jdbcType=VARCHAR}, 
+      #{item.fileName,jdbcType=VARCHAR}, #{item.fileType,jdbcType=VARCHAR}, #{item.fileDir,jdbcType=VARCHAR}, 
+      #{item.relId,jdbcType=VARCHAR}, #{item.fileNo,jdbcType=VARCHAR}, #{item.orderNo,jdbcType=DECIMAL}, 
+      #{item.createUser,jdbcType=VARCHAR}, #{item.updateUser,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.updateTime,jdbcType=TIMESTAMP}, #{item.fileTitle,jdbcType=VARCHAR} from dual </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+    INSERT INTO SYS_FILE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        FILE_ID,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+      <if test="fileType != null" >
+        FILE_TYPE,
+      </if>
+      <if test="fileDir != null" >
+        FILE_DIR,
+      </if>
+      <if test="relId != null" >
+        REL_ID,
+      </if>
+      <if test="fileNo != null" >
+        FILE_NO,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="fileTitle != null" >
+        FILE_TITLE,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileDir != null" >
+        #{fileDir,jdbcType=VARCHAR},
+      </if>
+      <if test="relId != null" >
+        #{relId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileNo != null" >
+        #{fileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileTitle != null" >
+        #{fileTitle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+    UPDATE SYS_FILE_INFO
+    SET FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      FILE_DIR = #{fileDir,jdbcType=VARCHAR},
+      REL_ID = #{relId,jdbcType=VARCHAR},
+      FILE_NO = #{fileNo,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=DECIMAL},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      FILE_TITLE = #{fileTitle,jdbcType=VARCHAR}
+    WHERE FILE_ID = #{fileId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+    UPDATE SYS_FILE_INFO
+    <set >
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileDir != null" >
+        FILE_DIR = #{fileDir,jdbcType=VARCHAR},
+      </if>
+      <if test="relId != null" >
+        REL_ID = #{relId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileNo != null" >
+        FILE_NO = #{fileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileTitle != null" >
+        FILE_TITLE = #{fileTitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE FILE_ID = #{fileId,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM SYS_FILE_INFO
+    WHERE FILE_ID = #{fileId,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_FILE_INFO
+    WHERE FILE_ID = #{fileId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_FILE_INFO
+    <where >
+      <if test="fileId != null" >
+         AND FILE_ID = #{fileId,jdbcType=VARCHAR}
+      </if>
+      <if test="fileName != null" >
+         AND FILE_NAME = #{fileName,jdbcType=VARCHAR}
+      </if>
+      <if test="fileType != null" >
+         AND FILE_TYPE = #{fileType,jdbcType=VARCHAR}
+      </if>
+      <if test="fileDir != null" >
+         AND FILE_DIR = #{fileDir,jdbcType=VARCHAR}
+      </if>
+      <if test="relId != null" >
+         AND REL_ID = #{relId,jdbcType=VARCHAR}
+      </if>
+      <if test="fileNo != null" >
+         AND FILE_NO = #{fileNo,jdbcType=VARCHAR}
+      </if>
+      <if test="orderNo != null" >
+         AND ORDER_NO = #{orderNo,jdbcType=DECIMAL}
+      </if>
+      <if test="createUser != null" >
+         AND CREATE_USER = #{createUser,jdbcType=VARCHAR}
+      </if>
+      <if test="updateUser != null" >
+         AND UPDATE_USER = #{updateUser,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+         AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+         AND UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="fileTitle != null" >
+         AND FILE_TITLE = #{fileTitle,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

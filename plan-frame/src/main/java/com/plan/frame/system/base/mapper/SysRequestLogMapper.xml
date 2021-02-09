@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysRequestLogDao" >
+  
+  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" >
+    <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+    <result column="URI" property="uri" jdbcType="VARCHAR" />
+    <result column="REP_IP" property="repIp" jdbcType="VARCHAR" />
+    <result column="REQ_PARAMS" property="reqParams" jdbcType="VARCHAR" />
+    <result column="REQ_METHOD" property="reqMethod" jdbcType="VARCHAR" />
+    <result column="LOST_TIME" property="lostTime" jdbcType="VARCHAR" />
+    <result column="BROWSER" property="browser" jdbcType="VARCHAR" />
+    <result column="OSNAME" property="osname" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    LOG_ID, URI, REP_IP, REQ_PARAMS, REQ_METHOD, LOST_TIME, BROWSER, OSNAME, CREATE_TIME, 
+    CREATE_USER, UPDATE_TIME, UPDATE_USER
+  </sql>
+  
+  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" >
+    INSERT INTO SYS_REQUEST_LOG (LOG_ID, URI, REP_IP, 
+      REQ_PARAMS, REQ_METHOD, LOST_TIME, 
+      BROWSER, OSNAME, CREATE_TIME, 
+      CREATE_USER, UPDATE_TIME, UPDATE_USER
+      )
+    VALUES (#{logId,jdbcType=VARCHAR}, #{uri,jdbcType=VARCHAR}, #{repIp,jdbcType=VARCHAR}, 
+      #{reqParams,jdbcType=VARCHAR}, #{reqMethod,jdbcType=VARCHAR}, #{lostTime,jdbcType=VARCHAR}, 
+      #{browser,jdbcType=VARCHAR}, #{osname,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO SYS_REQUEST_LOG (LOG_ID, 
+      URI, REP_IP, REQ_PARAMS, 
+      REQ_METHOD, LOST_TIME, BROWSER, 
+      OSNAME, CREATE_TIME, CREATE_USER, 
+      UPDATE_TIME, UPDATE_USER)
+    <foreach collection="list" item="item" index="index" separator=" UNION ALL "> select #{item.logId,jdbcType=VARCHAR}, 
+      #{item.uri,jdbcType=VARCHAR}, #{item.repIp,jdbcType=VARCHAR}, #{item.reqParams,jdbcType=VARCHAR}, 
+      #{item.reqMethod,jdbcType=VARCHAR}, #{item.lostTime,jdbcType=VARCHAR}, #{item.browser,jdbcType=VARCHAR}, 
+      #{item.osname,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.createUser,jdbcType=VARCHAR}, 
+      #{item.updateTime,jdbcType=TIMESTAMP}, #{item.updateUser,jdbcType=VARCHAR} from dual </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" >
+    INSERT INTO SYS_REQUEST_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="uri != null" >
+        URI,
+      </if>
+      <if test="repIp != null" >
+        REP_IP,
+      </if>
+      <if test="reqParams != null" >
+        REQ_PARAMS,
+      </if>
+      <if test="reqMethod != null" >
+        REQ_METHOD,
+      </if>
+      <if test="lostTime != null" >
+        LOST_TIME,
+      </if>
+      <if test="browser != null" >
+        BROWSER,
+      </if>
+      <if test="osname != null" >
+        OSNAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null" >
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="repIp != null" >
+        #{repIp,jdbcType=VARCHAR},
+      </if>
+      <if test="reqParams != null" >
+        #{reqParams,jdbcType=VARCHAR},
+      </if>
+      <if test="reqMethod != null" >
+        #{reqMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="lostTime != null" >
+        #{lostTime,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null" >
+        #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="osname != null" >
+        #{osname,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" >
+    UPDATE SYS_REQUEST_LOG
+    SET URI = #{uri,jdbcType=VARCHAR},
+      REP_IP = #{repIp,jdbcType=VARCHAR},
+      REQ_PARAMS = #{reqParams,jdbcType=VARCHAR},
+      REQ_METHOD = #{reqMethod,jdbcType=VARCHAR},
+      LOST_TIME = #{lostTime,jdbcType=VARCHAR},
+      BROWSER = #{browser,jdbcType=VARCHAR},
+      OSNAME = #{osname,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR}
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" >
+    UPDATE SYS_REQUEST_LOG
+    <set >
+      <if test="uri != null" >
+        URI = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="repIp != null" >
+        REP_IP = #{repIp,jdbcType=VARCHAR},
+      </if>
+      <if test="reqParams != null" >
+        REQ_PARAMS = #{reqParams,jdbcType=VARCHAR},
+      </if>
+      <if test="reqMethod != null" >
+        REQ_METHOD = #{reqMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="lostTime != null" >
+        LOST_TIME = #{lostTime,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null" >
+        BROWSER = #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="osname != null" >
+        OSNAME = #{osname,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM SYS_REQUEST_LOG
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_REQUEST_LOG
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_REQUEST_LOG
+    <where >
+      <if test="logId != null" >
+         AND LOG_ID = #{logId,jdbcType=VARCHAR}
+      </if>
+      <if test="uri != null" >
+         AND URI = #{uri,jdbcType=VARCHAR}
+      </if>
+      <if test="repIp != null" >
+         AND REP_IP = #{repIp,jdbcType=VARCHAR}
+      </if>
+      <if test="reqParams != null" >
+         AND REQ_PARAMS = #{reqParams,jdbcType=VARCHAR}
+      </if>
+      <if test="reqMethod != null" >
+         AND REQ_METHOD = #{reqMethod,jdbcType=VARCHAR}
+      </if>
+      <if test="lostTime != null" >
+         AND LOST_TIME = #{lostTime,jdbcType=VARCHAR}
+      </if>
+      <if test="browser != null" >
+         AND BROWSER = #{browser,jdbcType=VARCHAR}
+      </if>
+      <if test="osname != null" >
+         AND OSNAME = #{osname,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+         AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createUser != null" >
+         AND CREATE_USER = #{createUser,jdbcType=VARCHAR}
+      </if>
+      <if test="updateTime != null" >
+         AND UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateUser != null" >
+         AND UPDATE_USER = #{updateUser,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

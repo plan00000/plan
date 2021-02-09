@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <preConditions>
+        <dbms type="mysql"/>
+    </preConditions>
+
+    <changeSet id="option@create#table@sys_quartz_job#time@2020-05-22" author="admin">
+        <comment>create table sys_quartz_job</comment>
+        <sql>
+            drop table if exists sys_quartz_job;
+            CREATE TABLE `sys_quartz_job` (
+            `id` varchar(32) NOT NULL COMMENT 'ID',
+            `bean_name` varchar(255) DEFAULT NULL COMMENT 'Spring Bean名称',
+            `cron_expression` varchar(255) DEFAULT NULL COMMENT 'cron 表达式',
+            `is_pause` bit(1) DEFAULT NULL COMMENT '状态：1暂停、0启用',
+            `job_name` varchar(255) DEFAULT NULL COMMENT '任务名称',
+            `method_name` varchar(255) DEFAULT NULL COMMENT '方法名称',
+            `params` varchar(255) DEFAULT NULL COMMENT '参数',
+            `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+            `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+            `update_time` datetime DEFAULT NULL COMMENT '创建或更新日期',
+            `create_user` varchar(255) DEFAULT NULL COMMENT '创建人',
+            `update_user` varchar(255) DEFAULT NULL COMMENT '更新人',
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='调度任务';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

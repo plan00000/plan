@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE generatorConfiguration  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <classPathEntry location=".\lib\mysql-connector-java-5.1.23.jar" />
+
+  <context id="xyl-1" targetRuntime="MyBatis3Dao" defaultModelType="flat">
+    <property name="autoDelimitKeywords" value="false" />
+    <property name="beginningDelimiter" value="`" />
+    <property name="endingDelimiter" value="`" />
+    <property name="javaFileEncoding" value="UTF-8" />
+
+    <commentGenerator type="org.mybatis.generator.internal.XylCommentGenerator">
+      <!--  关闭自动生成的注释  -->
+      <property name="suppressAllComments" value="true" />
+      <property name="addApiModelProperty" value="true" />  <!--生成Swagger ui注解-->
+      <property name="daoAnnotationClass" value="com.xmgps.framework.mybatis.MyBatisPrimaryDao"/>
+    </commentGenerator>
+
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                    connectionURL="jdbc:mysql://10.50.1.129:3306/xyl_demo?useUnicode=true&amp;characterEncoding=utf-8"
+                    userId="root"
+                    password="root">
+      <!-- 字段注释，针对mysql数据库 -->
+      <property name="useInformationSchema" value="true"></property>
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <!-- false时把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和NUMERIC 类型解析为java.math.BigDecimal -->
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <!--生成Model类存放位置-->
+    <javaModelGenerator targetProject="D:\mycode\metro2\metro-api\src\main\java" targetPackage="com.xmgps.work.base.entity">
+      <property name="enableSubPackages" value="false" />
+      <property name="trimStrings" value="false" />
+
+    </javaModelGenerator>
+
+    <!--生成映射文件存放位置-->
+    <sqlMapGenerator targetProject="D:\mycode\metro2\metro-api\src\main\java" targetPackage="com.xmgps.work.base.mapper">
+      <property name="enableSubPackages" value="false" />
+    </sqlMapGenerator>
+
+    <!--生成Dao类存放位置-->
+    <javaClientGenerator type="SPRING" targetProject="D:\mycode\metro2\metro-api\src\main\java" targetPackage="com.xmgps.work.base.dao">
+      <property name="enableSubPackages" value="false" />
+      <!--<property name="rootClass" value="xyl.dao.MybatisBaseDao" />-->
+    </javaClientGenerator>
+
+    <!--生成controller、service 、dto-->
+    <javaControllerAndServiceGenerator targetProject="D:\mycode\metro2\metro-api\src\main\java">
+      <property name="controllerTargetPackage" value="com.xmgps.work.inte.controller"></property>
+      <property name="serviceTargetPackage" value="com.xmgps.work.inte.service"></property>
+      <property name="dtoTargetPackage" value="com.xmgps.work.inte.dto"></property>
+
+      <property name="addMethod" value="true"></property>
+      <property name="updateMethod" value="true"></property>
+      <property name="deleteMethod" value="true"></property>
+      <property name="getMethod" value="true"></property>
+      <property name="findMethod" value="true"></property>
+      <property name="importMethod" value="true"></property>
+      <property name="exportMethod" value="true"></property>
+    </javaControllerAndServiceGenerator>
+
+    <!--tableName设置成%，则生成所有的表-->
+    <table schema="xyl_demo" tableName="inte_emergency_event">
+      <property name="useActualColumnNames" value="false"/><!--表列名作为实体类的属性名-->
+    </table>
+  </context>
+</generatorConfiguration>

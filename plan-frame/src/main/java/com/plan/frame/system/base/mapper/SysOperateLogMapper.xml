@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysOperateLogDao" >
+  
+  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" >
+    <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+    <result column="OPERATE__IP" property="operateIp" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATE_TIME" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    LOG_ID, OPERATE__IP, OPERATOR, OPERATE_TIME, CONTENT
+  </sql>
+  
+  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" >
+    INSERT INTO SYS_OPERATE_LOG (LOG_ID, OPERATE__IP, OPERATOR, 
+      OPERATE_TIME, CONTENT)
+    VALUES (#{logId,jdbcType=VARCHAR}, #{operateIp,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{operateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO SYS_OPERATE_LOG (LOG_ID, 
+      OPERATE__IP, OPERATOR, OPERATE_TIME, 
+      CONTENT)
+    <foreach collection="list" item="item" index="index" separator=" UNION ALL "> select #{item.logId,jdbcType=VARCHAR}, 
+      #{item.operateIp,jdbcType=VARCHAR}, #{item.operator,jdbcType=VARCHAR}, #{item.operateTime,jdbcType=TIMESTAMP}, 
+      #{item.content,jdbcType=VARCHAR} from dual </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" >
+    INSERT INTO SYS_OPERATE_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="operateIp != null" >
+        OPERATE__IP,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="operateIp != null" >
+        #{operateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" >
+    UPDATE SYS_OPERATE_LOG
+    SET OPERATE__IP = #{operateIp,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      CONTENT = #{content,jdbcType=VARCHAR}
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" >
+    UPDATE SYS_OPERATE_LOG
+    <set >
+      <if test="operateIp != null" >
+        OPERATE__IP = #{operateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM SYS_OPERATE_LOG
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_OPERATE_LOG
+    WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_OPERATE_LOG
+    <where >
+      <if test="logId != null" >
+         AND LOG_ID = #{logId,jdbcType=VARCHAR}
+      </if>
+      <if test="operateIp != null" >
+         AND OPERATE__IP = #{operateIp,jdbcType=VARCHAR}
+      </if>
+      <if test="operator != null" >
+         AND OPERATOR = #{operator,jdbcType=VARCHAR}
+      </if>
+      <if test="operateTime != null" >
+         AND OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="content != null" >
+         AND CONTENT = #{content,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

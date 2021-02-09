@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <preConditions>
+        <dbms type="mysql"/>
+    </preConditions>
+
+    <changeSet id="option@create#table@sys_log#time@2020-05-25" author="xieyanling">
+        <comment>create table sys_log</comment>
+        <sql>
+            drop table if exists sys_log;
+            CREATE TABLE `sys_log` (
+            `LOG_ID` varchar(32) NOT NULL COMMENT '日志ID',
+            `REQ_IP` varchar(16) DEFAULT NULL COMMENT '操作IP',
+            `OPERATOR` varchar(32) DEFAULT NULL COMMENT '操作人',
+            `OPERATE_TIME` datetime DEFAULT NULL COMMENT '开始时间',
+            `OPERATE_TYPE` varchar(32) DEFAULT NULL COMMENT '操作类型',
+            `LOG_TITLE` varchar(500) DEFAULT NULL COMMENT '日志标题',
+            `LOG_TYPE` varchar(10) DEFAULT NULL COMMENT '日志类型(info,error)',
+            `REQ_URL` varchar(500) DEFAULT NULL COMMENT '请求URL',
+            `REQ_PARAMS` varchar(2000) DEFAULT NULL COMMENT '请求参数',
+            `ERROR_MSG` varchar(4000) DEFAULT NULL COMMENT '异常信息',
+            `REQ_METHOD` varchar(10) DEFAULT NULL COMMENT '请求类型(POST,GET)',
+            `TIMEOUT` varchar(32) DEFAULT NULL COMMENT '耗时',
+            `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
+            `CREATE_USER` varchar(32) DEFAULT NULL COMMENT '创建人',
+            `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
+            `UPDATE_USER` varchar(32) DEFAULT NULL COMMENT '更新人',
+            PRIMARY KEY (`LOG_ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='系统日志';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

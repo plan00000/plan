@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysDocumentTemplateDao" >
+  
+  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_TYPE" property="templateType" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_NAME" property="templateName" jdbcType="VARCHAR" />
+    <result column="ORDER_VALUE" property="orderValue" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_CODE" property="templateCode" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_PATH" property="templatePath" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_PROCESS" property="templateProcess" jdbcType="VARCHAR" />
+    <result column="FILE_TYPE" property="fileType" jdbcType="VARCHAR" />
+    <result column="PARENT_CODE" property="parentCode" jdbcType="VARCHAR" />
+    <result column="SYMBOL_PREFIX" property="symbolPrefix" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    ID, TEMPLATE_TYPE, TEMPLATE_NAME, ORDER_VALUE, TEMPLATE_CODE, TEMPLATE_PATH, TEMPLATE_PROCESS, 
+    FILE_TYPE, PARENT_CODE, SYMBOL_PREFIX
+  </sql>
+  
+  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" >
+    INSERT INTO SYS_DOCUMENT_TEMPLATE (ID, TEMPLATE_TYPE, TEMPLATE_NAME, 
+      ORDER_VALUE, TEMPLATE_CODE, TEMPLATE_PATH, 
+      TEMPLATE_PROCESS, FILE_TYPE, PARENT_CODE, 
+      SYMBOL_PREFIX)
+    VALUES (#{id,jdbcType=VARCHAR}, #{templateType,jdbcType=VARCHAR}, #{templateName,jdbcType=VARCHAR}, 
+      #{orderValue,jdbcType=VARCHAR}, #{templateCode,jdbcType=VARCHAR}, #{templatePath,jdbcType=VARCHAR}, 
+      #{templateProcess,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, 
+      #{symbolPrefix,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO SYS_DOCUMENT_TEMPLATE (ID, 
+      TEMPLATE_TYPE, TEMPLATE_NAME, ORDER_VALUE, 
+      TEMPLATE_CODE, TEMPLATE_PATH, TEMPLATE_PROCESS, 
+      FILE_TYPE, PARENT_CODE, SYMBOL_PREFIX
+      )
+    <foreach collection="list" item="item" index="index" separator=" UNION ALL "> select #{item.id,jdbcType=VARCHAR}, 
+      #{item.templateType,jdbcType=VARCHAR}, #{item.templateName,jdbcType=VARCHAR}, #{item.orderValue,jdbcType=VARCHAR}, 
+      #{item.templateCode,jdbcType=VARCHAR}, #{item.templatePath,jdbcType=VARCHAR}, #{item.templateProcess,jdbcType=VARCHAR}, 
+      #{item.fileType,jdbcType=VARCHAR}, #{item.parentCode,jdbcType=VARCHAR}, #{item.symbolPrefix,jdbcType=VARCHAR}
+       from dual </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" >
+    INSERT INTO SYS_DOCUMENT_TEMPLATE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="templateType != null" >
+        TEMPLATE_TYPE,
+      </if>
+      <if test="templateName != null" >
+        TEMPLATE_NAME,
+      </if>
+      <if test="orderValue != null" >
+        ORDER_VALUE,
+      </if>
+      <if test="templateCode != null" >
+        TEMPLATE_CODE,
+      </if>
+      <if test="templatePath != null" >
+        TEMPLATE_PATH,
+      </if>
+      <if test="templateProcess != null" >
+        TEMPLATE_PROCESS,
+      </if>
+      <if test="fileType != null" >
+        FILE_TYPE,
+      </if>
+      <if test="parentCode != null" >
+        PARENT_CODE,
+      </if>
+      <if test="symbolPrefix != null" >
+        SYMBOL_PREFIX,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="templateType != null" >
+        #{templateType,jdbcType=VARCHAR},
+      </if>
+      <if test="templateName != null" >
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderValue != null" >
+        #{orderValue,jdbcType=VARCHAR},
+      </if>
+      <if test="templateCode != null" >
+        #{templateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="templatePath != null" >
+        #{templatePath,jdbcType=VARCHAR},
+      </if>
+      <if test="templateProcess != null" >
+        #{templateProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="symbolPrefix != null" >
+        #{symbolPrefix,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" >
+    UPDATE SYS_DOCUMENT_TEMPLATE
+    SET TEMPLATE_TYPE = #{templateType,jdbcType=VARCHAR},
+      TEMPLATE_NAME = #{templateName,jdbcType=VARCHAR},
+      ORDER_VALUE = #{orderValue,jdbcType=VARCHAR},
+      TEMPLATE_CODE = #{templateCode,jdbcType=VARCHAR},
+      TEMPLATE_PATH = #{templatePath,jdbcType=VARCHAR},
+      TEMPLATE_PROCESS = #{templateProcess,jdbcType=VARCHAR},
+      FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      SYMBOL_PREFIX = #{symbolPrefix,jdbcType=VARCHAR}
+    WHERE ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" >
+    UPDATE SYS_DOCUMENT_TEMPLATE
+    <set >
+      <if test="templateType != null" >
+        TEMPLATE_TYPE = #{templateType,jdbcType=VARCHAR},
+      </if>
+      <if test="templateName != null" >
+        TEMPLATE_NAME = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderValue != null" >
+        ORDER_VALUE = #{orderValue,jdbcType=VARCHAR},
+      </if>
+      <if test="templateCode != null" >
+        TEMPLATE_CODE = #{templateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="templatePath != null" >
+        TEMPLATE_PATH = #{templatePath,jdbcType=VARCHAR},
+      </if>
+      <if test="templateProcess != null" >
+        TEMPLATE_PROCESS = #{templateProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="symbolPrefix != null" >
+        SYMBOL_PREFIX = #{symbolPrefix,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM SYS_DOCUMENT_TEMPLATE
+    WHERE ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_DOCUMENT_TEMPLATE
+    WHERE ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_DOCUMENT_TEMPLATE
+    <where >
+      <if test="id != null" >
+         AND ID = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="templateType != null" >
+         AND TEMPLATE_TYPE = #{templateType,jdbcType=VARCHAR}
+      </if>
+      <if test="templateName != null" >
+         AND TEMPLATE_NAME = #{templateName,jdbcType=VARCHAR}
+      </if>
+      <if test="orderValue != null" >
+         AND ORDER_VALUE = #{orderValue,jdbcType=VARCHAR}
+      </if>
+      <if test="templateCode != null" >
+         AND TEMPLATE_CODE = #{templateCode,jdbcType=VARCHAR}
+      </if>
+      <if test="templatePath != null" >
+         AND TEMPLATE_PATH = #{templatePath,jdbcType=VARCHAR}
+      </if>
+      <if test="templateProcess != null" >
+         AND TEMPLATE_PROCESS = #{templateProcess,jdbcType=VARCHAR}
+      </if>
+      <if test="fileType != null" >
+         AND FILE_TYPE = #{fileType,jdbcType=VARCHAR}
+      </if>
+      <if test="parentCode != null" >
+         AND PARENT_CODE = #{parentCode,jdbcType=VARCHAR}
+      </if>
+      <if test="symbolPrefix != null" >
+         AND SYMBOL_PREFIX = #{symbolPrefix,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

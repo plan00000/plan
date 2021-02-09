@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE generatorConfiguration  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <classPathEntry location="D:\mycode\mybatis-generator-core\src\main\lib\ojdbc6-11.2.0.2.0.jar" />
+
+  <context id="xyl-1" targetRuntime="MyBatis3Dao" defaultModelType="flat">
+    <property name="autoDelimitKeywords" value="false" />
+    <property name="beginningDelimiter" value="`" />
+    <property name="endingDelimiter" value="`" />
+    <property name="javaFileEncoding" value="UTF-8" />
+
+    <commentGenerator type="org.mybatis.generator.internal.XylCommentGenerator">
+      <!--  关闭自动生成的注释  -->
+      <property name="suppressAllComments" value="true" />
+      <property name="addApiModelProperty" value="true" />  <!--生成Swagger ui注解-->
+      <property name="daoAnnotationClass" value="com.xmgps.tocc.frame.mybatis.MyBatisTwoDao"/>
+    </commentGenerator>
+
+    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+                    connectionURL="jdbc:oracle:thin:@10.5.18.125:1521:xxpttest"
+                    userId="TL_PT_SYSTEM"
+                    password="TL_PT_SYSTEM">
+      <!-- 字段注释，针对oracle数据库 -->
+      <property name="remarksReporting" value="true"></property>
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <!-- false时把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和NUMERIC 类型解析为java.math.BigDecimal -->
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <!--生成Model类存放位置-->
+    <javaModelGenerator targetProject="D:\mycode\tongling\trunk\公共基础部分\xmgps-tocc\src\main\java" targetPackage="com.xmgps.tocc.frame.system.base.entity">
+      <property name="enableSubPackages" value="false" />
+      <property name="trimStrings" value="false" />
+
+    </javaModelGenerator>
+
+    <!--生成映射文件存放位置-->
+    <sqlMapGenerator targetProject="D:\mycode\tongling\trunk\公共基础部分\xmgps-tocc\src\main\java" targetPackage="com.xmgps.tocc.frame.system.base.mapper">
+      <property name="enableSubPackages" value="false" />
+    </sqlMapGenerator>
+
+    <!--生成Dao类存放位置-->
+    <javaClientGenerator type="SPRING" targetProject="D:\mycode\tongling\trunk\公共基础部分\xmgps-tocc\src\main\java" targetPackage="com.xmgps.tocc.frame.system.base.dao">
+      <property name="enableSubPackages" value="false" />
+      <!--<property name="rootClass" value="xyl.dao.MybatisBaseDao" />-->
+    </javaClientGenerator>
+
+    <!--生成controller、service 、dto-->
+    <!--<javaControllerAndServiceGenerator targetProject="D:\mycode\tongling\trunk\公共基础部分\xmgps-tocc\src\main\java">-->
+      <!--<property name="controllerTargetPackage" value="com.xmgps.work.inte.controller"></property>-->
+      <!--<property name="serviceTargetPackage" value="com.xmgps.work.inte.service"></property>-->
+      <!--<property name="dtoTargetPackage" value="com.xmgps.work.inte.dto"></property>-->
+
+      <!--<property name="createMethod" value="true"></property>-->
+      <!--<property name="updateMethod" value="true"></property>-->
+      <!--<property name="deleteMethod" value="true"></property>-->
+      <!--<property name="fetchMethod" value="true"></property>-->
+      <!--<property name="listMethod" value="true"></property>-->
+      <!--<property name="importMethod" value="true"></property>-->
+      <!--<property name="exportMethod" value="true"></property>-->
+    <!--</javaControllerAndServiceGenerator>-->
+
+    <!--tableName设置成%，则生成所有的表-->
+    <!--<table schema="TL_PT_SYSTEM" tableName="SYS_%">-->
+      <!--<property name="useActualColumnNames" value="false"/>&lt;!&ndash;表列名作为实体类的属性名&ndash;&gt;-->
+    <!--</table>-->
+
+    <!--<table schema="TL_PT_SYSTEM" tableName="SYS_QUARTZ_JOB"> </table>-->
+    <!--<table schema="TL_PT_SYSTEM" tableName="sys_quartz_log">-->
+      <!--<columnOverride column="exception_detail" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+    <!--</table>-->
+    <table schema="TL_PT_SYSTEM" tableName="SYS_DOCUMENT_TEMPLATE"></table>
+    <table schema="TL_PT_SYSTEM" tableName="SYS_FILE_INFO"></table>
+  </context>
+</generatorConfiguration>

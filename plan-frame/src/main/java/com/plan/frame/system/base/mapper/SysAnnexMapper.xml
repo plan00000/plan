@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysAnnexDao" >
+  
+  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysAnnex" >
+    <id column="ANNEX_ID" property="annexId" jdbcType="VARCHAR" />
+    <result column="ANNEX_NAME" property="annexName" jdbcType="VARCHAR" />
+    <result column="ANNEX_TYPE" property="annexType" jdbcType="VARCHAR" />
+    <result column="ANNEX_DIR" property="annexDir" jdbcType="VARCHAR" />
+    <result column="REL_ID" property="relId" jdbcType="VARCHAR" />
+    <result column="ANNEX_NO" property="annexNo" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="DECIMAL" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="FILE_TITLE" property="fileTitle" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    ANNEX_ID, ANNEX_NAME, ANNEX_TYPE, ANNEX_DIR, REL_ID, ANNEX_NO, ORDER_NO, CREATE_USER, 
+    UPDATE_USER, CREATE_TIME, UPDATE_TIME, FILE_TITLE
+  </sql>
+  
+  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysAnnex" >
+    INSERT INTO SYS_ANNEX (ANNEX_ID, ANNEX_NAME, ANNEX_TYPE, 
+      ANNEX_DIR, REL_ID, ANNEX_NO, 
+      ORDER_NO, CREATE_USER, UPDATE_USER, 
+      CREATE_TIME, UPDATE_TIME, FILE_TITLE
+      )
+    VALUES (#{annexId,jdbcType=VARCHAR}, #{annexName,jdbcType=VARCHAR}, #{annexType,jdbcType=VARCHAR}, 
+      #{annexDir,jdbcType=VARCHAR}, #{relId,jdbcType=VARCHAR}, #{annexNo,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=DECIMAL}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{fileTitle,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO SYS_ANNEX (ANNEX_ID, 
+      ANNEX_NAME, ANNEX_TYPE, ANNEX_DIR, 
+      REL_ID, ANNEX_NO, ORDER_NO, 
+      CREATE_USER, UPDATE_USER, CREATE_TIME, 
+      UPDATE_TIME, FILE_TITLE)
+    <foreach collection="list" item="item" index="index" separator=" UNION ALL "> select #{item.annexId,jdbcType=VARCHAR}, 
+      #{item.annexName,jdbcType=VARCHAR}, #{item.annexType,jdbcType=VARCHAR}, #{item.annexDir,jdbcType=VARCHAR}, 
+      #{item.relId,jdbcType=VARCHAR}, #{item.annexNo,jdbcType=VARCHAR}, #{item.orderNo,jdbcType=DECIMAL}, 
+      #{item.createUser,jdbcType=VARCHAR}, #{item.updateUser,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.updateTime,jdbcType=TIMESTAMP}, #{item.fileTitle,jdbcType=VARCHAR} from dual </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysAnnex" >
+    INSERT INTO SYS_ANNEX
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="annexId != null" >
+        ANNEX_ID,
+      </if>
+      <if test="annexName != null" >
+        ANNEX_NAME,
+      </if>
+      <if test="annexType != null" >
+        ANNEX_TYPE,
+      </if>
+      <if test="annexDir != null" >
+        ANNEX_DIR,
+      </if>
+      <if test="relId != null" >
+        REL_ID,
+      </if>
+      <if test="annexNo != null" >
+        ANNEX_NO,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="fileTitle != null" >
+        FILE_TITLE,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="annexId != null" >
+        #{annexId,jdbcType=VARCHAR},
+      </if>
+      <if test="annexName != null" >
+        #{annexName,jdbcType=VARCHAR},
+      </if>
+      <if test="annexType != null" >
+        #{annexType,jdbcType=VARCHAR},
+      </if>
+      <if test="annexDir != null" >
+        #{annexDir,jdbcType=VARCHAR},
+      </if>
+      <if test="relId != null" >
+        #{relId,jdbcType=VARCHAR},
+      </if>
+      <if test="annexNo != null" >
+        #{annexNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileTitle != null" >
+        #{fileTitle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysAnnex" >
+    UPDATE SYS_ANNEX
+    SET ANNEX_NAME = #{annexName,jdbcType=VARCHAR},
+      ANNEX_TYPE = #{annexType,jdbcType=VARCHAR},
+      ANNEX_DIR = #{annexDir,jdbcType=VARCHAR},
+      REL_ID = #{relId,jdbcType=VARCHAR},
+      ANNEX_NO = #{annexNo,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=DECIMAL},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      FILE_TITLE = #{fileTitle,jdbcType=VARCHAR}
+    WHERE ANNEX_ID = #{annexId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysAnnex" >
+    UPDATE SYS_ANNEX
+    <set >
+      <if test="annexName != null" >
+        ANNEX_NAME = #{annexName,jdbcType=VARCHAR},
+      </if>
+      <if test="annexType != null" >
+        ANNEX_TYPE = #{annexType,jdbcType=VARCHAR},
+      </if>
+      <if test="annexDir != null" >
+        ANNEX_DIR = #{annexDir,jdbcType=VARCHAR},
+      </if>
+      <if test="relId != null" >
+        REL_ID = #{relId,jdbcType=VARCHAR},
+      </if>
+      <if test="annexNo != null" >
+        ANNEX_NO = #{annexNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileTitle != null" >
+        FILE_TITLE = #{fileTitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    WHERE ANNEX_ID = #{annexId,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM SYS_ANNEX
+    WHERE ANNEX_ID = #{annexId,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_ANNEX
+    WHERE ANNEX_ID = #{annexId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysAnnex" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM SYS_ANNEX
+    <where >
+      <if test="annexId != null" >
+         AND ANNEX_ID = #{annexId,jdbcType=VARCHAR}
+      </if>
+      <if test="annexName != null" >
+         AND ANNEX_NAME = #{annexName,jdbcType=VARCHAR}
+      </if>
+      <if test="annexType != null" >
+         AND ANNEX_TYPE = #{annexType,jdbcType=VARCHAR}
+      </if>
+      <if test="annexDir != null" >
+         AND ANNEX_DIR = #{annexDir,jdbcType=VARCHAR}
+      </if>
+      <if test="relId != null" >
+         AND REL_ID = #{relId,jdbcType=VARCHAR}
+      </if>
+      <if test="annexNo != null" >
+         AND ANNEX_NO = #{annexNo,jdbcType=VARCHAR}
+      </if>
+      <if test="orderNo != null" >
+         AND ORDER_NO = #{orderNo,jdbcType=DECIMAL}
+      </if>
+      <if test="createUser != null" >
+         AND CREATE_USER = #{createUser,jdbcType=VARCHAR}
+      </if>
+      <if test="updateUser != null" >
+         AND UPDATE_USER = #{updateUser,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+         AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+         AND UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="fileTitle != null" >
+         AND FILE_TITLE = #{fileTitle,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

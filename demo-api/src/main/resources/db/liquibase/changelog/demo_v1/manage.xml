@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--创建表-->
+    <!--<include file="classpath:/db/liquibase/changelog/demo_v1/table/info_employee.xml"/>-->
+    <!--初始化表数据-->
+    <!--<include file="classpath:/db/liquibase/changelog/demo_v1/data/init_info_line.xml"/>-->
+
+
+</databaseChangeLog>

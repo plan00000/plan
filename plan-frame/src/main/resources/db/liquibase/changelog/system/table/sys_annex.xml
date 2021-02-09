@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <preConditions>
+        <dbms type="mysql"/>
+    </preConditions>
+
+    <changeSet id="option@create#table@sys_annex#time@2020-05-20" author="xieyanling">
+        <comment>create table sys_annex</comment>
+        <sql>
+            CREATE TABLE `sys_annex` (
+            `annex_id` varchar(32) NOT NULL COMMENT '主键ID',
+            `annex_name` varchar(500) DEFAULT NULL COMMENT '附件名称',
+            `annex_type` varchar(32) DEFAULT NULL COMMENT '附件类型',
+            `annex_dir` varchar(2000) DEFAULT NULL COMMENT '附件地址',
+            `rel_id` varchar(32) DEFAULT NULL COMMENT '关联ID',
+            `annex_no` varchar(200) DEFAULT NULL COMMENT '附件编号',
+            `order_no` int(6) DEFAULT NULL COMMENT '附件排序',
+            `create_user` varchar(32) DEFAULT NULL COMMENT '创建人',
+            `update_user` varchar(32) DEFAULT NULL COMMENT '更新人',
+            `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+            `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+            `file_title` varchar(32) DEFAULT NULL COMMENT '附件主题，见字典表附件主题FILE_TITLE',
+            PRIMARY KEY (`annex_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='附件表';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
