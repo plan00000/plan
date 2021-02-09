@@ -1,6 +1,6 @@
 package com.xmgps.tocc;
 
-import com.xmgps.tocc.frame.util.SpringContextHolder;
+import com.plan.frame.util.SpringContextHolder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
