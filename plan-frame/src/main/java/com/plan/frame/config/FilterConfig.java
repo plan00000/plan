@@ -1,6 +1,6 @@
 package com.plan.frame.config;
 
-import com.xmgps.tocc.frame.filter.RequestLogFilter;
+import com.plan.frame.filter.RequestLogFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

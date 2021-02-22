@@ -261,7 +261,7 @@
         <dependency>
             <groupId>com.jacob</groupId>
             <artifactId>jacob</artifactId>
-            <version>1.0</version>
+            <version>1.10</version>
         </dependency>
 
         <!--Java利用aspose-words将word文档转换成pdf（破解 无水印）-->

@@ -10,7 +10,7 @@ package com.plan.frame.util.geo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.xmgps.tocc.frame.util.HttpUtil;
+import com.plan.frame.util.HttpUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
