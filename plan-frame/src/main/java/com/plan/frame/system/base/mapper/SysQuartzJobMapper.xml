@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysQuartzJobDao" >
+<mapper namespace="com.plan.frame.system.base.dao.SysQuartzJobDao" >
   
-  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysQuartzJob" >
+  <resultMap id="BaseResultMap" type="com.plan.frame.system.base.entity.SysQuartzJob" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="BEAN_NAME" property="beanName" jdbcType="VARCHAR" />
     <result column="CRON_EXPRESSION" property="cronExpression" jdbcType="VARCHAR" />
@@ -22,7 +22,7 @@
     CREATE_TIME, UPDATE_TIME, CREATE_USER, UPDATE_USER
   </sql>
   
-  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysQuartzJob" >
+  <insert id="insert" parameterType="com.plan.frame.system.base.entity.SysQuartzJob" >
     INSERT INTO SYS_QUARTZ_JOB (ID, BEAN_NAME, CRON_EXPRESSION, 
       IS_PAUSE, JOB_NAME, METHOD_NAME, 
       PARAMS, REMARK, CREATE_TIME, 
@@ -48,7 +48,7 @@
       #{item.createUser,jdbcType=VARCHAR}, #{item.updateUser,jdbcType=VARCHAR} from dual </foreach>
   </insert>
   
-  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysQuartzJob" >
+  <insert id="insertSelective" parameterType="com.plan.frame.system.base.entity.SysQuartzJob" >
     INSERT INTO SYS_QUARTZ_JOB
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -128,7 +128,7 @@
     </trim>
   </insert>
   
-  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysQuartzJob" >
+  <update id="update" parameterType="com.plan.frame.system.base.entity.SysQuartzJob" >
     UPDATE SYS_QUARTZ_JOB
     SET BEAN_NAME = #{beanName,jdbcType=VARCHAR},
       CRON_EXPRESSION = #{cronExpression,jdbcType=VARCHAR},
@@ -144,7 +144,7 @@
     WHERE ID = #{id,jdbcType=VARCHAR}
   </update>
   
-  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysQuartzJob" >
+  <update id="updateSelective" parameterType="com.plan.frame.system.base.entity.SysQuartzJob" >
     UPDATE SYS_QUARTZ_JOB
     <set >
       <if test="beanName != null" >
@@ -196,7 +196,7 @@
     WHERE ID = #{id,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysQuartzJob" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.frame.system.base.entity.SysQuartzJob" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM SYS_QUARTZ_JOB

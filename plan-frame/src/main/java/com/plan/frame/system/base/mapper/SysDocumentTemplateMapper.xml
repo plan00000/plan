@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysDocumentTemplateDao" >
+<mapper namespace="com.plan.frame.system.base.dao.SysDocumentTemplateDao" >
   
-  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" >
+  <resultMap id="BaseResultMap" type="com.plan.frame.system.base.entity.SysDocumentTemplate" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="TEMPLATE_TYPE" property="templateType" jdbcType="VARCHAR" />
     <result column="TEMPLATE_NAME" property="templateName" jdbcType="VARCHAR" />
@@ -20,7 +20,7 @@
     FILE_TYPE, PARENT_CODE, SYMBOL_PREFIX
   </sql>
   
-  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" >
+  <insert id="insert" parameterType="com.plan.frame.system.base.entity.SysDocumentTemplate" >
     INSERT INTO SYS_DOCUMENT_TEMPLATE (ID, TEMPLATE_TYPE, TEMPLATE_NAME, 
       ORDER_VALUE, TEMPLATE_CODE, TEMPLATE_PATH, 
       TEMPLATE_PROCESS, FILE_TYPE, PARENT_CODE, 
@@ -44,7 +44,7 @@
        from dual </foreach>
   </insert>
   
-  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" >
+  <insert id="insertSelective" parameterType="com.plan.frame.system.base.entity.SysDocumentTemplate" >
     INSERT INTO SYS_DOCUMENT_TEMPLATE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -112,7 +112,7 @@
     </trim>
   </insert>
   
-  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" >
+  <update id="update" parameterType="com.plan.frame.system.base.entity.SysDocumentTemplate" >
     UPDATE SYS_DOCUMENT_TEMPLATE
     SET TEMPLATE_TYPE = #{templateType,jdbcType=VARCHAR},
       TEMPLATE_NAME = #{templateName,jdbcType=VARCHAR},
@@ -126,7 +126,7 @@
     WHERE ID = #{id,jdbcType=VARCHAR}
   </update>
   
-  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" >
+  <update id="updateSelective" parameterType="com.plan.frame.system.base.entity.SysDocumentTemplate" >
     UPDATE SYS_DOCUMENT_TEMPLATE
     <set >
       <if test="templateType != null" >
@@ -172,7 +172,7 @@
     WHERE ID = #{id,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysDocumentTemplate" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.frame.system.base.entity.SysDocumentTemplate" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM SYS_DOCUMENT_TEMPLATE

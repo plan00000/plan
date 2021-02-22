@@ -21,7 +21,7 @@ public class MapperScannerConfig {
     @Bean
     public MapperScannerConfigurer primaryMapperScannerConfigurer(){
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("com.xmgps");
+        mapperScannerConfigurer.setBasePackage("com.plan");
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("primarySqlSessionFactory");
         mapperScannerConfigurer.setAnnotationClass(MyBatisPrimaryDao.class);
         return mapperScannerConfigurer;
@@ -34,7 +34,7 @@ public class MapperScannerConfig {
     @Bean
     public MapperScannerConfigurer twoMapperScannerConfigurer(){
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("com.xmgps");
+        mapperScannerConfigurer.setBasePackage("com.plan");
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("twoSqlSessionFactory");
         mapperScannerConfigurer.setAnnotationClass(MyBatisTwoDao.class);
         return mapperScannerConfigurer;

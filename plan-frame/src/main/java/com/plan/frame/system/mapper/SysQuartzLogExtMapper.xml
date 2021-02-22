@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xmgps.tocc.frame.system.dao.SysQuartzLogExtDao" >
+<mapper namespace="com.plan.frame.system.dao.SysQuartzLogExtDao" >
   
-  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysQuartzLog" >
+  <resultMap id="BaseResultMap" type="com.plan.frame.system.base.entity.SysQuartzLog" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="job_id" property="jobId" jdbcType="BIGINT" />
     <result column="bean_name" property="beanName" jdbcType="VARCHAR" />
@@ -26,7 +26,7 @@
   
 
   
-  <select id="listLogs" resultMap="BaseResultMap" parameterType="com.xmgps.tocc.frame.system.dto.quartz.ReqListLogsDto" >
+  <select id="listLogs" resultMap="BaseResultMap" parameterType="com.plan.frame.system.dto.quartz.ReqListLogsDto" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM sys_quartz_log

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysRequestLogDao" >
+<mapper namespace="com.plan.frame.system.base.dao.SysRequestLogDao" >
   
-  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" >
+  <resultMap id="BaseResultMap" type="com.plan.frame.system.base.entity.SysRequestLog" >
     <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
     <result column="URI" property="uri" jdbcType="VARCHAR" />
     <result column="REP_IP" property="repIp" jdbcType="VARCHAR" />
@@ -22,7 +22,7 @@
     CREATE_USER, UPDATE_TIME, UPDATE_USER
   </sql>
   
-  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" >
+  <insert id="insert" parameterType="com.plan.frame.system.base.entity.SysRequestLog" >
     INSERT INTO SYS_REQUEST_LOG (LOG_ID, URI, REP_IP, 
       REQ_PARAMS, REQ_METHOD, LOST_TIME, 
       BROWSER, OSNAME, CREATE_TIME, 
@@ -48,7 +48,7 @@
       #{item.updateTime,jdbcType=TIMESTAMP}, #{item.updateUser,jdbcType=VARCHAR} from dual </foreach>
   </insert>
   
-  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" >
+  <insert id="insertSelective" parameterType="com.plan.frame.system.base.entity.SysRequestLog" >
     INSERT INTO SYS_REQUEST_LOG
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="logId != null" >
@@ -128,7 +128,7 @@
     </trim>
   </insert>
   
-  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" >
+  <update id="update" parameterType="com.plan.frame.system.base.entity.SysRequestLog" >
     UPDATE SYS_REQUEST_LOG
     SET URI = #{uri,jdbcType=VARCHAR},
       REP_IP = #{repIp,jdbcType=VARCHAR},
@@ -144,7 +144,7 @@
     WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
   </update>
   
-  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" >
+  <update id="updateSelective" parameterType="com.plan.frame.system.base.entity.SysRequestLog" >
     UPDATE SYS_REQUEST_LOG
     <set >
       <if test="uri != null" >
@@ -196,7 +196,7 @@
     WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysRequestLog" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.frame.system.base.entity.SysRequestLog" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM SYS_REQUEST_LOG

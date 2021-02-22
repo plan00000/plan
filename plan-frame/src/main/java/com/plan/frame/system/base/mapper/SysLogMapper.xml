@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysLogDao" >
+<mapper namespace="com.plan.frame.system.base.dao.SysLogDao" >
   
-  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysLog" >
+  <resultMap id="BaseResultMap" type="com.plan.frame.system.base.entity.SysLog" >
     <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
     <result column="REQ_IP" property="reqIp" jdbcType="VARCHAR" />
     <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
@@ -30,7 +30,7 @@
     BROWSER, OSNAME, VISIABLE
   </sql>
   
-  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysLog" >
+  <insert id="insert" parameterType="com.plan.frame.system.base.entity.SysLog" >
     INSERT INTO SYS_LOG (LOG_ID, REQ_IP, OPERATOR, 
       OPERATE_TIME, OPERATE_TYPE, LOG_TITLE, 
       CREATE_TIME, CREATE_USER, UPDATE_TIME, 
@@ -66,7 +66,7 @@
        from dual </foreach>
   </insert>
   
-  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysLog" >
+  <insert id="insertSelective" parameterType="com.plan.frame.system.base.entity.SysLog" >
     INSERT INTO SYS_LOG
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="logId != null" >
@@ -188,7 +188,7 @@
     </trim>
   </insert>
   
-  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysLog" >
+  <update id="update" parameterType="com.plan.frame.system.base.entity.SysLog" >
     UPDATE SYS_LOG
     SET REQ_IP = #{reqIp,jdbcType=VARCHAR},
       OPERATOR = #{operator,jdbcType=VARCHAR},
@@ -211,7 +211,7 @@
     WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
   </update>
   
-  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysLog" >
+  <update id="updateSelective" parameterType="com.plan.frame.system.base.entity.SysLog" >
     UPDATE SYS_LOG
     <set >
       <if test="reqIp != null" >
@@ -284,7 +284,7 @@
     WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysLog" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.frame.system.base.entity.SysLog" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM SYS_LOG

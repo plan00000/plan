@@ -39,7 +39,7 @@ public class Swagger2 {
                 .apiInfo(apiInfo())
                 .select()
                 ////为当前包路径
-                .apis(RequestHandlerSelectors.basePackage("com.xmgps.tocc"))
+                .apis(RequestHandlerSelectors.basePackage("com.plan"))
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(securitySchemes())

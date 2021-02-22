@@ -53,7 +53,7 @@ public class TransactionManagerConfig {
     @Bean
     public AnnotationAutoProxyCreator annotationAutoProxyCreator(){
         AnnotationAutoProxyCreator annotationAutoProxyCreator = new AnnotationAutoProxyCreator();
-        annotationAutoProxyCreator.setBasePackages("com.xmgps");
+        annotationAutoProxyCreator.setBasePackages("com.plan");
         annotationAutoProxyCreator.setProxyTargetClass(true);
         annotationAutoProxyCreator.setAnnotationClasses("org.springframework.stereotype.Service");
         annotationAutoProxyCreator.setInterceptorNames("transactionInterceptorStart");

@@ -35,11 +35,11 @@
     </settings>
 
     <typeAliases>
-        <typeAlias alias="vo" type="com.xmgps.tocc.frame.entity.ValueObject"/>
+        <typeAlias alias="vo" type="com.plan.frame.entity.ValueObject"/>
     </typeAliases>
 
     <plugins>
-        <plugin interceptor="com.xmgps.tocc.frame.interceptor.SqlCostInterceptor"/>
+        <plugin interceptor="com.plan.frame.interceptor.SqlCostInterceptor"/>
 
         <plugin interceptor="com.github.pagehelper.PageInterceptor">
             <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->

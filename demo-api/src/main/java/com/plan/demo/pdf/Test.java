@@ -1,7 +1,7 @@
-package com.xmgps.tocc.demo.pdf;
+package com.plan.demo.pdf;
 
 
-import com.xmgps.tocc.frame.pdf.service.AbsFtlGenerationPdf;
+import com.plan.frame.pdf.service.AbsFtlGenerationPdf;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

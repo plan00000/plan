@@ -1,4 +1,4 @@
-package com.xmgps.tocc;
+package com.plan;
 
 import com.plan.frame.util.SpringContextHolder;
 import org.springframework.boot.SpringApplication;

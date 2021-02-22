@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysFileInfoDao" >
+<mapper namespace="com.plan.frame.system.base.dao.SysFileInfoDao" >
   
-  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+  <resultMap id="BaseResultMap" type="com.plan.frame.system.base.entity.SysFileInfo" >
     <id column="FILE_ID" property="fileId" jdbcType="VARCHAR" />
     <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
     <result column="FILE_TYPE" property="fileType" jdbcType="VARCHAR" />
@@ -22,7 +22,7 @@
     UPDATE_USER, CREATE_TIME, UPDATE_TIME, FILE_TITLE
   </sql>
   
-  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+  <insert id="insert" parameterType="com.plan.frame.system.base.entity.SysFileInfo" >
     INSERT INTO SYS_FILE_INFO (FILE_ID, FILE_NAME, FILE_TYPE, 
       FILE_DIR, REL_ID, FILE_NO, 
       ORDER_NO, CREATE_USER, UPDATE_USER, 
@@ -48,7 +48,7 @@
       #{item.updateTime,jdbcType=TIMESTAMP}, #{item.fileTitle,jdbcType=VARCHAR} from dual </foreach>
   </insert>
   
-  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+  <insert id="insertSelective" parameterType="com.plan.frame.system.base.entity.SysFileInfo" >
     INSERT INTO SYS_FILE_INFO
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="fileId != null" >
@@ -128,7 +128,7 @@
     </trim>
   </insert>
   
-  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+  <update id="update" parameterType="com.plan.frame.system.base.entity.SysFileInfo" >
     UPDATE SYS_FILE_INFO
     SET FILE_NAME = #{fileName,jdbcType=VARCHAR},
       FILE_TYPE = #{fileType,jdbcType=VARCHAR},
@@ -144,7 +144,7 @@
     WHERE FILE_ID = #{fileId,jdbcType=VARCHAR}
   </update>
   
-  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" >
+  <update id="updateSelective" parameterType="com.plan.frame.system.base.entity.SysFileInfo" >
     UPDATE SYS_FILE_INFO
     <set >
       <if test="fileName != null" >
@@ -196,7 +196,7 @@
     WHERE FILE_ID = #{fileId,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysFileInfo" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.frame.system.base.entity.SysFileInfo" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM SYS_FILE_INFO

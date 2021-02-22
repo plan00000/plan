@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xmgps.tocc.frame.system.base.dao.SysOperateLogDao" >
+<mapper namespace="com.plan.frame.system.base.dao.SysOperateLogDao" >
   
-  <resultMap id="BaseResultMap" type="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" >
+  <resultMap id="BaseResultMap" type="com.plan.frame.system.base.entity.SysOperateLog" >
     <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
     <result column="OPERATE__IP" property="operateIp" jdbcType="VARCHAR" />
     <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
@@ -14,7 +14,7 @@
     LOG_ID, OPERATE__IP, OPERATOR, OPERATE_TIME, CONTENT
   </sql>
   
-  <insert id="insert" parameterType="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" >
+  <insert id="insert" parameterType="com.plan.frame.system.base.entity.SysOperateLog" >
     INSERT INTO SYS_OPERATE_LOG (LOG_ID, OPERATE__IP, OPERATOR, 
       OPERATE_TIME, CONTENT)
     VALUES (#{logId,jdbcType=VARCHAR}, #{operateIp,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
@@ -30,7 +30,7 @@
       #{item.content,jdbcType=VARCHAR} from dual </foreach>
   </insert>
   
-  <insert id="insertSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" >
+  <insert id="insertSelective" parameterType="com.plan.frame.system.base.entity.SysOperateLog" >
     INSERT INTO SYS_OPERATE_LOG
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="logId != null" >
@@ -68,7 +68,7 @@
     </trim>
   </insert>
   
-  <update id="update" parameterType="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" >
+  <update id="update" parameterType="com.plan.frame.system.base.entity.SysOperateLog" >
     UPDATE SYS_OPERATE_LOG
     SET OPERATE__IP = #{operateIp,jdbcType=VARCHAR},
       OPERATOR = #{operator,jdbcType=VARCHAR},
@@ -77,7 +77,7 @@
     WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
   </update>
   
-  <update id="updateSelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" >
+  <update id="updateSelective" parameterType="com.plan.frame.system.base.entity.SysOperateLog" >
     UPDATE SYS_OPERATE_LOG
     <set >
       <if test="operateIp != null" >
@@ -108,7 +108,7 @@
     WHERE LOG_ID = #{logId,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByEntitySelective" parameterType="com.xmgps.tocc.frame.system.base.entity.SysOperateLog" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.frame.system.base.entity.SysOperateLog" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM SYS_OPERATE_LOG
