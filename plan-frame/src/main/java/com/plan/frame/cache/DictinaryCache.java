@@ -22,7 +22,7 @@ import java.util.Map;
  * @ClassName DictinaryCache
  * @Date 2020/7/1 11:33
  */
-@Component("dictinaryCache")
+//@Component("dictinaryCache")
 public class DictinaryCache {
     @Value("${service.permission.url}")
     private String permissionUrl;

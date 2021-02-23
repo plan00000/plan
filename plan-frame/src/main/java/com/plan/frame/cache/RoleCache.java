@@ -23,7 +23,7 @@ import java.util.Map;
  * @ClassName RoleCache
  * @Date 2020/6/10 19:06
  */
-@Component("roleCache")
+//@Component("roleCache")
 public class RoleCache implements InitializingBean {
     @Value("${service.permission.url}")
     private String permissionUrl;
