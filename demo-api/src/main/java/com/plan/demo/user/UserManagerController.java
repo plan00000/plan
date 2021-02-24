@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @Modified By:
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/admin")
 public class UserManagerController {
 
     /**
@@ -27,7 +27,7 @@ public class UserManagerController {
     public String UserManager() throws RuntimeException {
         try {
 
-            return "index";
+            return "/main";
         } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw (BaseException) e;
