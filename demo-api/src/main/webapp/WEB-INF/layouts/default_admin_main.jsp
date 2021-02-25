@@ -1,10 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
-<%@ taglib prefix="sitemesh"
-	uri="http://www.opensymphony.com/sitemesh/decorator"%>
+<%@ taglib prefix="sitemesh" uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="shiro" uri="http://www.springside.org.cn/tags/shiro"%>
+<%--<%@ taglib prefix="shiro" uri="http://www.springside.org.cn/tags/shiro"%>--%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <%
 	String path = request.getContextPath();

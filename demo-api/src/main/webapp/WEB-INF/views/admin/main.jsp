@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="util" uri="functions"%>
-<%@ taglib prefix="shiro" uri="http://www.springside.org.cn/tags/shiro"%>
+<%--<%@ taglib prefix="shiro" uri="http://www.springside.org.cn/tags/shiro"%>--%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
 <html>
@@ -84,7 +84,7 @@ $(function() {
        		 <p>${timename}好：${name }</p>
         </div>
               <div class="username-text animated fadeInRight">
-              	<shiro:hasPermission name="ORDER_MANAGER">
+              	<%--<shiro:hasPermission name="ORDER_MANAGER">
                     <div class="username-01">
                     	<p>贷款订单</p>
                         <samp>进行中的 ${countUncheckNum}条</samp>
@@ -152,7 +152,7 @@ $(function() {
                             </ul>
                         </div>
                     </div> 
-                 </shiro:hasPermission>
+                 </shiro:hasPermission>--%>
         </div>
 <div style="height:50px;"></div>
 </body>
