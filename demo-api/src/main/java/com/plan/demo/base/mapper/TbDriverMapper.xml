@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.plan.demo.base.dao.TbDriverDao" >
+  
+  <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbDriver" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="mobileno" property="mobileno" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="lon" property="lon" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="car_no" property="carNo" jdbcType="VARCHAR" />
+    <result column="drive_no" property="driveNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    id, sex, age, user_name, user_account, realname, headimgurl, password, salt, mobileno, 
+    state, location, lat, lon, id_card, car_no, drive_no, create_time, update_time
+  </sql>
+  
+  <insert id="insert" parameterType="com.plan.demo.base.entity.TbDriver" >
+    INSERT INTO tb_driver (id, sex, age, 
+      user_name, user_account, realname, 
+      headimgurl, password, salt, 
+      mobileno, state, location, 
+      lat, lon, id_card, car_no, 
+      drive_no, create_time, update_time
+      )
+    VALUES (#{id,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{headimgurl,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{mobileno,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{carNo,jdbcType=VARCHAR}, 
+      #{driveNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO tb_driver (id, 
+      sex, age, user_name, 
+      user_account, realname, headimgurl, 
+      password, salt, mobileno, 
+      state, location, lat, 
+      lon, id_card, car_no, 
+      drive_no, create_time, update_time
+      )
+    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
+      #{item.sex,jdbcType=VARCHAR}, #{item.age,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, 
+      #{item.userAccount,jdbcType=VARCHAR}, #{item.realname,jdbcType=VARCHAR}, #{item.headimgurl,jdbcType=VARCHAR}, 
+      #{item.password,jdbcType=VARCHAR}, #{item.salt,jdbcType=VARCHAR}, #{item.mobileno,jdbcType=VARCHAR}, 
+      #{item.state,jdbcType=VARCHAR}, #{item.location,jdbcType=VARCHAR}, #{item.lat,jdbcType=VARCHAR}, 
+      #{item.lon,jdbcType=VARCHAR}, #{item.idCard,jdbcType=VARCHAR}, #{item.carNo,jdbcType=VARCHAR}, 
+      #{item.driveNo,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}
+      ) </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbDriver" >
+    INSERT INTO tb_driver
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="mobileno != null" >
+        mobileno,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="lon != null" >
+        lon,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="carNo != null" >
+        car_no,
+      </if>
+      <if test="driveNo != null" >
+        drive_no,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileno != null" >
+        #{mobileno,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="carNo != null" >
+        #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="driveNo != null" >
+        #{driveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <delete id="deleteById" parameterType="java.lang.String" >
+    DELETE FROM tb_driver
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="update" parameterType="com.plan.demo.base.entity.TbDriver" >
+    UPDATE tb_driver
+    SET sex = #{sex,jdbcType=VARCHAR},
+      age = #{age,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_account = #{userAccount,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      mobileno = #{mobileno,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      lon = #{lon,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      car_no = #{carNo,jdbcType=VARCHAR},
+      drive_no = #{driveNo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.plan.demo.base.entity.TbDriver" >
+    UPDATE tb_driver
+    <set >
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileno != null" >
+        mobileno = #{mobileno,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="carNo != null" >
+        car_no = #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="driveNo != null" >
+        drive_no = #{driveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM tb_driver
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByIds" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM tb_driver
+    WHERE id IN <foreach collection="list" item="item" open="(" separator="," close=")"> #{item}  </foreach> 
+  </select>
+</mapper>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.plan.demo.base.dao.TbEvaluateDao" >
+  
+  <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbEvaluate" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="driver_id" property="driverId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="order_star" property="orderStar" jdbcType="VARCHAR" />
+    <result column="order_service" property="orderService" jdbcType="VARCHAR" />
+    <result column="order_evaluate" property="orderEvaluate" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    id, user_id, driver_id, order_id, order_no, order_star, order_service, order_evaluate, 
+    create_time, update_time
+  </sql>
+  
+  <insert id="insert" parameterType="com.plan.demo.base.entity.TbEvaluate" >
+    INSERT INTO tb_evaluate (id, user_id, driver_id, 
+      order_id, order_no, order_star, 
+      order_service, order_evaluate, create_time, 
+      update_time)
+    VALUES (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{driverId,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{orderStar,jdbcType=VARCHAR}, 
+      #{orderService,jdbcType=VARCHAR}, #{orderEvaluate,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO tb_evaluate (id, 
+      user_id, driver_id, order_id, 
+      order_no, order_star, order_service, 
+      order_evaluate, create_time, 
+      update_time)
+    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
+      #{item.userId,jdbcType=VARCHAR}, #{item.driverId,jdbcType=VARCHAR}, #{item.orderId,jdbcType=VARCHAR}, 
+      #{item.orderNo,jdbcType=VARCHAR}, #{item.orderStar,jdbcType=VARCHAR}, #{item.orderService,jdbcType=VARCHAR}, 
+      #{item.orderEvaluate,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbEvaluate" >
+    INSERT INTO tb_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="orderStar != null" >
+        order_star,
+      </if>
+      <if test="orderService != null" >
+        order_service,
+      </if>
+      <if test="orderEvaluate != null" >
+        order_evaluate,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverId != null" >
+        #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStar != null" >
+        #{orderStar,jdbcType=VARCHAR},
+      </if>
+      <if test="orderService != null" >
+        #{orderService,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEvaluate != null" >
+        #{orderEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <delete id="deleteById" parameterType="java.lang.String" >
+    DELETE FROM tb_evaluate
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="update" parameterType="com.plan.demo.base.entity.TbEvaluate" >
+    UPDATE tb_evaluate
+    SET user_id = #{userId,jdbcType=VARCHAR},
+      driver_id = #{driverId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      order_star = #{orderStar,jdbcType=VARCHAR},
+      order_service = #{orderService,jdbcType=VARCHAR},
+      order_evaluate = #{orderEvaluate,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.plan.demo.base.entity.TbEvaluate" >
+    UPDATE tb_evaluate
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverId != null" >
+        driver_id = #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStar != null" >
+        order_star = #{orderStar,jdbcType=VARCHAR},
+      </if>
+      <if test="orderService != null" >
+        order_service = #{orderService,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEvaluate != null" >
+        order_evaluate = #{orderEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM tb_evaluate
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByIds" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM tb_evaluate
+    WHERE id IN <foreach collection="list" item="item" open="(" separator="," close=")"> #{item}  </foreach> 
+  </select>
+</mapper>

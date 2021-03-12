@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.plan.demo.base.dao.TbOrderDao" >
+  
+  <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbOrder" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="SMALLINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="order_start_address" property="orderStartAddress" jdbcType="VARCHAR" />
+    <result column="order_start_lon" property="orderStartLon" jdbcType="VARCHAR" />
+    <result column="order_start_lat" property="orderStartLat" jdbcType="VARCHAR" />
+    <result column="order_end_address" property="orderEndAddress" jdbcType="VARCHAR" />
+    <result column="order_end_lon" property="orderEndLon" jdbcType="VARCHAR" />
+    <result column="order_end_lat" property="orderEndLat" jdbcType="VARCHAR" />
+    <result column="drive_id" property="driveId" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="order_real_type" property="orderRealType" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="order_user_num" property="orderUserNum" jdbcType="VARCHAR" />
+    <result column="cancel_reason" property="cancelReason" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    id, order_time, order_no, order_start_address, order_start_lon, order_start_lat, 
+    order_end_address, order_end_lon, order_end_lat, drive_id, order_type, order_real_type, 
+    order_status, user_id, order_user_num, cancel_reason, create_time, update_time
+  </sql>
+  
+  <insert id="insert" parameterType="com.plan.demo.base.entity.TbOrder" >
+    INSERT INTO tb_order (id, order_time, order_no, 
+      order_start_address, order_start_lon, order_start_lat, 
+      order_end_address, order_end_lon, order_end_lat, 
+      drive_id, order_type, order_real_type, 
+      order_status, user_id, order_user_num, 
+      cancel_reason, create_time, update_time
+      )
+    VALUES (#{id,jdbcType=VARCHAR}, #{orderTime,jdbcType=SMALLINT}, #{orderNo,jdbcType=VARCHAR}, 
+      #{orderStartAddress,jdbcType=VARCHAR}, #{orderStartLon,jdbcType=VARCHAR}, #{orderStartLat,jdbcType=VARCHAR}, 
+      #{orderEndAddress,jdbcType=VARCHAR}, #{orderEndLon,jdbcType=VARCHAR}, #{orderEndLat,jdbcType=VARCHAR}, 
+      #{driveId,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, #{orderRealType,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{orderUserNum,jdbcType=VARCHAR}, 
+      #{cancelReason,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO tb_order (id, 
+      order_time, order_no, order_start_address, 
+      order_start_lon, order_start_lat, 
+      order_end_address, order_end_lon, 
+      order_end_lat, drive_id, order_type, 
+      order_real_type, order_status, user_id, 
+      order_user_num, cancel_reason, create_time, 
+      update_time)
+    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
+      #{item.orderTime,jdbcType=SMALLINT}, #{item.orderNo,jdbcType=VARCHAR}, #{item.orderStartAddress,jdbcType=VARCHAR}, 
+      #{item.orderStartLon,jdbcType=VARCHAR}, #{item.orderStartLat,jdbcType=VARCHAR}, 
+      #{item.orderEndAddress,jdbcType=VARCHAR}, #{item.orderEndLon,jdbcType=VARCHAR}, 
+      #{item.orderEndLat,jdbcType=VARCHAR}, #{item.driveId,jdbcType=VARCHAR}, #{item.orderType,jdbcType=VARCHAR}, 
+      #{item.orderRealType,jdbcType=VARCHAR}, #{item.orderStatus,jdbcType=VARCHAR}, #{item.userId,jdbcType=VARCHAR}, 
+      #{item.orderUserNum,jdbcType=VARCHAR}, #{item.cancelReason,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbOrder" >
+    INSERT INTO tb_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="orderStartAddress != null" >
+        order_start_address,
+      </if>
+      <if test="orderStartLon != null" >
+        order_start_lon,
+      </if>
+      <if test="orderStartLat != null" >
+        order_start_lat,
+      </if>
+      <if test="orderEndAddress != null" >
+        order_end_address,
+      </if>
+      <if test="orderEndLon != null" >
+        order_end_lon,
+      </if>
+      <if test="orderEndLat != null" >
+        order_end_lat,
+      </if>
+      <if test="driveId != null" >
+        drive_id,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="orderRealType != null" >
+        order_real_type,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orderUserNum != null" >
+        order_user_num,
+      </if>
+      <if test="cancelReason != null" >
+        cancel_reason,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=SMALLINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartAddress != null" >
+        #{orderStartAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartLon != null" >
+        #{orderStartLon,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartLat != null" >
+        #{orderStartLat,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEndAddress != null" >
+        #{orderEndAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEndLon != null" >
+        #{orderEndLon,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEndLat != null" >
+        #{orderEndLat,jdbcType=VARCHAR},
+      </if>
+      <if test="driveId != null" >
+        #{driveId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRealType != null" >
+        #{orderRealType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserNum != null" >
+        #{orderUserNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelReason != null" >
+        #{cancelReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <delete id="deleteById" parameterType="java.lang.String" >
+    DELETE FROM tb_order
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="update" parameterType="com.plan.demo.base.entity.TbOrder" >
+    UPDATE tb_order
+    SET order_time = #{orderTime,jdbcType=SMALLINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      order_start_address = #{orderStartAddress,jdbcType=VARCHAR},
+      order_start_lon = #{orderStartLon,jdbcType=VARCHAR},
+      order_start_lat = #{orderStartLat,jdbcType=VARCHAR},
+      order_end_address = #{orderEndAddress,jdbcType=VARCHAR},
+      order_end_lon = #{orderEndLon,jdbcType=VARCHAR},
+      order_end_lat = #{orderEndLat,jdbcType=VARCHAR},
+      drive_id = #{driveId,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      order_real_type = #{orderRealType,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      order_user_num = #{orderUserNum,jdbcType=VARCHAR},
+      cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.plan.demo.base.entity.TbOrder" >
+    UPDATE tb_order
+    <set >
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=SMALLINT},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartAddress != null" >
+        order_start_address = #{orderStartAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartLon != null" >
+        order_start_lon = #{orderStartLon,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartLat != null" >
+        order_start_lat = #{orderStartLat,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEndAddress != null" >
+        order_end_address = #{orderEndAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEndLon != null" >
+        order_end_lon = #{orderEndLon,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEndLat != null" >
+        order_end_lat = #{orderEndLat,jdbcType=VARCHAR},
+      </if>
+      <if test="driveId != null" >
+        drive_id = #{driveId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRealType != null" >
+        order_real_type = #{orderRealType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserNum != null" >
+        order_user_num = #{orderUserNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelReason != null" >
+        cancel_reason = #{cancelReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM tb_order
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByIds" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM tb_order
+    WHERE id IN <foreach collection="list" item="item" open="(" separator="," close=")"> #{item}  </foreach> 
+  </select>
+</mapper>

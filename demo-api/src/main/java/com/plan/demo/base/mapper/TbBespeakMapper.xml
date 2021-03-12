@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.plan.demo.base.dao.TbBespeakDao" >
+  
+  <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbBespeak" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="bespeak_no" property="bespeakNo" jdbcType="VARCHAR" />
+    <result column="bespeak_start_location" property="bespeakStartLocation" jdbcType="VARCHAR" />
+    <result column="bespeak_end_location" property="bespeakEndLocation" jdbcType="VARCHAR" />
+    <result column="bespeak_start_lon" property="bespeakStartLon" jdbcType="VARCHAR" />
+    <result column="bespeak_start_lat" property="bespeakStartLat" jdbcType="VARCHAR" />
+    <result column="bespeak_end_lon" property="bespeakEndLon" jdbcType="VARCHAR" />
+    <result column="bespeak_end_lat" property="bespeakEndLat" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    id, bespeak_no, bespeak_start_location, bespeak_end_location, bespeak_start_lon, 
+    bespeak_start_lat, bespeak_end_lon, bespeak_end_lat, order_time, create_time, update_time
+  </sql>
+  
+  <insert id="insert" parameterType="com.plan.demo.base.entity.TbBespeak" >
+    INSERT INTO tb_bespeak (id, bespeak_no, bespeak_start_location, 
+      bespeak_end_location, bespeak_start_lon, bespeak_start_lat, 
+      bespeak_end_lon, bespeak_end_lat, order_time, 
+      create_time, update_time)
+    VALUES (#{id,jdbcType=VARCHAR}, #{bespeakNo,jdbcType=VARCHAR}, #{bespeakStartLocation,jdbcType=VARCHAR}, 
+      #{bespeakEndLocation,jdbcType=VARCHAR}, #{bespeakStartLon,jdbcType=VARCHAR}, #{bespeakStartLat,jdbcType=VARCHAR}, 
+      #{bespeakEndLon,jdbcType=VARCHAR}, #{bespeakEndLat,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO tb_bespeak (id, 
+      bespeak_no, bespeak_start_location, 
+      bespeak_end_location, bespeak_start_lon, 
+      bespeak_start_lat, bespeak_end_lon, 
+      bespeak_end_lat, order_time, create_time, 
+      update_time)
+    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
+      #{item.bespeakNo,jdbcType=VARCHAR}, #{item.bespeakStartLocation,jdbcType=VARCHAR}, 
+      #{item.bespeakEndLocation,jdbcType=VARCHAR}, #{item.bespeakStartLon,jdbcType=VARCHAR}, 
+      #{item.bespeakStartLat,jdbcType=VARCHAR}, #{item.bespeakEndLon,jdbcType=VARCHAR}, 
+      #{item.bespeakEndLat,jdbcType=VARCHAR}, #{item.orderTime,jdbcType=TIMESTAMP}, #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbBespeak" >
+    INSERT INTO tb_bespeak
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bespeakNo != null" >
+        bespeak_no,
+      </if>
+      <if test="bespeakStartLocation != null" >
+        bespeak_start_location,
+      </if>
+      <if test="bespeakEndLocation != null" >
+        bespeak_end_location,
+      </if>
+      <if test="bespeakStartLon != null" >
+        bespeak_start_lon,
+      </if>
+      <if test="bespeakStartLat != null" >
+        bespeak_start_lat,
+      </if>
+      <if test="bespeakEndLon != null" >
+        bespeak_end_lon,
+      </if>
+      <if test="bespeakEndLat != null" >
+        bespeak_end_lat,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakNo != null" >
+        #{bespeakNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakStartLocation != null" >
+        #{bespeakStartLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakEndLocation != null" >
+        #{bespeakEndLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakStartLon != null" >
+        #{bespeakStartLon,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakStartLat != null" >
+        #{bespeakStartLat,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakEndLon != null" >
+        #{bespeakEndLon,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakEndLat != null" >
+        #{bespeakEndLat,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <delete id="deleteById" parameterType="java.lang.String" >
+    DELETE FROM tb_bespeak
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="update" parameterType="com.plan.demo.base.entity.TbBespeak" >
+    UPDATE tb_bespeak
+    SET bespeak_no = #{bespeakNo,jdbcType=VARCHAR},
+      bespeak_start_location = #{bespeakStartLocation,jdbcType=VARCHAR},
+      bespeak_end_location = #{bespeakEndLocation,jdbcType=VARCHAR},
+      bespeak_start_lon = #{bespeakStartLon,jdbcType=VARCHAR},
+      bespeak_start_lat = #{bespeakStartLat,jdbcType=VARCHAR},
+      bespeak_end_lon = #{bespeakEndLon,jdbcType=VARCHAR},
+      bespeak_end_lat = #{bespeakEndLat,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.plan.demo.base.entity.TbBespeak" >
+    UPDATE tb_bespeak
+    <set >
+      <if test="bespeakNo != null" >
+        bespeak_no = #{bespeakNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakStartLocation != null" >
+        bespeak_start_location = #{bespeakStartLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakEndLocation != null" >
+        bespeak_end_location = #{bespeakEndLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakStartLon != null" >
+        bespeak_start_lon = #{bespeakStartLon,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakStartLat != null" >
+        bespeak_start_lat = #{bespeakStartLat,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakEndLon != null" >
+        bespeak_end_lon = #{bespeakEndLon,jdbcType=VARCHAR},
+      </if>
+      <if test="bespeakEndLat != null" >
+        bespeak_end_lat = #{bespeakEndLat,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM tb_bespeak
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByIds" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM tb_bespeak
+    WHERE id IN <foreach collection="list" item="item" open="(" separator="," close=")"> #{item}  </foreach> 
+  </select>
+</mapper>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.plan.demo.base.dao.TbLineDao" >
+  
+  <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbLine" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="start_address" property="startAddress" jdbcType="VARCHAR" />
+    <result column="end_address" property="endAddress" jdbcType="VARCHAR" />
+    <result column="start_lon" property="startLon" jdbcType="VARCHAR" />
+    <result column="start_lat" property="startLat" jdbcType="VARCHAR" />
+    <result column="end_lon" property="endLon" jdbcType="VARCHAR" />
+    <result column="end_lat" property="endLat" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="BaseColumnList" >
+    id, start_address, end_address, start_lon, start_lat, end_lon, end_lat, create_time, 
+    update_time
+  </sql>
+  
+  <insert id="insert" parameterType="com.plan.demo.base.entity.TbLine" >
+    INSERT INTO tb_line (id, start_address, end_address, 
+      start_lon, start_lat, end_lon, 
+      end_lat, create_time, update_time
+      )
+    VALUES (#{id,jdbcType=VARCHAR}, #{startAddress,jdbcType=VARCHAR}, #{endAddress,jdbcType=VARCHAR}, 
+      #{startLon,jdbcType=VARCHAR}, #{startLat,jdbcType=VARCHAR}, #{endLon,jdbcType=VARCHAR}, 
+      #{endLat,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO tb_line (id, 
+      start_address, end_address, start_lon, 
+      start_lat, end_lon, end_lat, 
+      create_time, update_time)
+    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
+      #{item.startAddress,jdbcType=VARCHAR}, #{item.endAddress,jdbcType=VARCHAR}, #{item.startLon,jdbcType=VARCHAR}, 
+      #{item.startLat,jdbcType=VARCHAR}, #{item.endLon,jdbcType=VARCHAR}, #{item.endLat,jdbcType=VARCHAR}, 
+      #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbLine" >
+    INSERT INTO tb_line
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="startAddress != null" >
+        start_address,
+      </if>
+      <if test="endAddress != null" >
+        end_address,
+      </if>
+      <if test="startLon != null" >
+        start_lon,
+      </if>
+      <if test="startLat != null" >
+        start_lat,
+      </if>
+      <if test="endLon != null" >
+        end_lon,
+      </if>
+      <if test="endLat != null" >
+        end_lat,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="startAddress != null" >
+        #{startAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="endAddress != null" >
+        #{endAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="startLon != null" >
+        #{startLon,jdbcType=VARCHAR},
+      </if>
+      <if test="startLat != null" >
+        #{startLat,jdbcType=VARCHAR},
+      </if>
+      <if test="endLon != null" >
+        #{endLon,jdbcType=VARCHAR},
+      </if>
+      <if test="endLat != null" >
+        #{endLat,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <delete id="deleteById" parameterType="java.lang.String" >
+    DELETE FROM tb_line
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="update" parameterType="com.plan.demo.base.entity.TbLine" >
+    UPDATE tb_line
+    SET start_address = #{startAddress,jdbcType=VARCHAR},
+      end_address = #{endAddress,jdbcType=VARCHAR},
+      start_lon = #{startLon,jdbcType=VARCHAR},
+      start_lat = #{startLat,jdbcType=VARCHAR},
+      end_lon = #{endLon,jdbcType=VARCHAR},
+      end_lat = #{endLat,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSelective" parameterType="com.plan.demo.base.entity.TbLine" >
+    UPDATE tb_line
+    <set >
+      <if test="startAddress != null" >
+        start_address = #{startAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="endAddress != null" >
+        end_address = #{endAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="startLon != null" >
+        start_lon = #{startLon,jdbcType=VARCHAR},
+      </if>
+      <if test="startLat != null" >
+        start_lat = #{startLat,jdbcType=VARCHAR},
+      </if>
+      <if test="endLon != null" >
+        end_lon = #{endLon,jdbcType=VARCHAR},
+      </if>
+      <if test="endLat != null" >
+        end_lat = #{endLat,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM tb_line
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByIds" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="BaseColumnList" />
+    FROM tb_line
+    WHERE id IN <foreach collection="list" item="item" open="(" separator="," close=")"> #{item}  </foreach> 
+  </select>
+</mapper>
