@@ -7,8 +7,8 @@ package com.plan.frame.config;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "cas")
-@EnableAutoConfiguration
+//@ConfigurationProperties(prefix = "cas")
+//@EnableAutoConfiguration
 public class CasAutoconfig {
     private String casServerLoginUrl;
     private String serverName;

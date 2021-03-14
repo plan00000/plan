@@ -57,7 +57,7 @@ import java.util.Properties;
  * @author Misagh Moayyed
  * @since 3.0
  */
-@Component
+//@Component
 public class AuthenticationFilter extends AbstractCasFilter {
     /**
      * The URL to the CAS Server login.
