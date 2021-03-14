@@ -43,20 +43,20 @@
         </dependency>
 
         <!-- 添加servlet依赖模块 -->
-        <dependency>
+        <!--<dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-        </dependency>
+        </dependency>-->
         <!-- 添加jstl标签库依赖模块 -->
-        <dependency>
+        <!--<dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-        </dependency>
+        </dependency>-->
         <!-- 使用jsp引擎，springboot内置tomcat没有此依赖 -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 

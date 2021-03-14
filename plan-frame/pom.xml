@@ -224,10 +224,10 @@
             <artifactId>cas-client-autoconfig-support</artifactId>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
