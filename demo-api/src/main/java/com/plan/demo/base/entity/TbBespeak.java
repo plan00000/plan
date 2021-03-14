@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_bespeak - 
- * @time 2021-03-14 12:30:53
+ * @time 2021-03-14 13:32:42
  */
 public class TbBespeak {
     /**

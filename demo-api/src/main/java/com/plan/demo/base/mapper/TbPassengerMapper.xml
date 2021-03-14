@@ -169,11 +169,6 @@
     </trim>
   </insert>
   
-  <delete id="deleteById" parameterType="java.lang.String" >
-    DELETE FROM tb_passenger
-    WHERE id = #{id,jdbcType=VARCHAR}
-  </delete>
-  
   <update id="update" parameterType="com.plan.demo.base.entity.TbPassenger" >
     UPDATE tb_passenger
     SET sex = #{sex,jdbcType=VARCHAR},
@@ -250,17 +245,74 @@
     WHERE id = #{id,jdbcType=VARCHAR}
   </update>
   
-  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM tb_passenger
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_passenger
     WHERE id = #{id,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByIds" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.demo.base.entity.TbPassenger" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_passenger
-    WHERE id IN <foreach collection="list" item="item" open="(" separator="," close=")"> #{item}  </foreach> 
+    <where >
+      <if test="id != null" >
+         AND id = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="sex != null" >
+         AND sex = #{sex,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null" >
+         AND user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userAccount != null" >
+         AND user_account = #{userAccount,jdbcType=VARCHAR}
+      </if>
+      <if test="realname != null" >
+         AND realname = #{realname,jdbcType=VARCHAR}
+      </if>
+      <if test="headimgurl != null" >
+         AND headimgurl = #{headimgurl,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null" >
+         AND password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="salt != null" >
+         AND salt = #{salt,jdbcType=VARCHAR}
+      </if>
+      <if test="mobileno != null" >
+         AND mobileno = #{mobileno,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null" >
+         AND state = #{state,jdbcType=VARCHAR}
+      </if>
+      <if test="location != null" >
+         AND location = #{location,jdbcType=VARCHAR}
+      </if>
+      <if test="lat != null" >
+         AND lat = #{lat,jdbcType=VARCHAR}
+      </if>
+      <if test="lon != null" >
+         AND lon = #{lon,jdbcType=VARCHAR}
+      </if>
+      <if test="idCard != null" >
+         AND id_card = #{idCard,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+         AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+         AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="remark != null" >
+         AND remark = #{remark,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>

@@ -12,11 +12,13 @@ public interface TbBespeakDao {
 
     void insertSelective(TbBespeak entity);
 
-    int deleteById(String id);
-
     int update(TbBespeak entity);
 
     int updateSelective(TbBespeak entity);
 
-    TbBespeak selectById(String id);
+    int deleteByPrimaryKey(String id);
+
+    TbBespeak selectByPrimaryKey(String id);
+
+    List<TbBespeak> selectByEntitySelective(TbBespeak entity);
 }

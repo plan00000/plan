@@ -103,11 +103,6 @@
     </trim>
   </insert>
   
-  <delete id="deleteById" parameterType="java.lang.String" >
-    DELETE FROM tb_line
-    WHERE id = #{id,jdbcType=VARCHAR}
-  </delete>
-  
   <update id="update" parameterType="com.plan.demo.base.entity.TbLine" >
     UPDATE tb_line
     SET start_address = #{startAddress,jdbcType=VARCHAR},
@@ -152,17 +147,50 @@
     WHERE id = #{id,jdbcType=VARCHAR}
   </update>
   
-  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM tb_line
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_line
     WHERE id = #{id,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByIds" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.demo.base.entity.TbLine" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_line
-    WHERE id IN <foreach collection="list" item="item" open="(" separator="," close=")"> #{item}  </foreach> 
+    <where >
+      <if test="id != null" >
+         AND id = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="startAddress != null" >
+         AND start_address = #{startAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="endAddress != null" >
+         AND end_address = #{endAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="startLon != null" >
+         AND start_lon = #{startLon,jdbcType=VARCHAR}
+      </if>
+      <if test="startLat != null" >
+         AND start_lat = #{startLat,jdbcType=VARCHAR}
+      </if>
+      <if test="endLon != null" >
+         AND end_lon = #{endLon,jdbcType=VARCHAR}
+      </if>
+      <if test="endLat != null" >
+         AND end_lat = #{endLat,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+         AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+         AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
   </select>
 </mapper>

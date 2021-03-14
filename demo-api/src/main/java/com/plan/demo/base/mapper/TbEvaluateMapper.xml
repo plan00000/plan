@@ -112,11 +112,6 @@
     </trim>
   </insert>
   
-  <delete id="deleteById" parameterType="java.lang.String" >
-    DELETE FROM tb_evaluate
-    WHERE id = #{id,jdbcType=VARCHAR}
-  </delete>
-  
   <update id="update" parameterType="com.plan.demo.base.entity.TbEvaluate" >
     UPDATE tb_evaluate
     SET user_id = #{userId,jdbcType=VARCHAR},
@@ -165,17 +160,53 @@
     WHERE id = #{id,jdbcType=VARCHAR}
   </update>
   
-  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM tb_evaluate
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_evaluate
     WHERE id = #{id,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByIds" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.demo.base.entity.TbEvaluate" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_evaluate
-    WHERE id IN <foreach collection="list" item="item" open="(" separator="," close=")"> #{item}  </foreach> 
+    <where >
+      <if test="id != null" >
+         AND id = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null" >
+         AND user_id = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="driverId != null" >
+         AND driver_id = #{driverId,jdbcType=VARCHAR}
+      </if>
+      <if test="orderId != null" >
+         AND order_id = #{orderId,jdbcType=VARCHAR}
+      </if>
+      <if test="orderNo != null" >
+         AND order_no = #{orderNo,jdbcType=VARCHAR}
+      </if>
+      <if test="orderStar != null" >
+         AND order_star = #{orderStar,jdbcType=VARCHAR}
+      </if>
+      <if test="orderService != null" >
+         AND order_service = #{orderService,jdbcType=VARCHAR}
+      </if>
+      <if test="orderEvaluate != null" >
+         AND order_evaluate = #{orderEvaluate,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+         AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+         AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
   </select>
 </mapper>

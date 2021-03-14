@@ -2,7 +2,6 @@ package com.plan.demo.base.dao;
 
 import com.plan.demo.base.entity.TbEvaluate;
 import com.plan.frame.mybatis.MyBatisPrimaryDao;
-
 import java.util.List;
 
 @MyBatisPrimaryDao
@@ -13,11 +12,13 @@ public interface TbEvaluateDao {
 
     void insertSelective(TbEvaluate entity);
 
-    int deleteById(String id);
-
     int update(TbEvaluate entity);
 
     int updateSelective(TbEvaluate entity);
 
-    TbEvaluate selectById(String id);
+    int deleteByPrimaryKey(String id);
+
+    TbEvaluate selectByPrimaryKey(String id);
+
+    List<TbEvaluate> selectByEntitySelective(TbEvaluate entity);
 }

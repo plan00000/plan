@@ -68,11 +68,6 @@
     </trim>
   </insert>
   
-  <delete id="deleteById" parameterType="java.lang.String" >
-    DELETE FROM tb_dictionary
-    WHERE id = #{id,jdbcType=VARCHAR}
-  </delete>
-  
   <update id="update" parameterType="com.plan.demo.base.entity.TbDictionary" >
     UPDATE tb_dictionary
     SET code = #{code,jdbcType=VARCHAR},
@@ -101,17 +96,38 @@
     WHERE id = #{id,jdbcType=VARCHAR}
   </update>
   
-  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM tb_dictionary
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_dictionary
     WHERE id = #{id,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByIds" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.demo.base.entity.TbDictionary" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_dictionary
-    WHERE id IN <foreach collection="list" item="item" open="(" separator="," close=")"> #{item}  </foreach> 
+    <where >
+      <if test="id != null" >
+         AND id = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="code != null" >
+         AND code = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+         AND name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+         AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+         AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
   </select>
 </mapper>

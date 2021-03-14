@@ -198,11 +198,6 @@
     </trim>
   </insert>
   
-  <delete id="deleteById" parameterType="java.lang.String" >
-    DELETE FROM tb_order
-    WHERE id = #{id,jdbcType=VARCHAR}
-  </delete>
-  
   <update id="update" parameterType="com.plan.demo.base.entity.TbOrder" >
     UPDATE tb_order
     SET order_time = #{orderTime,jdbcType=SMALLINT},
@@ -291,17 +286,83 @@
     WHERE id = #{id,jdbcType=VARCHAR}
   </update>
   
-  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    DELETE FROM tb_order
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_order
     WHERE id = #{id,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByIds" resultMap="BaseResultMap" >
+  <select id="selectByEntitySelective" parameterType="com.plan.demo.base.entity.TbOrder" resultMap="BaseResultMap" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_order
-    WHERE id IN <foreach collection="list" item="item" open="(" separator="," close=")"> #{item}  </foreach> 
+    <where >
+      <if test="id != null" >
+         AND id = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="orderTime != null" >
+         AND order_time = #{orderTime,jdbcType=SMALLINT}
+      </if>
+      <if test="orderNo != null" >
+         AND order_no = #{orderNo,jdbcType=VARCHAR}
+      </if>
+      <if test="orderStartAddress != null" >
+         AND order_start_address = #{orderStartAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="orderStartLon != null" >
+         AND order_start_lon = #{orderStartLon,jdbcType=VARCHAR}
+      </if>
+      <if test="orderStartLat != null" >
+         AND order_start_lat = #{orderStartLat,jdbcType=VARCHAR}
+      </if>
+      <if test="orderEndAddress != null" >
+         AND order_end_address = #{orderEndAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="orderEndLon != null" >
+         AND order_end_lon = #{orderEndLon,jdbcType=VARCHAR}
+      </if>
+      <if test="orderEndLat != null" >
+         AND order_end_lat = #{orderEndLat,jdbcType=VARCHAR}
+      </if>
+      <if test="driveId != null" >
+         AND drive_id = #{driveId,jdbcType=VARCHAR}
+      </if>
+      <if test="orderType != null" >
+         AND order_type = #{orderType,jdbcType=VARCHAR}
+      </if>
+      <if test="orderRealType != null" >
+         AND order_real_type = #{orderRealType,jdbcType=VARCHAR}
+      </if>
+      <if test="orderStatus != null" >
+         AND order_status = #{orderStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null" >
+         AND user_id = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="orderUserNum != null" >
+         AND order_user_num = #{orderUserNum,jdbcType=VARCHAR}
+      </if>
+      <if test="lineId != null" >
+         AND line_id = #{lineId,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null" >
+         AND remark = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="cancelReason != null" >
+         AND cancel_reason = #{cancelReason,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+         AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+         AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
   </select>
 </mapper>

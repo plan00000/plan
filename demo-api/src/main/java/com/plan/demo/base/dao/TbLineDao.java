@@ -2,7 +2,6 @@ package com.plan.demo.base.dao;
 
 import com.plan.demo.base.entity.TbLine;
 import com.plan.frame.mybatis.MyBatisPrimaryDao;
-
 import java.util.List;
 
 @MyBatisPrimaryDao
@@ -13,11 +12,13 @@ public interface TbLineDao {
 
     void insertSelective(TbLine entity);
 
-    int deleteById(String id);
-
     int update(TbLine entity);
 
     int updateSelective(TbLine entity);
 
-    TbLine selectById(String id);
+    int deleteByPrimaryKey(String id);
+
+    TbLine selectByPrimaryKey(String id);
+
+    List<TbLine> selectByEntitySelective(TbLine entity);
 }
