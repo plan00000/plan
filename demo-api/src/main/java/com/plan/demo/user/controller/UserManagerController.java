@@ -1,13 +1,12 @@
 package com.plan.demo.user.controller;
 
-import com.plan.demo.user.dto.ReqMobileCodeDto;
-import com.plan.demo.user.dto.ResMobileCodeDto;
-import com.plan.demo.user.dto.ResTokenDto;
+import com.plan.demo.user.dto.*;
 import com.plan.demo.user.service.UserManagerService;
 import com.plan.frame.entity.Result;
 import com.plan.frame.exception.BaseException;
 import com.plan.frame.exception.SystemException;
 import com.plan.frame.helper.ResultHelper;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,8 @@ import springfox.documentation.annotations.ApiIgnore;
  * @Date: Created in 2021/2/23 9:02
  * @Modified By:
  */
-@Controller
+@RestController
+@Api(tags = "1-乘客司机管理接口")
 @RequestMapping("/login")
 public class UserManagerController {
     @Autowired
@@ -63,5 +63,47 @@ public class UserManagerController {
             }
         }
     }
+
+    /**
+     * @Description:获取乘车人信息
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "获取乘车人信息")
+    @RequestMapping(value = "/getPassenger",method = RequestMethod.POST)
+    public Result<ResPassengerDto> getPassenger()throws RuntimeException{
+        try {
+            ResPassengerDto  resPassengerDto = userManagerService.getPassengerInfo();
+            return ResultHelper.success(resPassengerDto);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("获取乘车人信息失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    /**
+     * @Description:获取乘车人信息
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "修改完善乘车人信息")
+    @RequestMapping(value = "/editPassengerInfo",method = RequestMethod.POST)
+    public Result<String> editPassengerInfo(ReqEditPassengerDto reqEditPassengerDto)throws RuntimeException{
+        try {
+            ResPassengerDto  resPassengerDto = userManagerService.getPassengerInfo();
+            return ResultHelper.success(resPassengerDto);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("获取乘车人信息失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+
 
 }

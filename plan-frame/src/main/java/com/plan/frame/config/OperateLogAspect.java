@@ -64,7 +64,7 @@ public class OperateLogAspect {
     public String getCurrentUserName(HttpServletRequest request) {
         try {
             UserInfoDto user = ThreadLocalHelper.getUser();
-            return user == null ? "" : user.getName();
+            return user == null ? "" : user.getUserName();
         }catch (Exception e){
             return  null;
         }

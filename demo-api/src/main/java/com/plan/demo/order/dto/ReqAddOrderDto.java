@@ -41,4 +41,7 @@ public class ReqAddOrderDto {
 
     @ApiModelProperty("乘客人数")
     private String orderUserNum;
+
+    @ApiModelProperty("所属线路")
+    private String lineId;
 }

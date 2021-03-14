@@ -14,6 +14,9 @@ import lombok.Setter;
 public class ReqMobileCodeDto {
     @ApiModelProperty("手机号")
     private String mobileno;
+    @ApiModelProperty("用户类型:0-乘客，1-司机")
+    private String userType;
     @ApiModelProperty("验证码（获取token时必填）")
     private String code;
+
 }
