@@ -49,9 +49,8 @@ public class UserManagerController {
      * @param
      * @throws RuntimeException
      */
-    @ApiIgnore
     @ApiOperation(value = "登录成功后,系统获取token")
-    @RequestMapping(value = "/getToken",method = RequestMethod.GET)
+    @RequestMapping(value = "/getToken",method = RequestMethod.POST)
     public Result<ResTokenDto>  getToken(ReqMobileCodeDto reqMobileCodeDto)throws RuntimeException{
         try {
             ResTokenDto resTokenDto = userManagerService.getToken(reqMobileCodeDto);
