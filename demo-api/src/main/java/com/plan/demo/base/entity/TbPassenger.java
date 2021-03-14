@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_passenger - 
- * @time 2021-03-14 13:32:42
+ * @time 2021-03-14 18:12:48
  */
 public class TbPassenger {
     /**
@@ -27,34 +27,10 @@ public class TbPassenger {
     private String userName;
 
     /**
-     * 用户登录账号，对应表字段为：tb_passenger.user_account
-     */
-    @ApiModelProperty("用户登录账号")
-    private String userAccount;
-
-    /**
-     * 真实姓名，对应表字段为：tb_passenger.realname
-     */
-    @ApiModelProperty("真实姓名")
-    private String realname;
-
-    /**
      * 头像，对应表字段为：tb_passenger.headimgurl
      */
     @ApiModelProperty("头像")
     private String headimgurl;
-
-    /**
-     * 密码，对应表字段为：tb_passenger.password
-     */
-    @ApiModelProperty("密码")
-    private String password;
-
-    /**
-     * 密码的盐，对应表字段为：tb_passenger.salt
-     */
-    @ApiModelProperty("密码的盐")
-    private String salt;
 
     /**
      * 手机号码，对应表字段为：tb_passenger.mobileno
@@ -134,44 +110,12 @@ public class TbPassenger {
         this.userName = userName;
     }
 
-    public String getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
-    }
-
-    public String getRealname() {
-        return realname;
-    }
-
-    public void setRealname(String realname) {
-        this.realname = realname;
-    }
-
     public String getHeadimgurl() {
         return headimgurl;
     }
 
     public void setHeadimgurl(String headimgurl) {
         this.headimgurl = headimgurl;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public String getMobileno() {

@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_order - 
- * @time 2021-03-14 13:32:42
+ * @time 2021-03-14 18:12:48
  */
 public class TbOrder {
     /**
@@ -81,9 +81,15 @@ public class TbOrder {
     private String orderRealType;
 
     /**
-     * 订单状态:0-已取消，1-未开始，2-进行中，3-已完成，对应表字段为：tb_order.order_status
+     * 预约时间，对应表字段为：tb_order.order_bespeak_time
      */
-    @ApiModelProperty("订单状态:0-已取消，1-未开始，2-进行中，3-已完成")
+    @ApiModelProperty("预约时间")
+    private Date orderBespeakTime;
+
+    /**
+     * 订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成，对应表字段为：tb_order.order_status
+     */
+    @ApiModelProperty("订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成")
     private String orderStatus;
 
     /**
@@ -222,6 +228,14 @@ public class TbOrder {
 
     public void setOrderRealType(String orderRealType) {
         this.orderRealType = orderRealType;
+    }
+
+    public Date getOrderBespeakTime() {
+        return orderBespeakTime;
+    }
+
+    public void setOrderBespeakTime(Date orderBespeakTime) {
+        this.orderBespeakTime = orderBespeakTime;
     }
 
     public String getOrderStatus() {
