@@ -1,5 +1,6 @@
 package com.plan.demo.order.controller;
 import com.plan.demo.order.dto.ReqAddOrderDto;
+import com.plan.demo.order.dto.ReqCancelOrderDto;
 import com.plan.demo.user.dto.ResLineResultDto;
 import com.plan.frame.entity.Result;
 import com.plan.frame.exception.BaseException;
@@ -58,6 +59,22 @@ public class OrderController {
             }
         }
     }
+
+    @ApiOperation(value = "取消订单")
+    @RequestMapping(value = "/cancelOrder",method = RequestMethod.POST)
+    public Result<String> cancelOrder(ReqCancelOrderDto reqCancelOrderDto)throws RuntimeException{
+        try {
+            ResLineResultDto resLineResultDto = new ResLineResultDto();
+            return ResultHelper.success(resLineResultDto);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("订单添加失败", e, "请联系管理员！");
+            }
+        }
+    }
+
 
 
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_order - 
- * @time 2021-03-14 18:12:48
+ * @time 2021-03-15 00:39:42
  */
 public class TbOrder {
     /**
@@ -18,7 +18,7 @@ public class TbOrder {
      * 下单时间，对应表字段为：tb_order.order_time
      */
     @ApiModelProperty("下单时间")
-    private Short orderTime;
+    private Date orderTime;
 
     /**
      * 订单号，对应表字段为：tb_order.order_no
@@ -93,6 +93,12 @@ public class TbOrder {
     private String orderStatus;
 
     /**
+     * 订单派单时间，对应表字段为：tb_order.order_receive_time
+     */
+    @ApiModelProperty("订单派单时间")
+    private Date orderReceiveTime;
+
+    /**
      * 关联用户id，对应表字段为：tb_order.user_id
      */
     @ApiModelProperty("关联用户id")
@@ -142,11 +148,11 @@ public class TbOrder {
         this.id = id;
     }
 
-    public Short getOrderTime() {
+    public Date getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Short orderTime) {
+    public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;
     }
 
@@ -244,6 +250,14 @@ public class TbOrder {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public Date getOrderReceiveTime() {
+        return orderReceiveTime;
+    }
+
+    public void setOrderReceiveTime(Date orderReceiveTime) {
+        this.orderReceiveTime = orderReceiveTime;
     }
 
     public String getUserId() {

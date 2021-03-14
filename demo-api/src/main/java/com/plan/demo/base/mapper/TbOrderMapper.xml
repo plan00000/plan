@@ -4,7 +4,7 @@
   
   <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbOrder" >
     <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="order_time" property="orderTime" jdbcType="SMALLINT" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
     <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
     <result column="order_start_address" property="orderStartAddress" jdbcType="VARCHAR" />
     <result column="order_start_lon" property="orderStartLon" jdbcType="VARCHAR" />
@@ -17,6 +17,7 @@
     <result column="order_real_type" property="orderRealType" jdbcType="VARCHAR" />
     <result column="order_bespeak_time" property="orderBespeakTime" jdbcType="TIMESTAMP" />
     <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="order_receive_time" property="orderReceiveTime" jdbcType="TIMESTAMP" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="order_user_num" property="orderUserNum" jdbcType="VARCHAR" />
     <result column="line_id" property="lineId" jdbcType="VARCHAR" />
@@ -29,8 +30,8 @@
   <sql id="BaseColumnList" >
     id, order_time, order_no, order_start_address, order_start_lon, order_start_lat, 
     order_end_address, order_end_lon, order_end_lat, drive_id, order_type, order_real_type, 
-    order_bespeak_time, order_status, user_id, order_user_num, line_id, remark, cancel_reason, 
-    create_time, update_time
+    order_bespeak_time, order_status, order_receive_time, user_id, order_user_num, line_id, 
+    remark, cancel_reason, create_time, update_time
   </sql>
   
   <insert id="insert" parameterType="com.plan.demo.base.entity.TbOrder" >
@@ -38,18 +39,18 @@
       order_start_address, order_start_lon, order_start_lat, 
       order_end_address, order_end_lon, order_end_lat, 
       drive_id, order_type, order_real_type, 
-      order_bespeak_time, order_status, user_id, 
-      order_user_num, line_id, remark, 
-      cancel_reason, create_time, update_time
-      )
-    VALUES (#{id,jdbcType=VARCHAR}, #{orderTime,jdbcType=SMALLINT}, #{orderNo,jdbcType=VARCHAR}, 
+      order_bespeak_time, order_status, order_receive_time, 
+      user_id, order_user_num, line_id, 
+      remark, cancel_reason, create_time, 
+      update_time)
+    VALUES (#{id,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{orderNo,jdbcType=VARCHAR}, 
       #{orderStartAddress,jdbcType=VARCHAR}, #{orderStartLon,jdbcType=VARCHAR}, #{orderStartLat,jdbcType=VARCHAR}, 
       #{orderEndAddress,jdbcType=VARCHAR}, #{orderEndLon,jdbcType=VARCHAR}, #{orderEndLat,jdbcType=VARCHAR}, 
       #{driveId,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, #{orderRealType,jdbcType=VARCHAR}, 
-      #{orderBespeakTime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{orderUserNum,jdbcType=VARCHAR}, #{lineId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{cancelReason,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{orderBespeakTime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=VARCHAR}, #{orderReceiveTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=VARCHAR}, #{orderUserNum,jdbcType=VARCHAR}, #{lineId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{cancelReason,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   
   <insert id="insertBatch" parameterType="java.util.List" >
@@ -59,18 +60,20 @@
       order_end_address, order_end_lon, 
       order_end_lat, drive_id, order_type, 
       order_real_type, order_bespeak_time, 
-      order_status, user_id, order_user_num, 
-      line_id, remark, cancel_reason, 
-      create_time, update_time)
+      order_status, order_receive_time, 
+      user_id, order_user_num, line_id, 
+      remark, cancel_reason, create_time, 
+      update_time)
     VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
-      #{item.orderTime,jdbcType=SMALLINT}, #{item.orderNo,jdbcType=VARCHAR}, #{item.orderStartAddress,jdbcType=VARCHAR}, 
+      #{item.orderTime,jdbcType=TIMESTAMP}, #{item.orderNo,jdbcType=VARCHAR}, #{item.orderStartAddress,jdbcType=VARCHAR}, 
       #{item.orderStartLon,jdbcType=VARCHAR}, #{item.orderStartLat,jdbcType=VARCHAR}, 
       #{item.orderEndAddress,jdbcType=VARCHAR}, #{item.orderEndLon,jdbcType=VARCHAR}, 
       #{item.orderEndLat,jdbcType=VARCHAR}, #{item.driveId,jdbcType=VARCHAR}, #{item.orderType,jdbcType=VARCHAR}, 
       #{item.orderRealType,jdbcType=VARCHAR}, #{item.orderBespeakTime,jdbcType=TIMESTAMP}, 
-      #{item.orderStatus,jdbcType=VARCHAR}, #{item.userId,jdbcType=VARCHAR}, #{item.orderUserNum,jdbcType=VARCHAR}, 
-      #{item.lineId,jdbcType=VARCHAR}, #{item.remark,jdbcType=VARCHAR}, #{item.cancelReason,jdbcType=VARCHAR}, 
-      #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
+      #{item.orderStatus,jdbcType=VARCHAR}, #{item.orderReceiveTime,jdbcType=TIMESTAMP}, 
+      #{item.userId,jdbcType=VARCHAR}, #{item.orderUserNum,jdbcType=VARCHAR}, #{item.lineId,jdbcType=VARCHAR}, 
+      #{item.remark,jdbcType=VARCHAR}, #{item.cancelReason,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
   </insert>
   
   <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbOrder" >
@@ -118,6 +121,9 @@
       <if test="orderStatus != null" >
         order_status,
       </if>
+      <if test="orderReceiveTime != null" >
+        order_receive_time,
+      </if>
       <if test="userId != null" >
         user_id,
       </if>
@@ -145,7 +151,7 @@
         #{id,jdbcType=VARCHAR},
       </if>
       <if test="orderTime != null" >
-        #{orderTime,jdbcType=SMALLINT},
+        #{orderTime,jdbcType=TIMESTAMP},
       </if>
       <if test="orderNo != null" >
         #{orderNo,jdbcType=VARCHAR},
@@ -183,6 +189,9 @@
       <if test="orderStatus != null" >
         #{orderStatus,jdbcType=VARCHAR},
       </if>
+      <if test="orderReceiveTime != null" >
+        #{orderReceiveTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="userId != null" >
         #{userId,jdbcType=VARCHAR},
       </if>
@@ -209,7 +218,7 @@
   
   <update id="update" parameterType="com.plan.demo.base.entity.TbOrder" >
     UPDATE tb_order
-    SET order_time = #{orderTime,jdbcType=SMALLINT},
+    SET order_time = #{orderTime,jdbcType=TIMESTAMP},
       order_no = #{orderNo,jdbcType=VARCHAR},
       order_start_address = #{orderStartAddress,jdbcType=VARCHAR},
       order_start_lon = #{orderStartLon,jdbcType=VARCHAR},
@@ -222,6 +231,7 @@
       order_real_type = #{orderRealType,jdbcType=VARCHAR},
       order_bespeak_time = #{orderBespeakTime,jdbcType=TIMESTAMP},
       order_status = #{orderStatus,jdbcType=VARCHAR},
+      order_receive_time = #{orderReceiveTime,jdbcType=TIMESTAMP},
       user_id = #{userId,jdbcType=VARCHAR},
       order_user_num = #{orderUserNum,jdbcType=VARCHAR},
       line_id = #{lineId,jdbcType=VARCHAR},
@@ -236,7 +246,7 @@
     UPDATE tb_order
     <set >
       <if test="orderTime != null" >
-        order_time = #{orderTime,jdbcType=SMALLINT},
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
       </if>
       <if test="orderNo != null" >
         order_no = #{orderNo,jdbcType=VARCHAR},
@@ -273,6 +283,9 @@
       </if>
       <if test="orderStatus != null" >
         order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReceiveTime != null" >
+        order_receive_time = #{orderReceiveTime,jdbcType=TIMESTAMP},
       </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=VARCHAR},
@@ -320,7 +333,7 @@
          AND id = #{id,jdbcType=VARCHAR}
       </if>
       <if test="orderTime != null" >
-         AND order_time = #{orderTime,jdbcType=SMALLINT}
+         AND order_time = #{orderTime,jdbcType=TIMESTAMP}
       </if>
       <if test="orderNo != null" >
          AND order_no = #{orderNo,jdbcType=VARCHAR}
@@ -357,6 +370,9 @@
       </if>
       <if test="orderStatus != null" >
          AND order_status = #{orderStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="orderReceiveTime != null" >
+         AND order_receive_time = #{orderReceiveTime,jdbcType=TIMESTAMP}
       </if>
       <if test="userId != null" >
          AND user_id = #{userId,jdbcType=VARCHAR}

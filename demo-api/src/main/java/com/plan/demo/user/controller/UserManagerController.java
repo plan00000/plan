@@ -93,8 +93,8 @@ public class UserManagerController {
     @RequestMapping(value = "/editPassengerInfo",method = RequestMethod.POST)
     public Result<String> editPassengerInfo(ReqEditPassengerDto reqEditPassengerDto)throws RuntimeException{
         try {
-            ResPassengerDto  resPassengerDto = userManagerService.getPassengerInfo();
-            return ResultHelper.success(resPassengerDto);
+            userManagerService.editPassengerInfo(reqEditPassengerDto);
+            return ResultHelper.success();
         }catch (Exception e) {
             if (e instanceof BaseException) {
                 throw (BaseException) e;
