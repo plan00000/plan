@@ -12,24 +12,33 @@
     <result column="bespeak_end_lon" property="bespeakEndLon" jdbcType="VARCHAR" />
     <result column="bespeak_end_lat" property="bespeakEndLat" jdbcType="VARCHAR" />
     <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="order_user_num" property="orderUserNum" jdbcType="VARCHAR" />
+    <result column="line_id" property="lineId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   
   <sql id="BaseColumnList" >
     id, bespeak_no, bespeak_start_location, bespeak_end_location, bespeak_start_lon, 
-    bespeak_start_lat, bespeak_end_lon, bespeak_end_lat, order_time, create_time, update_time
+    bespeak_start_lat, bespeak_end_lon, bespeak_end_lat, order_time, user_id, order_user_num, 
+    line_id, remark, create_time, update_time
   </sql>
   
   <insert id="insert" parameterType="com.plan.demo.base.entity.TbBespeak" >
     INSERT INTO tb_bespeak (id, bespeak_no, bespeak_start_location, 
       bespeak_end_location, bespeak_start_lon, bespeak_start_lat, 
       bespeak_end_lon, bespeak_end_lat, order_time, 
-      create_time, update_time)
+      user_id, order_user_num, line_id, 
+      remark, create_time, update_time
+      )
     VALUES (#{id,jdbcType=VARCHAR}, #{bespeakNo,jdbcType=VARCHAR}, #{bespeakStartLocation,jdbcType=VARCHAR}, 
       #{bespeakEndLocation,jdbcType=VARCHAR}, #{bespeakStartLon,jdbcType=VARCHAR}, #{bespeakStartLat,jdbcType=VARCHAR}, 
       #{bespeakEndLon,jdbcType=VARCHAR}, #{bespeakEndLat,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{userId,jdbcType=VARCHAR}, #{orderUserNum,jdbcType=VARCHAR}, #{lineId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   
   <insert id="insertBatch" parameterType="java.util.List" >
@@ -37,14 +46,16 @@
       bespeak_no, bespeak_start_location, 
       bespeak_end_location, bespeak_start_lon, 
       bespeak_start_lat, bespeak_end_lon, 
-      bespeak_end_lat, order_time, create_time, 
-      update_time)
+      bespeak_end_lat, order_time, user_id, 
+      order_user_num, line_id, remark, 
+      create_time, update_time)
     VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
       #{item.bespeakNo,jdbcType=VARCHAR}, #{item.bespeakStartLocation,jdbcType=VARCHAR}, 
       #{item.bespeakEndLocation,jdbcType=VARCHAR}, #{item.bespeakStartLon,jdbcType=VARCHAR}, 
       #{item.bespeakStartLat,jdbcType=VARCHAR}, #{item.bespeakEndLon,jdbcType=VARCHAR}, 
-      #{item.bespeakEndLat,jdbcType=VARCHAR}, #{item.orderTime,jdbcType=TIMESTAMP}, #{item.createTime,jdbcType=TIMESTAMP}, 
-      #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
+      #{item.bespeakEndLat,jdbcType=VARCHAR}, #{item.orderTime,jdbcType=TIMESTAMP}, #{item.userId,jdbcType=VARCHAR}, 
+      #{item.orderUserNum,jdbcType=VARCHAR}, #{item.lineId,jdbcType=VARCHAR}, #{item.remark,jdbcType=VARCHAR}, 
+      #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
   </insert>
   
   <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbBespeak" >
@@ -76,6 +87,18 @@
       </if>
       <if test="orderTime != null" >
         order_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orderUserNum != null" >
+        order_user_num,
+      </if>
+      <if test="lineId != null" >
+        line_id,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -112,6 +135,18 @@
       <if test="orderTime != null" >
         #{orderTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserNum != null" >
+        #{orderUserNum,jdbcType=VARCHAR},
+      </if>
+      <if test="lineId != null" >
+        #{lineId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -136,6 +171,10 @@
       bespeak_end_lon = #{bespeakEndLon,jdbcType=VARCHAR},
       bespeak_end_lat = #{bespeakEndLat,jdbcType=VARCHAR},
       order_time = #{orderTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=VARCHAR},
+      order_user_num = #{orderUserNum,jdbcType=VARCHAR},
+      line_id = #{lineId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     WHERE id = #{id,jdbcType=VARCHAR}
@@ -167,6 +206,18 @@
       </if>
       <if test="orderTime != null" >
         order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserNum != null" >
+        order_user_num = #{orderUserNum,jdbcType=VARCHAR},
+      </if>
+      <if test="lineId != null" >
+        line_id = #{lineId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},

@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_order - 
- * @time 2021-03-12 15:29:32
+ * @time 2021-03-14 12:31:06
  */
 public class TbOrder {
     /**
@@ -97,6 +97,18 @@ public class TbOrder {
      */
     @ApiModelProperty("乘客人数")
     private String orderUserNum;
+
+    /**
+     * ，对应表字段为：tb_order.line_id
+     */
+    @ApiModelProperty("")
+    private String lineId;
+
+    /**
+     * ，对应表字段为：tb_order.remark
+     */
+    @ApiModelProperty("")
+    private String remark;
 
     /**
      * 取消原因，对应表字段为：tb_order.cancel_reason
@@ -234,6 +246,22 @@ public class TbOrder {
 
     public void setOrderUserNum(String orderUserNum) {
         this.orderUserNum = orderUserNum;
+    }
+
+    public String getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(String lineId) {
+        this.lineId = lineId;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public String getCancelReason() {

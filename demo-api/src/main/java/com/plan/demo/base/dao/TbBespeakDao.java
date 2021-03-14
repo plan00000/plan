@@ -1,8 +1,7 @@
 package com.plan.demo.base.dao;
 
 import com.plan.demo.base.entity.TbBespeak;
-import com.plan.frame.mybatis.MyBatisPrimaryDao;
-
+import com.xmgps.tocc.frame.mybatis.MyBatisPrimaryDao;
 import java.util.List;
 
 @MyBatisPrimaryDao

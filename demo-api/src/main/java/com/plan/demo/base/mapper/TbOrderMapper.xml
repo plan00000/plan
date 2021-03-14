@@ -18,6 +18,8 @@
     <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="order_user_num" property="orderUserNum" jdbcType="VARCHAR" />
+    <result column="line_id" property="lineId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="cancel_reason" property="cancelReason" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -26,7 +28,8 @@
   <sql id="BaseColumnList" >
     id, order_time, order_no, order_start_address, order_start_lon, order_start_lat, 
     order_end_address, order_end_lon, order_end_lat, drive_id, order_type, order_real_type, 
-    order_status, user_id, order_user_num, cancel_reason, create_time, update_time
+    order_status, user_id, order_user_num, line_id, remark, cancel_reason, create_time, 
+    update_time
   </sql>
   
   <insert id="insert" parameterType="com.plan.demo.base.entity.TbOrder" >
@@ -35,15 +38,15 @@
       order_end_address, order_end_lon, order_end_lat, 
       drive_id, order_type, order_real_type, 
       order_status, user_id, order_user_num, 
-      cancel_reason, create_time, update_time
-      )
+      line_id, remark, cancel_reason, 
+      create_time, update_time)
     VALUES (#{id,jdbcType=VARCHAR}, #{orderTime,jdbcType=SMALLINT}, #{orderNo,jdbcType=VARCHAR}, 
       #{orderStartAddress,jdbcType=VARCHAR}, #{orderStartLon,jdbcType=VARCHAR}, #{orderStartLat,jdbcType=VARCHAR}, 
       #{orderEndAddress,jdbcType=VARCHAR}, #{orderEndLon,jdbcType=VARCHAR}, #{orderEndLat,jdbcType=VARCHAR}, 
       #{driveId,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, #{orderRealType,jdbcType=VARCHAR}, 
       #{orderStatus,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{orderUserNum,jdbcType=VARCHAR}, 
-      #{cancelReason,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{lineId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{cancelReason,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   
   <insert id="insertBatch" parameterType="java.util.List" >
@@ -53,16 +56,18 @@
       order_end_address, order_end_lon, 
       order_end_lat, drive_id, order_type, 
       order_real_type, order_status, user_id, 
-      order_user_num, cancel_reason, create_time, 
-      update_time)
+      order_user_num, line_id, remark, 
+      cancel_reason, create_time, update_time
+      )
     VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
       #{item.orderTime,jdbcType=SMALLINT}, #{item.orderNo,jdbcType=VARCHAR}, #{item.orderStartAddress,jdbcType=VARCHAR}, 
       #{item.orderStartLon,jdbcType=VARCHAR}, #{item.orderStartLat,jdbcType=VARCHAR}, 
       #{item.orderEndAddress,jdbcType=VARCHAR}, #{item.orderEndLon,jdbcType=VARCHAR}, 
       #{item.orderEndLat,jdbcType=VARCHAR}, #{item.driveId,jdbcType=VARCHAR}, #{item.orderType,jdbcType=VARCHAR}, 
       #{item.orderRealType,jdbcType=VARCHAR}, #{item.orderStatus,jdbcType=VARCHAR}, #{item.userId,jdbcType=VARCHAR}, 
-      #{item.orderUserNum,jdbcType=VARCHAR}, #{item.cancelReason,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
-      #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
+      #{item.orderUserNum,jdbcType=VARCHAR}, #{item.lineId,jdbcType=VARCHAR}, #{item.remark,jdbcType=VARCHAR}, 
+      #{item.cancelReason,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}
+      ) </foreach>
   </insert>
   
   <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbOrder" >
@@ -112,6 +117,12 @@
       </if>
       <if test="orderUserNum != null" >
         order_user_num,
+      </if>
+      <if test="lineId != null" >
+        line_id,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
       <if test="cancelReason != null" >
         cancel_reason,
@@ -169,6 +180,12 @@
       <if test="orderUserNum != null" >
         #{orderUserNum,jdbcType=VARCHAR},
       </if>
+      <if test="lineId != null" >
+        #{lineId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="cancelReason != null" >
         #{cancelReason,jdbcType=VARCHAR},
       </if>
@@ -202,6 +219,8 @@
       order_status = #{orderStatus,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       order_user_num = #{orderUserNum,jdbcType=VARCHAR},
+      line_id = #{lineId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
       cancel_reason = #{cancelReason,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
@@ -252,6 +271,12 @@
       </if>
       <if test="orderUserNum != null" >
         order_user_num = #{orderUserNum,jdbcType=VARCHAR},
+      </if>
+      <if test="lineId != null" >
+        line_id = #{lineId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="cancelReason != null" >
         cancel_reason = #{cancelReason,jdbcType=VARCHAR},

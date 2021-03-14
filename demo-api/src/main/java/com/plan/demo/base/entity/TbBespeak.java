@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_bespeak - 
- * @time 2021-03-12 15:29:32
+ * @time 2021-03-14 12:30:53
  */
 public class TbBespeak {
     /**
@@ -61,6 +61,30 @@ public class TbBespeak {
      */
     @ApiModelProperty("下单时间")
     private Date orderTime;
+
+    /**
+     * 关联用户id，对应表字段为：tb_bespeak.user_id
+     */
+    @ApiModelProperty("关联用户id")
+    private String userId;
+
+    /**
+     * 乘客人数，对应表字段为：tb_bespeak.order_user_num
+     */
+    @ApiModelProperty("乘客人数")
+    private String orderUserNum;
+
+    /**
+     * ，对应表字段为：tb_bespeak.line_id
+     */
+    @ApiModelProperty("")
+    private String lineId;
+
+    /**
+     * ，对应表字段为：tb_bespeak.remark
+     */
+    @ApiModelProperty("")
+    private String remark;
 
     /**
      * 创建时间，对应表字段为：tb_bespeak.create_time
@@ -144,6 +168,38 @@ public class TbBespeak {
 
     public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getOrderUserNum() {
+        return orderUserNum;
+    }
+
+    public void setOrderUserNum(String orderUserNum) {
+        this.orderUserNum = orderUserNum;
+    }
+
+    public String getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(String lineId) {
+        this.lineId = lineId;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public Date getCreateTime() {
