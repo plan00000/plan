@@ -128,6 +128,8 @@ CREATE TABLE `tb_order` (
   `order_bespeak_time` datetime DEFAULT null COMMENT '预约时间',
   -- 订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程结束'
   `order_status` varchar(10) DEFAULT null COMMENT '订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成',
+  -- 订单派单时间
+  `order_receive_time` datetime DEFAULT null comment '订单派单时间',
   -- 关联用户id
   `user_id` VARCHAR (32) DEFAULT null COMMENT '关联用户id',
   -- 乘客人数
