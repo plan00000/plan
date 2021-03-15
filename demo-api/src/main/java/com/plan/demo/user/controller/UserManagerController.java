@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +32,7 @@ public class UserManagerController {
 
     @ApiOperation(value = "获取手机验证码")
     @RequestMapping(value = "/getMobileCode",method = RequestMethod.POST)
-    public Result<ResMobileCodeDto>  getMobileCode(ReqMobileCodeDto reqMobileCodeDto)throws RuntimeException{
+    public Result<ResMobileCodeDto>  getMobileCode(@RequestBody ReqMobileCodeDto reqMobileCodeDto)throws RuntimeException{
         try {
             ResMobileCodeDto resMobileCodeDto = new ResMobileCodeDto();
             resMobileCodeDto.setCode("123323");
@@ -51,7 +52,7 @@ public class UserManagerController {
      */
     @ApiOperation(value = "登录成功后,系统获取token")
     @RequestMapping(value = "/getToken",method = RequestMethod.POST)
-    public Result<ResTokenDto>  getToken(ReqMobileCodeDto reqMobileCodeDto)throws RuntimeException{
+    public Result<ResTokenDto>  getToken(@RequestBody ReqMobileCodeDto reqMobileCodeDto)throws RuntimeException{
         try {
             ResTokenDto resTokenDto = userManagerService.getToken(reqMobileCodeDto);
             return ResultHelper.success(resTokenDto);
@@ -91,7 +92,7 @@ public class UserManagerController {
      */
     @ApiOperation(value = "修改完善乘车人信息")
     @RequestMapping(value = "/editPassengerInfo",method = RequestMethod.POST)
-    public Result<String> editPassengerInfo(ReqEditPassengerDto reqEditPassengerDto)throws RuntimeException{
+    public Result<String> editPassengerInfo(@RequestBody ReqEditPassengerDto reqEditPassengerDto)throws RuntimeException{
         try {
             userManagerService.editPassengerInfo(reqEditPassengerDto);
             return ResultHelper.success();

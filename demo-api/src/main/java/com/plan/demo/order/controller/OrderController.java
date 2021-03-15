@@ -9,6 +9,7 @@ import com.plan.frame.helper.ResultHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,7 +30,7 @@ public class OrderController {
      */
     @ApiOperation(value = "订单添加")
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
-    public Result<String> addOrder(ReqAddOrderDto reqAddOrderDto)throws RuntimeException{
+    public Result<String> addOrder(@RequestBody ReqAddOrderDto reqAddOrderDto)throws RuntimeException{
         try {
             return ResultHelper.success();
         }catch (Exception e) {
@@ -62,7 +63,7 @@ public class OrderController {
 
     @ApiOperation(value = "取消订单")
     @RequestMapping(value = "/cancelOrder",method = RequestMethod.POST)
-    public Result<String> cancelOrder(ReqCancelOrderDto reqCancelOrderDto)throws RuntimeException{
+    public Result<String> cancelOrder(@RequestBody ReqCancelOrderDto reqCancelOrderDto)throws RuntimeException{
         try {
             ResLineResultDto resLineResultDto = new ResLineResultDto();
             return ResultHelper.success(resLineResultDto);
