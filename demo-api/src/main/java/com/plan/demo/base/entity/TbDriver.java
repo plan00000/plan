@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_driver - 
- * @time 2021-03-14 13:32:42
+ * @time 2021-03-16 14:37:20
  */
 public class TbDriver {
     /**
@@ -31,36 +31,6 @@ public class TbDriver {
      */
     @ApiModelProperty("用户名称")
     private String userName;
-
-    /**
-     * 用户登录账号，对应表字段为：tb_driver.user_account
-     */
-    @ApiModelProperty("用户登录账号")
-    private String userAccount;
-
-    /**
-     * 真实姓名，对应表字段为：tb_driver.realname
-     */
-    @ApiModelProperty("真实姓名")
-    private String realname;
-
-    /**
-     * 头像，对应表字段为：tb_driver.headimgurl
-     */
-    @ApiModelProperty("头像")
-    private String headimgurl;
-
-    /**
-     * 密码，对应表字段为：tb_driver.password
-     */
-    @ApiModelProperty("密码")
-    private String password;
-
-    /**
-     * 密码的盐，对应表字段为：tb_driver.salt
-     */
-    @ApiModelProperty("密码的盐")
-    private String salt;
 
     /**
      * 手机号码，对应表字段为：tb_driver.mobileno
@@ -105,10 +75,28 @@ public class TbDriver {
     private String carNo;
 
     /**
+     * 车身颜色，对应表字段为：tb_driver.car_color
+     */
+    @ApiModelProperty("车身颜色")
+    private String carColor;
+
+    /**
+     * 车辆品牌，对应表字段为：tb_driver.car_mark
+     */
+    @ApiModelProperty("车辆品牌")
+    private String carMark;
+
+    /**
      * 驾驶证号，对应表字段为：tb_driver.drive_no
      */
     @ApiModelProperty("驾驶证号")
     private String driveNo;
+
+    /**
+     * 司机评分级：几颗星最高5个星1代表一个星，对应表字段为：tb_driver.drive_star
+     */
+    @ApiModelProperty("司机评分级：几颗星最高5个星1代表一个星")
+    private String driveStar;
 
     /**
      * 创建时间，对应表字段为：tb_driver.create_time
@@ -152,46 +140,6 @@ public class TbDriver {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
-    }
-
-    public String getRealname() {
-        return realname;
-    }
-
-    public void setRealname(String realname) {
-        this.realname = realname;
-    }
-
-    public String getHeadimgurl() {
-        return headimgurl;
-    }
-
-    public void setHeadimgurl(String headimgurl) {
-        this.headimgurl = headimgurl;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public String getMobileno() {
@@ -250,12 +198,36 @@ public class TbDriver {
         this.carNo = carNo;
     }
 
+    public String getCarColor() {
+        return carColor;
+    }
+
+    public void setCarColor(String carColor) {
+        this.carColor = carColor;
+    }
+
+    public String getCarMark() {
+        return carMark;
+    }
+
+    public void setCarMark(String carMark) {
+        this.carMark = carMark;
+    }
+
     public String getDriveNo() {
         return driveNo;
     }
 
     public void setDriveNo(String driveNo) {
         this.driveNo = driveNo;
+    }
+
+    public String getDriveStar() {
+        return driveStar;
+    }
+
+    public void setDriveStar(String driveStar) {
+        this.driveStar = driveStar;
     }
 
     public Date getCreateTime() {

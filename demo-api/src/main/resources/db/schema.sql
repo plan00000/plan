@@ -60,8 +60,14 @@ CREATE TABLE `tb_driver` (
   `id_card` varchar(30) DEFAULT  null COMMENT '身份证号',
   -- 车牌号
   `car_no` varchar(50) DEFAULT  null COMMENT '车牌号',
+  -- 车辆颜色
+  `car_color` VARCHAR (20) DEFAULT null comment '车身颜色',
+  -- 车辆品牌
+  `car_mark` VARCHAR (50) DEFAULT null comment '车辆品牌',
   -- 驾驶证号
   `drive_no` VARCHAR(50) DEFAULT null COMMENT '驾驶证号',
+  -- 司机评分级：几颗星最高5个星1代表一个星
+  `drive_star` VARCHAR (10) DEFAULT null comment '司机评分级：几颗星最高5个星1代表一个星',
    -- 创建时间
   `create_time` datetime DEFAULT null COMMENT '创建时间',
   -- 更新时间
