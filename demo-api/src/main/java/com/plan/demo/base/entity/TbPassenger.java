@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_passenger - 
- * @time 2021-03-14 18:12:48
+ * @time 2021-03-16 22:33:15
  */
 public class TbPassenger {
     /**
@@ -15,9 +15,9 @@ public class TbPassenger {
     private String id;
 
     /**
-     * 性别：1-男生，2-女生，对应表字段为：tb_passenger.sex
+     * 性别sex：1-男生，2-女生，对应表字段为：tb_passenger.sex
      */
-    @ApiModelProperty("性别：1-男生，2-女生")
+    @ApiModelProperty("性别sex：1-男生，2-女生")
     private String sex;
 
     /**
@@ -27,21 +27,15 @@ public class TbPassenger {
     private String userName;
 
     /**
-     * 头像，对应表字段为：tb_passenger.headimgurl
-     */
-    @ApiModelProperty("头像")
-    private String headimgurl;
-
-    /**
      * 手机号码，对应表字段为：tb_passenger.mobileno
      */
     @ApiModelProperty("手机号码")
     private String mobileno;
 
     /**
-     * 状态 0-禁用,1-启用,2-删除，对应表字段为：tb_passenger.state
+     * 用户状态state： 0-禁用,1-启用,2-删除，对应表字段为：tb_passenger.state
      */
-    @ApiModelProperty("状态 0-禁用,1-启用,2-删除")
+    @ApiModelProperty("用户状态state： 0-禁用,1-启用,2-删除")
     private String state;
 
     /**
@@ -108,14 +102,6 @@ public class TbPassenger {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getHeadimgurl() {
-        return headimgurl;
-    }
-
-    public void setHeadimgurl(String headimgurl) {
-        this.headimgurl = headimgurl;
     }
 
     public String getMobileno() {

@@ -4,10 +4,7 @@ import com.plan.demo.base.dao.TbDriverDao;
 import com.plan.demo.base.dao.TbPassengerDao;
 import com.plan.demo.base.entity.TbDriver;
 import com.plan.demo.base.entity.TbPassenger;
-import com.plan.demo.user.dto.ReqEditPassengerDto;
-import com.plan.demo.user.dto.ReqMobileCodeDto;
-import com.plan.demo.user.dto.ResPassengerDto;
-import com.plan.demo.user.dto.ResTokenDto;
+import com.plan.demo.user.dto.*;
 import com.plan.frame.exception.SystemException;
 import com.plan.frame.helper.BeanHelper;
 import com.plan.frame.helper.ThreadLocalHelper;
@@ -145,5 +142,25 @@ public class UserManagerService {
         }
         tbPassengerDao.update(tbPassenger);
 
+    }
+
+    /**
+     * 更新司机位置信息
+     * @param reqDriverLocationDto
+     * @throws Exception
+     */
+    public void editDriverLocation(ReqDriverLocationDto reqDriverLocationDto)throws Exception{
+        //如果app没有传id则从线程变量里拿
+        if(CommonUtil.isEmpty(reqDriverLocationDto.getId())){
+            reqDriverLocationDto.setId(ThreadLocalHelper.getUser().getId());
+        }
+        TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(reqDriverLocationDto.getId());
+        if(CommonUtil.isEmpty(tbDriver)){
+            throw new SystemException("修改司机位置信息失败","不存在该司机","请联系管理员处理");
+        }
+        tbDriver.setLocation(reqDriverLocationDto.getLocation());
+        tbDriver.setLat(reqDriverLocationDto.getLat());
+        tbDriver.setLon(reqDriverLocationDto.getLon());
+        tbDriverDao.update(tbDriver);
     }
 }

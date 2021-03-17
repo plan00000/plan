@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_dictionary - 
- * @time 2021-03-14 18:12:48
+ * @time 2021-03-16 22:33:15
  */
 public class TbDictionary {
     /**
@@ -13,6 +13,12 @@ public class TbDictionary {
      */
     @ApiModelProperty("主键id")
     private String id;
+
+    /**
+     * 字典类型，对应表字段为：tb_dictionary.dictionary_Type
+     */
+    @ApiModelProperty("字典类型")
+    private String dictionaryType;
 
     /**
      * 编码值，对应表字段为：tb_dictionary.code
@@ -44,6 +50,14 @@ public class TbDictionary {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDictionaryType() {
+        return dictionaryType;
+    }
+
+    public void setDictionaryType(String dictionaryType) {
+        this.dictionaryType = dictionaryType;
     }
 
     public String getCode() {

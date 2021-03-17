@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
 @ApiIgnore
 @Api(tags = "91-系统登录")
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/loginold")
 public class LoginController {
     @Resource
     private LoginService loginService;

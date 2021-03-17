@@ -6,7 +6,6 @@
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
     <result column="mobileno" property="mobileno" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="VARCHAR" />
     <result column="location" property="location" jdbcType="VARCHAR" />
@@ -19,36 +18,32 @@
   </resultMap>
   
   <sql id="BaseColumnList" >
-    id, sex, user_name, headimgurl, mobileno, state, location, lat, lon, id_card, create_time, 
-    update_time, remark
+    id, sex, user_name, mobileno, state, location, lat, lon, id_card, create_time, update_time, 
+    remark
   </sql>
   
   <insert id="insert" parameterType="com.plan.demo.base.entity.TbPassenger" >
     INSERT INTO tb_passenger (id, sex, user_name, 
-      headimgurl, mobileno, state, 
-      location, lat, lon, 
-      id_card, create_time, update_time, 
-      remark)
+      mobileno, state, location, 
+      lat, lon, id_card, create_time, 
+      update_time, remark)
     VALUES (#{id,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{headimgurl,jdbcType=VARCHAR}, #{mobileno,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
-      #{location,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, 
-      #{idCard,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{remark,jdbcType=VARCHAR})
+      #{mobileno,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
   
   <insert id="insertBatch" parameterType="java.util.List" >
     INSERT INTO tb_passenger (id, 
-      sex, user_name, headimgurl, 
-      mobileno, state, location, 
-      lat, lon, id_card, 
-      create_time, update_time, remark
-      )
+      sex, user_name, mobileno, 
+      state, location, lat, 
+      lon, id_card, create_time, 
+      update_time, remark)
     VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
-      #{item.sex,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, #{item.headimgurl,jdbcType=VARCHAR}, 
-      #{item.mobileno,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR}, #{item.location,jdbcType=VARCHAR}, 
-      #{item.lat,jdbcType=VARCHAR}, #{item.lon,jdbcType=VARCHAR}, #{item.idCard,jdbcType=VARCHAR}, 
-      #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.remark,jdbcType=VARCHAR}
-      ) </foreach>
+      #{item.sex,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, #{item.mobileno,jdbcType=VARCHAR}, 
+      #{item.state,jdbcType=VARCHAR}, #{item.location,jdbcType=VARCHAR}, #{item.lat,jdbcType=VARCHAR}, 
+      #{item.lon,jdbcType=VARCHAR}, #{item.idCard,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.updateTime,jdbcType=TIMESTAMP}, #{item.remark,jdbcType=VARCHAR}) </foreach>
   </insert>
   
   <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbPassenger" >
@@ -62,9 +57,6 @@
       </if>
       <if test="userName != null" >
         user_name,
-      </if>
-      <if test="headimgurl != null" >
-        headimgurl,
       </if>
       <if test="mobileno != null" >
         mobileno,
@@ -104,9 +96,6 @@
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="headimgurl != null" >
-        #{headimgurl,jdbcType=VARCHAR},
-      </if>
       <if test="mobileno != null" >
         #{mobileno,jdbcType=VARCHAR},
       </if>
@@ -141,7 +130,6 @@
     UPDATE tb_passenger
     SET sex = #{sex,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
-      headimgurl = #{headimgurl,jdbcType=VARCHAR},
       mobileno = #{mobileno,jdbcType=VARCHAR},
       state = #{state,jdbcType=VARCHAR},
       location = #{location,jdbcType=VARCHAR},
@@ -162,9 +150,6 @@
       </if>
       <if test="userName != null" >
         user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="headimgurl != null" >
-        headimgurl = #{headimgurl,jdbcType=VARCHAR},
       </if>
       <if test="mobileno != null" >
         mobileno = #{mobileno,jdbcType=VARCHAR},
@@ -222,9 +207,6 @@
       </if>
       <if test="userName != null" >
          AND user_name = #{userName,jdbcType=VARCHAR}
-      </if>
-      <if test="headimgurl != null" >
-         AND headimgurl = #{headimgurl,jdbcType=VARCHAR}
       </if>
       <if test="mobileno != null" >
          AND mobileno = #{mobileno,jdbcType=VARCHAR}

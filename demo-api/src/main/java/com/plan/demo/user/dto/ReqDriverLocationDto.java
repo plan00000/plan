@@ -6,24 +6,18 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by wpr on 2021/3/14 0014.
+ * Created by ljw on 2021/3/16 0016.
  */
 @Setter
 @Getter
-@ApiModel(description = "修改乘客信息dto")
-public class ReqEditPassengerDto {
-    @ApiModelProperty("乘客id")
+@ApiModel(description = "修改司机所在位置请求dto")
+public class ReqDriverLocationDto {
+    @ApiModelProperty("司机id")
     private String id;
-    @ApiModelProperty("性别：1-男生，2-女生")
-    private String sex;
-    @ApiModelProperty("用户名称")
-    private String userName;
     @ApiModelProperty("用户目前位置")
     private String location;
-
     @ApiModelProperty("用户所在位置经纬度--纬度")
     private String lat;
-
     @ApiModelProperty("用户所在位置经纬度--经度")
     private String lon;
 }

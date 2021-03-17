@@ -1,12 +1,11 @@
 package com.plan.demo.order.service;
 
+import com.plan.demo.base.dao.TbDriverDao;
 import com.plan.demo.base.dao.TbOrderDao;
+import com.plan.demo.base.entity.TbDriver;
 import com.plan.demo.base.entity.TbOrder;
 import com.plan.demo.order.dao.OrderMapper;
-import com.plan.demo.order.dto.ReqAddOrderDto;
-import com.plan.demo.order.dto.ReqCancelOrderDto;
-import com.plan.demo.order.dto.ResPassengerOrderDto;
-import com.plan.demo.order.dto.ResPassengerOrderResultDto;
+import com.plan.demo.order.dto.*;
 import com.plan.frame.entity.ValueObject;
 import com.plan.frame.exception.SystemException;
 import com.plan.frame.helper.BeanHelper;
@@ -23,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Administrator 2021/3/14 0014
+ * @author ljw 2021/3/14 0014
  * @version V1.0.0
  * @description 订单管理service
  */
@@ -33,6 +32,8 @@ public class OrderService {
     private TbOrderDao tbOrderDao;
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private TbDriverDao tbDriverDao;
 
     /**
      * 新增订单
@@ -117,5 +118,46 @@ public class OrderService {
         tbOrder.setCancelReason(reqCancelOrderDto.getCancelReason());
         tbOrder.setOrderStatus("0");
         tbOrderDao.update(tbOrder);
+    }
+
+    /**
+     * 获取线路列表信息
+     * @return
+     * @throws Exception
+     */
+    public ResOrderLineResultDto getLineList()throws Exception{
+        ResOrderLineResultDto resOrderLineResultDto = new ResOrderLineResultDto();
+        List<ValueObject> lineVoList = orderMapper.findLineList();
+        List<ResOrderLineDto> resLineDtoList = new ArrayList<>();
+        if(CommonUtil.isNotEmpty(lineVoList)){
+            resLineDtoList=BeanHelper.voListToBeanList(lineVoList,ResOrderLineDto.class);
+        }
+        resOrderLineResultDto.setOrderLineList(resLineDtoList);
+        return resOrderLineResultDto;
+    }
+
+    /**
+     * 获取订单信息
+     * @param reqOrderInfoDto
+     * @return
+     * @throws Exception
+     */
+    public ResPassengerOrderInfoDto getPassengerOrderInfo(ReqOrderInfoDto reqOrderInfoDto) throws Exception{
+        TbOrder tbOrder = tbOrderDao.selectByPrimaryKey(reqOrderInfoDto.getId());
+        if(CommonUtil.isEmpty(tbOrder)){
+            throw new SystemException("获取订单信息失败","不存在该订单","请联系管理员处理");
+        }
+        ResPassengerOrderInfoDto resPassengerOrderInfoDto = new ResPassengerOrderInfoDto();
+        BeanHelper.copyBeanValue(tbOrder,resPassengerOrderInfoDto);
+        //如果订单处于司机已接单、订单进行中，订单完成则返回对应的司机信息
+        if(CommonUtil.isNotEmpty(tbOrder.getDriveId())){
+            TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(tbOrder.getDriveId());
+            ResPassengerOrderInfoDriverDto resPassengerOrderInfoDriverDto = new ResPassengerOrderInfoDriverDto();
+            if(CommonUtil.isNotEmpty(tbDriver)){
+                BeanHelper.copyBeanValue(tbDriver,resPassengerOrderInfoDriverDto);
+            }
+            resPassengerOrderInfoDto.setResPassengerOrderInfoDriverDto(resPassengerOrderInfoDriverDto);
+        }
+        return resPassengerOrderInfoDto;
     }
 }

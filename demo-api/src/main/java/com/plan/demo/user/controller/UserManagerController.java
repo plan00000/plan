@@ -18,7 +18,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 
 /**
- * @Author: linzhihua
+ * @Author: ljwwpr
  * @Description:
  * @Date: Created in 2021/2/23 9:02
  * @Modified By:
@@ -86,11 +86,11 @@ public class UserManagerController {
     }
 
     /**
-     * @Description:获取乘车人信息
+     * @Description:修改完善乘车人信息
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "修改完善乘车人信息")
+    @ApiOperation(value = "修改完善乘车人信息及更新乘客实时位置信息")
     @RequestMapping(value = "/editPassengerInfo",method = RequestMethod.POST)
     public Result<String> editPassengerInfo(@RequestBody ReqEditPassengerDto reqEditPassengerDto)throws RuntimeException{
         try {
@@ -104,6 +104,26 @@ public class UserManagerController {
             }
         }
     }
+    /**
+     * @Description:更新司机位置信息
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "更新司机位置信息")
+    @RequestMapping(value = "/editDriverLocation",method = RequestMethod.POST)
+    public Result<String> editDriverLocation(@RequestBody ReqDriverLocationDto reqDriverLocationDto)throws RuntimeException{
+        try {
+            userManagerService.editDriverLocation(reqDriverLocationDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("获取乘车人信息失败", e, "请联系管理员！");
+            }
+        }
+    }
+
 
 
 

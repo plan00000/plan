@@ -14,4 +14,5 @@ import java.util.List;
 @MyBatisPrimaryDao
 public interface OrderMapper {
     List<ValueObject> findNowOrderList(ValueObject valueObject);
+    List<ValueObject> findLineList();
 }
