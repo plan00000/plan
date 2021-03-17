@@ -12,13 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author ljwwpr 2021/3/01 0014
  * @version V1.0.0
  * @description 订单管理类
  */
-@Controller
+@RestController
 @Api(tags = "2-订单管理接口")
 @RequestMapping("/order")
 public class OrderController {

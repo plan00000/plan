@@ -65,9 +65,9 @@ CREATE TABLE `tb_driver` (
   -- 车辆品牌
   `car_mark` VARCHAR (50) DEFAULT null comment '车辆品牌',
   -- 驾驶证号
-  `drive_no` VARCHAR(50) DEFAULT null COMMENT '驾驶证号',
+  `driver_no` VARCHAR(50) DEFAULT null COMMENT '驾驶证号',
   -- 司机评分级：几颗星最高5个星1代表一个星
-  `drive_star` VARCHAR (10) DEFAULT null comment '司机评分级：几颗星最高5个星1代表一个星',
+  `driver_star` VARCHAR (10) DEFAULT null comment '司机评分级：几颗星最高5个星1代表一个星',
    -- 创建时间
   `create_time` datetime DEFAULT null COMMENT '创建时间',
   -- 更新时间

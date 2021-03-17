@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_driver - 
- * @time 2021-03-16 22:33:15
+ * @time 2021-03-17 17:49:39
  */
 public class TbDriver {
     /**
@@ -87,16 +87,16 @@ public class TbDriver {
     private String carMark;
 
     /**
-     * 驾驶证号，对应表字段为：tb_driver.drive_no
+     * 驾驶证号，对应表字段为：tb_driver.driver_no
      */
     @ApiModelProperty("驾驶证号")
-    private String driveNo;
+    private String driverNo;
 
     /**
-     * 司机评分级：几颗星最高5个星1代表一个星，对应表字段为：tb_driver.drive_star
+     * 司机评分级：几颗星最高5个星1代表一个星，对应表字段为：tb_driver.driver_star
      */
     @ApiModelProperty("司机评分级：几颗星最高5个星1代表一个星")
-    private String driveStar;
+    private String driverStar;
 
     /**
      * 创建时间，对应表字段为：tb_driver.create_time
@@ -214,20 +214,20 @@ public class TbDriver {
         this.carMark = carMark;
     }
 
-    public String getDriveNo() {
-        return driveNo;
+    public String getDriverNo() {
+        return driverNo;
     }
 
-    public void setDriveNo(String driveNo) {
-        this.driveNo = driveNo;
+    public void setDriverNo(String driverNo) {
+        this.driverNo = driverNo;
     }
 
-    public String getDriveStar() {
-        return driveStar;
+    public String getDriverStar() {
+        return driverStar;
     }
 
-    public void setDriveStar(String driveStar) {
-        this.driveStar = driveStar;
+    public void setDriverStar(String driverStar) {
+        this.driverStar = driverStar;
     }
 
     public Date getCreateTime() {
