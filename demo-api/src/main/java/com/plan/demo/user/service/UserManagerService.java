@@ -163,4 +163,19 @@ public class UserManagerService {
         tbDriver.setLon(reqDriverLocationDto.getLon());
         tbDriverDao.update(tbDriver);
     }
+
+    /**
+     * 乘客注销账号
+     * @param reqPassengerDto
+     * @throws Exception
+     */
+    public void dropPassenger(ReqPassengerDto reqPassengerDto)throws Exception{
+        TbPassenger tbPassenger = tbPassengerDao.selectByPrimaryKey(reqPassengerDto.getId());
+        if(CommonUtil.isEmpty(tbPassenger)){
+            throw new SystemException("乘客注销账号","不存在该用户","请联系管理员处理");
+        }
+        tbPassenger.setState("2");
+        tbPassenger.setMobileno("");
+        tbPassengerDao.update(tbPassenger);
+    }
 }

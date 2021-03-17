@@ -2,16 +2,20 @@ package com.plan.demo.order.service;
 
 import com.plan.demo.base.dao.TbDriverDao;
 import com.plan.demo.base.dao.TbOrderDao;
+import com.plan.demo.base.dao.TbPassengerDao;
 import com.plan.demo.base.entity.TbDriver;
 import com.plan.demo.base.entity.TbOrder;
+import com.plan.demo.base.entity.TbPassenger;
 import com.plan.demo.order.dao.OrderMapper;
 import com.plan.demo.order.dto.*;
+import com.plan.demo.util.GpsAreaUtil;
 import com.plan.frame.entity.ValueObject;
 import com.plan.frame.exception.SystemException;
 import com.plan.frame.helper.BeanHelper;
 import com.plan.frame.helper.ThreadLocalHelper;
 import com.plan.frame.system.dto.login.userInfo.UserInfoDto;
 import com.plan.frame.util.CommonUtil;
+import com.plan.frame.util.DateUtil;
 import com.plan.frame.util.StringUtil;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,8 @@ public class OrderService {
     private OrderMapper orderMapper;
     @Autowired
     private TbDriverDao tbDriverDao;
+    @Autowired
+    private TbPassengerDao tbPassengerDao;
 
     /**
      * 新增订单
@@ -43,7 +49,8 @@ public class OrderService {
     public void addOrder(ReqAddOrderDto reqAddOrderDto)throws Exception{
         //1.如果是预约单则预约时间要大于当前时间一个小时以上；
         if(StringUtil.equalsString(reqAddOrderDto.getOrderRealType(),"1")){
-            Date bespeakTimeMinOneHouse =DateUtils.addHours(reqAddOrderDto.getOrderBespeakTime(),-1);
+            Date orderBespeakTime = DateUtil.str2Date(reqAddOrderDto.getOrderBespeakTime(),"yyyy-MM-dd HH:mm:ss");
+            Date bespeakTimeMinOneHouse =DateUtils.addHours(orderBespeakTime,-1);
             Date nowDate =new Date();
             if(nowDate.before(bespeakTimeMinOneHouse)){
                 throw new SystemException("新增订单失败","预约时间不能小于一个小时","请重新选择预约时间");
@@ -51,10 +58,10 @@ public class OrderService {
         }
         //2.如果订单是实时订单，判断是否存在另一个实时订单
         if(StringUtil.equalsString(reqAddOrderDto.getOrderRealType(),"0")){
-            ValueObject valueObject = new ValueObject();
-            valueObject.put("userId",ThreadLocalHelper.getUser().getId());
-            valueObject.put("orderRealType","0");
-            List<ValueObject> nowOrderVoList = orderMapper.findNowOrderList(valueObject);
+            ReqOrderRealTypeDto reqOrderRealTypeDto = new ReqOrderRealTypeDto();
+            reqOrderRealTypeDto.setUserId(ThreadLocalHelper.getUser().getId());
+            reqOrderRealTypeDto.setOrderRealType("0");
+            List<ValueObject> nowOrderVoList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
             if(CommonUtil.isNotEmpty(nowOrderVoList)){
                 throw new SystemException("新增订单失败","已存在一个实时订单，不能从复下单","请耐心等待司机");
             }
@@ -72,9 +79,9 @@ public class OrderService {
      */
     public ResPassengerOrderResultDto getPassengerOrderList(){
         UserInfoDto userInfoDto = ThreadLocalHelper.getUser();
-        ValueObject valueObject = new ValueObject();
-        valueObject.put("userId",userInfoDto.getId());
-        List<ValueObject> valueObjectList = orderMapper.findNowOrderList(valueObject);
+        ReqOrderRealTypeDto reqOrderRealTypeDto = new ReqOrderRealTypeDto();
+        reqOrderRealTypeDto.setUserId(userInfoDto.getId());
+        List<ValueObject> valueObjectList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
         ResPassengerOrderResultDto resPassengerOrderResultDto = new ResPassengerOrderResultDto();
         if(CommonUtil.isNotEmpty(valueObjectList)){
             List<ResPassengerOrderDto> resPassengerOrderDtoList = BeanHelper.voListToBeanList(valueObjectList,ResPassengerOrderDto.class);
@@ -159,5 +166,26 @@ public class OrderService {
             resPassengerOrderInfoDto.setResPassengerOrderInfoDriverDto(resPassengerOrderInfoDriverDto);
         }
         return resPassengerOrderInfoDto;
+    }
+
+    /**
+     * 6-获取乘客与司机的距离
+     * @param reqOrderDto
+     * @return
+     * @throws Exception
+     */
+    public String getPassengerDriverDistance(ReqOrderDto reqOrderDto)throws Exception{
+        String distanceStr = null;
+        TbOrder tbOrder = tbOrderDao.selectByPrimaryKey(reqOrderDto.getId());
+        if(CommonUtil.isEmpty(tbOrder)){
+            throw new SystemException("获取乘客与司机的距离","不存在该订单","请联系管理员处理");
+        }
+        if(CommonUtil.isNotEmpty(tbOrder.getDriveId())&&CommonUtil.isNotEmpty(tbOrder.getUserId())){
+            TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(tbOrder.getDriveId());
+            TbPassenger tbPassenger = tbPassengerDao.selectByPrimaryKey(tbOrder.getUserId());
+            Double distance = GpsAreaUtil.getDistance(tbPassenger.getLon(),tbPassenger.getLat(),tbDriver.getLon(),tbDriver.getLat());
+            distanceStr = String.valueOf(distance);
+        }
+        return distanceStr;
     }
 }

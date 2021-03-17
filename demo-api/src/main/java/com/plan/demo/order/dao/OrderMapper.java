@@ -1,5 +1,6 @@
 package com.plan.demo.order.dao;
 
+import com.plan.demo.order.dto.ReqOrderRealTypeDto;
 import com.plan.frame.entity.ValueObject;
 import com.plan.frame.mybatis.MyBatisPrimaryDao;
 import org.apache.ibatis.annotations.Param;
@@ -13,6 +14,6 @@ import java.util.List;
  */
 @MyBatisPrimaryDao
 public interface OrderMapper {
-    List<ValueObject> findNowOrderList(ValueObject valueObject);
+    List<ValueObject> findNowOrderList(ReqOrderRealTypeDto reqOrderRealTypeDto);
     List<ValueObject> findLineList();
 }

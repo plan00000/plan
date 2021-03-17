@@ -30,7 +30,7 @@ public class UserManagerController {
     @Autowired
     private UserManagerService userManagerService;
 
-    @ApiOperation(value = "获取手机验证码")
+    @ApiOperation(value = "1-获取手机验证码")
     @RequestMapping(value = "/getMobileCode",method = RequestMethod.POST)
     public Result<ResMobileCodeDto>  getMobileCode(@RequestBody ReqMobileCodeDto reqMobileCodeDto)throws RuntimeException{
         try {
@@ -50,7 +50,7 @@ public class UserManagerController {
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "登录成功后,系统获取token")
+    @ApiOperation(value = "2-登录成功后,系统获取token")
     @RequestMapping(value = "/getToken",method = RequestMethod.POST)
     public Result<ResTokenDto>  getToken(@RequestBody ReqMobileCodeDto reqMobileCodeDto)throws RuntimeException{
         try {
@@ -70,7 +70,7 @@ public class UserManagerController {
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "获取乘车人信息")
+    @ApiOperation(value = "3-获取乘车人信息")
     @RequestMapping(value = "/getPassenger",method = RequestMethod.POST)
     public Result<ResPassengerDto> getPassenger()throws RuntimeException{
         try {
@@ -90,7 +90,7 @@ public class UserManagerController {
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "修改完善乘车人信息及更新乘客实时位置信息")
+    @ApiOperation(value = "3-修改完善乘车人信息及更新乘客实时位置信息")
     @RequestMapping(value = "/editPassengerInfo",method = RequestMethod.POST)
     public Result<String> editPassengerInfo(@RequestBody ReqEditPassengerDto reqEditPassengerDto)throws RuntimeException{
         try {
@@ -109,7 +109,7 @@ public class UserManagerController {
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "更新司机位置信息")
+    @ApiOperation(value = "4-更新司机位置信息")
     @RequestMapping(value = "/editDriverLocation",method = RequestMethod.POST)
     public Result<String> editDriverLocation(@RequestBody ReqDriverLocationDto reqDriverLocationDto)throws RuntimeException{
         try {
@@ -123,6 +123,28 @@ public class UserManagerController {
             }
         }
     }
+
+    /**
+     * @Description:乘客注销账号
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "5-乘客注销账号")
+    @RequestMapping(value = "/dropPassenger",method = RequestMethod.POST)
+    public Result<String> dropPassenger(@RequestBody ReqPassengerDto reqPassengerDto)throws RuntimeException{
+        try {
+            userManagerService.dropPassenger(reqPassengerDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("乘客注销账号失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+
 
 
 

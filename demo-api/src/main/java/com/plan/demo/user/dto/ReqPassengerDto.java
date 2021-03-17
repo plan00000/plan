@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by ljw on 2021/3/13 0013.
+ * Created by wpr on 2021/3/17 0017.
  */
 @Setter
 @Getter
-@ApiModel(description = "获取手机验证码")
-public class ResMobileCodeDto {
-    @ApiModelProperty("手机号验证码")
-    private String code;
+@ApiModel(description = "乘客请求dto")
+public class ReqPassengerDto {
+    @ApiModelProperty("乘客id")
+    private String id;
 }

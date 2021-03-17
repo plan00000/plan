@@ -47,6 +47,6 @@ public class ReqAddOrderDto {
     @ApiModelProperty("所属线路")
     private String lineId;
 
-    @ApiModelProperty("预约时间(当订单为预约单时预约时间不能为空)")
-    private Date orderBespeakTime;
+    @ApiModelProperty("预约时间(当订单为预约单时预约时间不能为空)格式：yyyy-MM-dd HH:mm:ss")
+    private String orderBespeakTime;
 }

@@ -1,6 +1,7 @@
 package com.plan.demo.order.controller;
 import com.plan.demo.order.dto.*;
 import com.plan.demo.order.service.OrderService;
+import com.plan.demo.user.dto.ReqDriverLocationDto;
 import com.plan.frame.entity.Result;
 import com.plan.frame.exception.BaseException;
 import com.plan.frame.exception.SystemException;
@@ -31,7 +32,7 @@ public class OrderController {
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "订单添加")
+    @ApiOperation(value = "1-订单添加")
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
     public Result<String> addOrder(@RequestBody ReqAddOrderDto reqAddOrderDto)throws RuntimeException{
         try {
@@ -51,7 +52,7 @@ public class OrderController {
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "获取线路列表")
+    @ApiOperation(value = "2-获取线路列表")
     @RequestMapping(value = "/getLine",method = RequestMethod.POST)
     public Result<ResOrderLineResultDto> getLine()throws RuntimeException{
         try {
@@ -71,7 +72,7 @@ public class OrderController {
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "获取乘客订单列表")
+    @ApiOperation(value = "3-获取乘客订单列表")
     @RequestMapping(value = "/getPassengerOrderList",method = RequestMethod.POST)
     public Result<ResPassengerOrderResultDto> getPassengerOrderList()throws RuntimeException{
         try {
@@ -92,7 +93,7 @@ public class OrderController {
      * @return
      * @throws RuntimeException
      */
-    @ApiOperation(value = "取消订单")
+    @ApiOperation(value = "4-取消订单")
     @RequestMapping(value = "/cancelOrder",method = RequestMethod.POST)
     public Result<String> cancelOrder(@RequestBody ReqCancelOrderDto reqCancelOrderDto)throws RuntimeException{
         try {
@@ -113,7 +114,7 @@ public class OrderController {
      * @return
      * @throws RuntimeException
      */
-    @ApiOperation(value = "查看订单信息")
+    @ApiOperation(value = "5-查看订单信息")
     @RequestMapping(value = "/getOrderInfo",method = RequestMethod.POST)
     public Result<ResPassengerOrderInfoDto> getPassengerOrderInfo(@RequestBody ReqOrderInfoDto reqOrderInfoDto)throws RuntimeException{
         try {
@@ -128,7 +129,25 @@ public class OrderController {
         }
     }
 
-
+    /**
+     * @Description:更新司机位置信息
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "6-获取乘客与司机的距离")
+    @RequestMapping(value = "/getPassengerDriverDistance",method = RequestMethod.GET)
+    public Result<String> getPassengerDriverDistance(@RequestBody ReqOrderDto reqOrderDto)throws RuntimeException{
+        try {
+            String distance = orderService.getPassengerDriverDistance(reqOrderDto);
+            return ResultHelper.success(distance);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("获取乘车人信息失败", e, "请联系管理员！");
+            }
+        }
+    }
 
 
 
