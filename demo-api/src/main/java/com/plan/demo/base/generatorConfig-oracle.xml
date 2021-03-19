@@ -3,7 +3,7 @@
 <!DOCTYPE generatorConfiguration  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-  <classPathEntry location="D:\mycode\mybatis-generator-core\src\main\lib\ojdbc6-11.2.0.2.0.jar" />
+  <classPathEntry location="D:\software\java\maven\repository\mysql\mysql-connector-java\5.1.47\mysql-connector-java-5.1.47.jar" />
 
   <context id="xyl-1" targetRuntime="MyBatis3Dao" defaultModelType="flat">
     <property name="autoDelimitKeywords" value="false" />
@@ -15,13 +15,13 @@
       <!--  关闭自动生成的注释  -->
       <property name="suppressAllComments" value="true" />
       <property name="addApiModelProperty" value="true" />  <!--生成Swagger ui注解-->
-      <property name="daoAnnotationClass" value="com.xmgps.tocc.frame.mybatis.MyBatisPrimaryDao"/>
+      <property name="daoAnnotationClass" value="com.plan.frame.mybatis.MyBatisPrimaryDao"/>
     </commentGenerator>
 
-    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-                    connectionURL="jdbc:oracle:thin:@10.5.18.125:1521:xxpttest"
-                    userId="TL_PT_DEMO"
-                    password="TL_PT_DEMO">
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                    connectionURL="jdbc:mysql://47.99.133.3:3306/cjc?useUnicode=true&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true"
+                    userId="root"
+                    password="root">
       <!-- 字段注释，针对oracle数据库 -->
       <property name="remarksReporting" value="true"></property>
     </jdbcConnection>
@@ -32,19 +32,19 @@
     </javaTypeResolver>
 
     <!--生成Model类存放位置-->
-    <javaModelGenerator targetProject="D:\mycode\tongling\readonly\xmgps-tocc\demo-api\src\main\java" targetPackage="com.xmgps.tocc.demo.base.entity">
+    <javaModelGenerator targetProject="D:\mycode\tongling\readonly\xmgps-tocc\demo-api\src\main\java" targetPackage="com.plan.demo.base.entity">
       <property name="enableSubPackages" value="false" />
       <property name="trimStrings" value="false" />
 
     </javaModelGenerator>
 
     <!--生成映射文件存放位置-->
-    <sqlMapGenerator targetProject="D:\mycode\tongling\readonly\xmgps-tocc\demo-api\src\main\java" targetPackage="com.xmgps.tocc.demo.base.mapper">
+    <sqlMapGenerator targetProject="D:\mycode\tongling\readonly\xmgps-tocc\demo-api\src\main\java" targetPackage="com.plan.demo.base.mapper">
       <property name="enableSubPackages" value="false" />
     </sqlMapGenerator>
 
     <!--生成Dao类存放位置-->
-    <javaClientGenerator type="SPRING" targetProject="D:\mycode\tongling\readonly\xmgps-tocc\demo-api\src\main\java" targetPackage="com.xmgps.tocc.demo.base.dao">
+    <javaClientGenerator type="SPRING" targetProject="D:\mycode\tongling\readonly\xmgps-tocc\demo-api\src\main\java" targetPackage="com.plan.demo.base.dao">
       <property name="enableSubPackages" value="false" />
       <!--<property name="rootClass" value="xyl.dao.MybatisBaseDao" />-->
     </javaClientGenerator>
@@ -69,7 +69,7 @@
       <!--<columnOverride column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />-->
       <!--<columnOverride column="DEAL_RESULT" javaType="java.lang.String" jdbcType="VARCHAR" />-->
     <!--</table>-->
-    <table schema="TL_PT_DEMO" tableName="TBPT_%"></table>
+    <table schema="cjc" tableName="tb_driver"></table>
 
   </context>
 </generatorConfiguration>

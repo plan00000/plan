@@ -21,11 +21,14 @@ public class ResDriverFirstPageOderDto {
     private String orderId;
 
     @ApiModelProperty("订单类型:0-包车，1-拼车")
-    @DictConvert(dictType = "")
     private String orderType;
 
     @ApiModelProperty("订单种类：0-实时单，1-预约单")
+    @DictConvert(dictType = "orderRealType")
     private String orderRealType;
+
+    @ApiModelProperty("列表订单展示信息")
+    private String showOrderInfo;
 
 
 

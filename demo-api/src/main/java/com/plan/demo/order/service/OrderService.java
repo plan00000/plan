@@ -18,6 +18,8 @@ import com.plan.frame.util.CommonUtil;
 import com.plan.frame.util.DateUtil;
 import com.plan.frame.util.StringUtil;
 import org.apache.commons.lang3.time.DateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,7 @@ import java.util.List;
  */
 @Service
 public class OrderService {
+    private Logger logger = LoggerFactory.getLogger(OrderService.class);
     @Autowired
     private TbOrderDao tbOrderDao;
     @Autowired
@@ -79,6 +82,7 @@ public class OrderService {
      */
     public ResPassengerOrderResultDto getPassengerOrderList(){
         UserInfoDto userInfoDto = ThreadLocalHelper.getUser();
+        logger.error("用户id："+userInfoDto.getId()+",用户名："+userInfoDto.getUserName());
         ReqOrderRealTypeDto reqOrderRealTypeDto = new ReqOrderRealTypeDto();
         reqOrderRealTypeDto.setUserId(userInfoDto.getId());
         List<ValueObject> valueObjectList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
@@ -187,5 +191,102 @@ public class OrderService {
             distanceStr = String.valueOf(distance);
         }
         return distanceStr;
+    }
+
+    /**
+     * 累死我了，我好惨去获取司机订单详细信息
+     * @param reqOrderDto
+     * @return
+     * @throws Exception
+     */
+    public ResDriverOrderInfoDto getDriverOrderInfo(ReqOrderDto reqOrderDto)throws Exception{
+        TbOrder tbOrder = tbOrderDao.selectByPrimaryKey(reqOrderDto.getId());
+        if(CommonUtil.isEmpty(tbOrder)){
+            throw new SystemException("获取订单详情信息失败","不存在该订单","请刷新页面");
+        }
+        ResDriverOrderInfoDto resDriverOrderInfoDto = new ResDriverOrderInfoDto();
+        BeanHelper.copyBeanValue(tbOrder,resDriverOrderInfoDto);
+        if(StringUtil.equalsString(tbOrder.getOrderType(),"0")){
+            resDriverOrderInfoDto.setOrderTypeInfo(tbOrder.getOrderUserNum()+"人包车");
+        }else{
+            resDriverOrderInfoDto.setOrderTypeInfo(tbOrder.getOrderUserNum()+"人拼车");
+        }
+        TbPassenger tbPassenger = tbPassengerDao.selectByPrimaryKey(tbOrder.getUserId());
+        resDriverOrderInfoDto.setMobileNo(tbPassenger.getMobileno());
+        resDriverOrderInfoDto.setLat(tbPassenger.getLat());
+        resDriverOrderInfoDto.setLon(tbPassenger.getLon());
+
+        return resDriverOrderInfoDto;
+    }
+
+    /**
+     *获取乘客完成订单信息
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public ResCompleteOrderResultDto getPassengerCompleteOrderList()throws Exception{
+        ResCompleteOrderResultDto resCompleteOrderResultDto = new ResCompleteOrderResultDto();
+        logger.error("用户id："+ThreadLocalHelper.getUser().getId()+",用户名："+ThreadLocalHelper.getUser().getUserName());
+        String passengerId = ThreadLocalHelper.getUser().getId();
+
+        TbOrder tbOrderQuery = new TbOrder();
+        tbOrderQuery.setOrderStatus("4");
+        tbOrderQuery.setUserId(passengerId);
+        List<TbOrder> tbOrderList = tbOrderDao.selectByEntitySelective(tbOrderQuery);
+        List<ResCompleteOrderDto> completeOrderDtoList = new ArrayList<>();
+        if(CommonUtil.isNotEmpty(tbOrderList)){
+            for(TbOrder tbOrder:tbOrderList){
+                ResCompleteOrderDto resCompleteOrderDto = new ResCompleteOrderDto();
+                resCompleteOrderDto.setId(tbOrder.getId());
+                resCompleteOrderDto.setOrderTime(DateUtil.date2Str(tbOrder.getOrderTime(),"yyyy-MM-dd HH:mm:ss"));
+                if(StringUtil.equalsString(tbOrder.getOrderType(),"0")) {
+                    resCompleteOrderDto.setOrderTypeInfo(tbOrder.getOrderUserNum() + "人包车");
+                }else{
+                    resCompleteOrderDto.setOrderTypeInfo(tbOrder.getOrderUserNum() + "人拼车");
+                }
+                resCompleteOrderDto.setOrderStartAddress(tbOrder.getOrderStartAddress());
+                resCompleteOrderDto.setOrderEndAddress(tbOrder.getOrderEndAddress());
+                completeOrderDtoList.add(resCompleteOrderDto);
+            }
+            resCompleteOrderResultDto.setCompleteOrderDtoList(completeOrderDtoList);
+        }
+        return resCompleteOrderResultDto;
+    }
+
+    /**
+     *获取司机完成订单信息
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public ResCompleteOrderResultDto getDriverCompleteOrderList()throws Exception{
+        ResCompleteOrderResultDto resCompleteOrderResultDto = new ResCompleteOrderResultDto();
+        logger.error("用户id："+ThreadLocalHelper.getUser().getId()+",用户名："+ThreadLocalHelper.getUser().getUserName());
+        String driverId = ThreadLocalHelper.getUser().getId();
+
+        TbOrder tbOrderQuery = new TbOrder();
+        tbOrderQuery.setOrderStatus("4");
+        tbOrderQuery.setDriveId(driverId);
+        List<TbOrder> tbOrderList = tbOrderDao.selectByEntitySelective(tbOrderQuery);
+        List<ResCompleteOrderDto> completeOrderDtoList = new ArrayList<>();
+        if(CommonUtil.isNotEmpty(tbOrderList)){
+            for(TbOrder tbOrder:tbOrderList){
+                ResCompleteOrderDto resCompleteOrderDto = new ResCompleteOrderDto();
+                resCompleteOrderDto.setId(tbOrder.getId());
+                resCompleteOrderDto.setOrderTime(DateUtil.date2Str(tbOrder.getOrderTime(),"yyyy-MM-dd HH:mm:ss"));
+                if(StringUtil.equalsString(tbOrder.getOrderType(),"0")) {
+                    resCompleteOrderDto.setOrderTypeInfo(tbOrder.getOrderUserNum() + "人包车");
+                }else{
+                    resCompleteOrderDto.setOrderTypeInfo(tbOrder.getOrderUserNum() + "人拼车");
+                }
+                resCompleteOrderDto.setOrderStartAddress(tbOrder.getOrderStartAddress());
+                resCompleteOrderDto.setOrderEndAddress(tbOrder.getOrderEndAddress());
+                completeOrderDtoList.add(resCompleteOrderDto);
+            }
+            resCompleteOrderResultDto.setCompleteOrderDtoList(completeOrderDtoList);
+        }
+
+        return resCompleteOrderResultDto;
     }
 }

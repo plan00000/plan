@@ -114,7 +114,7 @@ public class OrderController {
      * @return
      * @throws RuntimeException
      */
-    @ApiOperation(value = "5-查看订单信息")
+    @ApiOperation(value = "5-查看乘客订单信息")
     @RequestMapping(value = "/getOrderInfo",method = RequestMethod.POST)
     public Result<ResPassengerOrderInfoDto> getPassengerOrderInfo(@RequestBody ReqOrderInfoDto reqOrderInfoDto)throws RuntimeException{
         try {
@@ -145,6 +145,46 @@ public class OrderController {
                 throw (BaseException) e;
             } else {
                 throw new SystemException("获取乘车人信息失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    /**
+     * @Description:更新司机位置信息
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "7-获取司机端订单详细信息")
+    @RequestMapping(value = "/getDriverOrderInfo",method = RequestMethod.GET)
+    public Result<ResDriverOrderInfoDto> getDriverOrderInfo(@RequestBody ReqOrderDto reqOrderDto)throws RuntimeException{
+        try {
+            ResDriverOrderInfoDto resDriverOrderInfoDto = orderService.getDriverOrderInfo(reqOrderDto);
+            return ResultHelper.success(resDriverOrderInfoDto);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("获取司机端订单详细信息", e, "请联系管理员！");
+            }
+        }
+    }
+
+    /**
+     * @Description:获取乘客或司机历史完成订单
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "8-获取乘客或司机历史完成订单")
+    @RequestMapping(value = "/getCompleteOrderList",method = RequestMethod.GET)
+    public Result<ResCompleteOrderResultDto> getCompleteOrderList()throws RuntimeException{
+        try {
+            ResCompleteOrderResultDto resCompleteOrderResultDto = orderService.getCompleteOrderList();
+            return ResultHelper.success(resCompleteOrderResultDto);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("获取乘客或司机历史完成订单失败", e, "请联系管理员！");
             }
         }
     }

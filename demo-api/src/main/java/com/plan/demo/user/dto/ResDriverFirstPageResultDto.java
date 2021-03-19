@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * @Author: wpr
  * @Description:
@@ -26,6 +28,7 @@ public class ResDriverFirstPageResultDto {
     @ApiModelProperty("完成订单量")
     private String completeOrderNum;
 
-
+    @ApiModelProperty("司机订单列表信息")
+    private List<ResDriverFirstPageOderDto> orderList;
 
 }
