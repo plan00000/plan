@@ -44,6 +44,8 @@ CREATE TABLE `tb_driver` (
   `sex` varchar(20) DEFAULT '0' COMMENT '性别：1-男生，2-女生',
   -- 年龄
   `age` VARCHAR(10) DEFAULT null COMMENT '年龄',
+  -- 工龄
+  `work_age` VARCHAR (10) DEFAULT NULL CoMMENT '工龄',
   -- 密码
   `password` VARCHAR (50) DEFAULT NULL comment '密码',
   -- 用户信息表-用户名称
@@ -135,7 +137,7 @@ CREATE TABLE `tb_order` (
   -- 预约时间
   `order_bespeak_time` datetime DEFAULT null COMMENT '预约时间',
   -- 订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程结束'
-  `order_status` varchar(10) DEFAULT null COMMENT '订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成',
+  `order_status` varchar(10) DEFAULT null COMMENT '订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成，5-订单超时',
   -- 订单派单时间
   `order_receive_time` datetime DEFAULT null comment '订单派单时间',
   -- 关联用户id
