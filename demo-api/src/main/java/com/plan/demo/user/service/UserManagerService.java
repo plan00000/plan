@@ -186,9 +186,19 @@ public class UserManagerService {
      */
     public void registerDriver(ReqDriverRegisterDto reqDriverRegisterDto) throws Exception{
         if(CommonUtil.isNotEmpty(reqDriverRegisterDto.getPassword())){
-            throw new SystemException("","","");
+            throw new SystemException("司机注册失败","密码为空","请联系管理员处理");
         }
+        TbDriver tbDriver = new TbDriver();
         //对密码进行md5加密
-
+        BeanHelper.copyBeanValue(reqDriverRegisterDto,tbDriver);
+        tbDriver.setId(CommonUtil.getUUID());
+        tbDriver.setPassword(DigestUtils.md5DigestAsHex(tbDriver.getPassword().getBytes()));
+        tbDriver.setCreateTime(new Date());
+        tbDriver.setUpdateTime(new Date());
+        tbDriverDao.insert(tbDriver);
     }
+
+
+
+
 }
