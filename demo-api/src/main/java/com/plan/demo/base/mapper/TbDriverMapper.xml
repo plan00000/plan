@@ -6,6 +6,7 @@
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="mobileno" property="mobileno" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="VARCHAR" />
@@ -23,40 +24,42 @@
   </resultMap>
   
   <sql id="BaseColumnList" >
-    id, sex, age, user_name, mobileno, state, location, lat, lon, id_card, car_no, car_color, 
-    car_mark, driver_no, driver_star, create_time, update_time
+    id, sex, age, password, user_name, mobileno, state, location, lat, lon, id_card, 
+    car_no, car_color, car_mark, driver_no, driver_star, create_time, update_time
   </sql>
   
   <insert id="insert" parameterType="com.plan.demo.base.entity.TbDriver" >
     INSERT INTO tb_driver (id, sex, age, 
+      password, user_name, mobileno, 
+      state, location, lat, 
+      lon, id_card, car_no, 
+      car_color, car_mark, driver_no, 
+      driver_star, create_time, update_time
+      )
+    VALUES (#{id,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{mobileno,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
+      #{lon,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{carNo,jdbcType=VARCHAR}, 
+      #{carColor,jdbcType=VARCHAR}, #{carMark,jdbcType=VARCHAR}, #{driverNo,jdbcType=VARCHAR}, 
+      #{driverStar,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO tb_driver (id, 
+      sex, age, password, 
       user_name, mobileno, state, 
       location, lat, lon, 
       id_card, car_no, car_color, 
       car_mark, driver_no, driver_star, 
       create_time, update_time)
-    VALUES (#{id,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, 
-      #{userName,jdbcType=VARCHAR}, #{mobileno,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
-      #{location,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, 
-      #{idCard,jdbcType=VARCHAR}, #{carNo,jdbcType=VARCHAR}, #{carColor,jdbcType=VARCHAR}, 
-      #{carMark,jdbcType=VARCHAR}, #{driverNo,jdbcType=VARCHAR}, #{driverStar,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-  
-  <insert id="insertBatch" parameterType="java.util.List" >
-    INSERT INTO tb_driver (id, 
-      sex, age, user_name, 
-      mobileno, state, location, 
-      lat, lon, id_card, 
-      car_no, car_color, car_mark, 
-      driver_no, driver_star, create_time, 
-      update_time)
     VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
-      #{item.sex,jdbcType=VARCHAR}, #{item.age,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, 
-      #{item.mobileno,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR}, #{item.location,jdbcType=VARCHAR}, 
-      #{item.lat,jdbcType=VARCHAR}, #{item.lon,jdbcType=VARCHAR}, #{item.idCard,jdbcType=VARCHAR}, 
-      #{item.carNo,jdbcType=VARCHAR}, #{item.carColor,jdbcType=VARCHAR}, #{item.carMark,jdbcType=VARCHAR}, 
-      #{item.driverNo,jdbcType=VARCHAR}, #{item.driverStar,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
-      #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
+      #{item.sex,jdbcType=VARCHAR}, #{item.age,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, 
+      #{item.userName,jdbcType=VARCHAR}, #{item.mobileno,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR}, 
+      #{item.location,jdbcType=VARCHAR}, #{item.lat,jdbcType=VARCHAR}, #{item.lon,jdbcType=VARCHAR}, 
+      #{item.idCard,jdbcType=VARCHAR}, #{item.carNo,jdbcType=VARCHAR}, #{item.carColor,jdbcType=VARCHAR}, 
+      #{item.carMark,jdbcType=VARCHAR}, #{item.driverNo,jdbcType=VARCHAR}, #{item.driverStar,jdbcType=VARCHAR}, 
+      #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
   </insert>
   
   <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbDriver" >
@@ -70,6 +73,9 @@
       </if>
       <if test="age != null" >
         age,
+      </if>
+      <if test="password != null" >
+        password,
       </if>
       <if test="userName != null" >
         user_name,
@@ -124,6 +130,9 @@
       <if test="age != null" >
         #{age,jdbcType=VARCHAR},
       </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
@@ -173,6 +182,7 @@
     UPDATE tb_driver
     SET sex = #{sex,jdbcType=VARCHAR},
       age = #{age,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       mobileno = #{mobileno,jdbcType=VARCHAR},
       state = #{state,jdbcType=VARCHAR},
@@ -198,6 +208,9 @@
       </if>
       <if test="age != null" >
         age = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="userName != null" >
         user_name = #{userName,jdbcType=VARCHAR},
@@ -270,6 +283,9 @@
       </if>
       <if test="age != null" >
          AND age = #{age,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null" >
+         AND password = #{password,jdbcType=VARCHAR}
       </if>
       <if test="userName != null" >
          AND user_name = #{userName,jdbcType=VARCHAR}

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Administrator 2021/3/14 0014
+ * @author ljwwpr 2021/3/14 0014
  * @version V1.0.0
  * @description 用户管理service
  */
@@ -177,5 +177,18 @@ public class UserManagerService {
         tbPassenger.setState("2");
         tbPassenger.setMobileno("");
         tbPassengerDao.update(tbPassenger);
+    }
+
+    /**
+     * 司机注册
+     * @param reqDriverRegisterDto
+     * @throws Exception
+     */
+    public void registerDriver(ReqDriverRegisterDto reqDriverRegisterDto) throws Exception{
+        if(CommonUtil.isNotEmpty(reqDriverRegisterDto.getPassword())){
+            throw new SystemException("","","");
+        }
+        //对密码进行md5加密
+
     }
 }

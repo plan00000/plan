@@ -44,6 +44,8 @@ CREATE TABLE `tb_driver` (
   `sex` varchar(20) DEFAULT '0' COMMENT '性别：1-男生，2-女生',
   -- 年龄
   `age` VARCHAR(10) DEFAULT null COMMENT '年龄',
+  -- 密码
+  `password` VARCHAR (50) DEFAULT NULL comment '密码',
   -- 用户信息表-用户名称
   `user_name` varchar(40) DEFAULT '' COMMENT '用户名称',
   -- 手机号码

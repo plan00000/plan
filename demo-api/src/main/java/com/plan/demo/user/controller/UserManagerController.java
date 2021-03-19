@@ -144,6 +144,26 @@ public class UserManagerController {
         }
     }
 
+    /**
+     * @Description:司机注册
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "6-司机注册")
+    @RequestMapping(value = "/registerDriver",method = RequestMethod.POST)
+    public Result<String> registerDriver(@RequestBody ReqDriverRegisterDto reqDriverRegisterDto)throws RuntimeException{
+        try {
+            userManagerService.registerDriver(reqDriverRegisterDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("乘客注销账号失败", e, "请联系管理员！");
+            }
+        }
+    }
+
 
 
 

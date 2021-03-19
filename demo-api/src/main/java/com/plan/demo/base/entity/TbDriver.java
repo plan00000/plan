@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_driver - 
- * @time 2021-03-17 17:49:39
+ * @time 2021-03-18 22:10:10
  */
 public class TbDriver {
     /**
@@ -25,6 +25,12 @@ public class TbDriver {
      */
     @ApiModelProperty("年龄")
     private String age;
+
+    /**
+     * 密码，对应表字段为：tb_driver.password
+     */
+    @ApiModelProperty("密码")
+    private String password;
 
     /**
      * 用户名称，对应表字段为：tb_driver.user_name
@@ -132,6 +138,14 @@ public class TbDriver {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserName() {
