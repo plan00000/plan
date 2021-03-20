@@ -170,21 +170,41 @@ public class OrderController {
     }
 
     /**
-     * @Description:获取乘客或司机历史完成订单
+     * @Description:获取乘客历史完成订单
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "8-获取乘客或司机历史完成订单")
-    @RequestMapping(value = "/getCompleteOrderList",method = RequestMethod.GET)
-    public Result<ResCompleteOrderResultDto> getCompleteOrderList()throws RuntimeException{
+    @ApiOperation(value = "8-获取乘客历史完成订单")
+    @RequestMapping(value = "/getPassengerCompleteOrderList",method = RequestMethod.GET)
+    public Result<ResCompleteOrderResultDto> getPassengerCompleteOrderList()throws RuntimeException{
         try {
-            ResCompleteOrderResultDto resCompleteOrderResultDto = orderService.getCompleteOrderList();
+            ResCompleteOrderResultDto resCompleteOrderResultDto = orderService.getPassengerCompleteOrderList();
             return ResultHelper.success(resCompleteOrderResultDto);
         }catch (Exception e) {
             if (e instanceof BaseException) {
                 throw (BaseException) e;
             } else {
-                throw new SystemException("获取乘客或司机历史完成订单失败", e, "请联系管理员！");
+                throw new SystemException("获取乘客历史完成订单失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    /**
+     * @Description:获取乘客历史完成订单
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "9-获取司机历史完成订单")
+    @RequestMapping(value = "/getDriverCompleteOrderList",method = RequestMethod.GET)
+    public Result<ResCompleteOrderResultDto> getCompleteOrderList()throws RuntimeException{
+        try {
+            ResCompleteOrderResultDto resCompleteOrderResultDto = orderService.getDriverCompleteOrderList();
+            return ResultHelper.success(resCompleteOrderResultDto);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("获取司机历史完成订单失败", e, "请联系管理员！");
             }
         }
     }
