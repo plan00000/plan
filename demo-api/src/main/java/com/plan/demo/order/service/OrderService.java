@@ -81,10 +81,10 @@ public class OrderService {
      * 获取用户订单信息
      */
     public ResPassengerOrderResultDto getPassengerOrderList(){
-        UserInfoDto userInfoDto = ThreadLocalHelper.getUser();
-        logger.error("用户id："+userInfoDto.getId()+",用户名："+userInfoDto.getUserName());
+//        UserInfoDto userInfoDto = ThreadLocalHelper.getUser();
         ReqOrderRealTypeDto reqOrderRealTypeDto = new ReqOrderRealTypeDto();
-        reqOrderRealTypeDto.setUserId(userInfoDto.getId());
+//        reqOrderRealTypeDto.setUserId(userInfoDto.getId());
+        reqOrderRealTypeDto.setUserId("1");
         List<ValueObject> valueObjectList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
         ResPassengerOrderResultDto resPassengerOrderResultDto = new ResPassengerOrderResultDto();
         if(CommonUtil.isNotEmpty(valueObjectList)){

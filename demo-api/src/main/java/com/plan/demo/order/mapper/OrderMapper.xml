@@ -5,8 +5,8 @@
     select * from tb_order a
     where a.user_id = #{userId}
     and a.order_status in('1','2','3')
-    <if test="orderRealType != null or orderRealType !=''">
-        and a.order_real_type = #{orderRealType}
+    <if test="orderRealType != null" >
+      and a.order_real_type = #{orderRealType}
     </if>
   </select>
   <select id="findLineList" resultType="vo" parameterType="vo">
