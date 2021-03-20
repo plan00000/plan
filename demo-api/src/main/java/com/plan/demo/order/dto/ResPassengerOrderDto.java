@@ -1,5 +1,6 @@
 package com.plan.demo.order.dto;
 
+import com.plan.frame.entity.DateConvert;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -17,7 +18,8 @@ public class ResPassengerOrderDto {
     @ApiModelProperty("订单表id")
     private String id;
     @ApiModelProperty("下单时间")
-    private Date orderTime;
+    @DateConvert(format = "yyyy-MM-dd HH:mm:ss")
+    private String orderTime;
     @ApiModelProperty("订单类型:0-包车，1-拼车")
     private String orderType;
     @ApiModelProperty("订单种类：0-实时单，1-预约单")

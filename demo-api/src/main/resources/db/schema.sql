@@ -54,6 +54,8 @@ CREATE TABLE `tb_driver` (
   `mobileno` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号码',
   -- 状态 0-禁用1-启用2-删除
   `state` varchar(6) DEFAULT '0' COMMENT '状态 0-禁用,1-启用,2-删除',
+  -- 司机状态（0-下班，1-上班）
+  `driver_status` VARCHAR (6) DEFAULT null comment '司机状态（0-下班，1-上班）',
   -- 用户目前位置
   `location` varchar(30) default null COMMENT '用户目前位置',
   -- 用户所在位置经纬度--纬度

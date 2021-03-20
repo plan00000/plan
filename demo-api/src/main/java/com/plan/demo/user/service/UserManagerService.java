@@ -46,6 +46,20 @@ public class UserManagerService {
     private TbOrderDao tbOrderDao;
 
     /**
+     * 获取随机码
+     * @param reqMobileCodeDto
+     * @return
+     * @throws Exception
+     */
+    public ResMobileCodeDto getMobileCode(ReqMobileCodeDto reqMobileCodeDto)throws Exception{
+        int code = (int)(Math.random()*8998)+1000+1;
+        redisUtil.set(reqMobileCodeDto.getMobileno(),String.valueOf(code),5L, TimeUnit.SECONDS);
+        ResMobileCodeDto resMobileCodeDto = new ResMobileCodeDto();
+        resMobileCodeDto.setCode(String.valueOf(code));
+        return resMobileCodeDto;
+    }
+
+    /**
      * 用户登录-生成token
      * @param reqMobileCodeDto
      * @return
@@ -194,6 +208,10 @@ public class UserManagerService {
         if(CommonUtil.isNotEmpty(reqDriverRegisterDto.getPassword())){
             throw new SystemException("司机注册失败","密码为空","请联系管理员处理");
         }
+        //ljw在判断手机号是否注册过，注册过了就不让wpr注册
+        TbDriver ljwTbDriverQuery = new TbDriver();
+        ljwTbDriverQuery.setMobileno(reqDriverRegisterDto.getMobileno());
+
         TbDriver tbDriver = new TbDriver();
         //对密码进行md5加密
         BeanHelper.copyBeanValue(reqDriverRegisterDto,tbDriver);
@@ -248,7 +266,30 @@ public class UserManagerService {
         return resDriverFirstPageResultDto;
     }
 
-
+    /**
+     * 司机登录
+     * 拉拉拉拉德玛西亚万岁万岁
+     *还是去掉不实现，跟乘客端一样采用手机验证码登录，后面要改在说
+     * @param reqDriverLoginDto
+     * @throws Exception
+     */
+    public void loginDriver(ReqDriverLoginDto reqDriverLoginDto) throws Exception{
+        if(CommonUtil.isEmpty(reqDriverLoginDto.getMobileno())||CommonUtil.isEmpty(reqDriverLoginDto.getPassword())){
+            throw new SystemException("司机登录失败","账号或手机不能为空","请检查");
+        }
+        TbDriver tbDriverQuery = new TbDriver();
+        tbDriverQuery.setMobileno(reqDriverLoginDto.getMobileno());
+        List<TbDriver> tbDriverList = tbDriverDao.selectByEntitySelective(tbDriverQuery);
+        if(CommonUtil.isEmpty(tbDriverList)){
+            throw new SystemException("司机登录失败","该账号未注册","请先注册");
+        }
+        TbDriver tbDriver = tbDriverList.get(0);
+        //密码
+        Boolean ljwPasswordCheck =StringUtil.equalsString(tbDriver.getPassword(),DigestUtils.md5DigestAsHex(reqDriverLoginDto.getPassword().getBytes()));
+        if(!ljwPasswordCheck){
+            throw new SystemException("司机登录失败","密码不正确","请重新输入");
+        }
+    }
 
 
 

@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_driver - 
- * @time 2021-03-19 22:40:12
+ * @time 2021-03-20 23:53:42
  */
 public class TbDriver {
     /**
@@ -55,6 +55,12 @@ public class TbDriver {
      */
     @ApiModelProperty("状态 0-禁用,1-启用,2-删除")
     private String state;
+
+    /**
+     * 司机状态（0-下班，1-上班），对应表字段为：tb_driver.driver_status
+     */
+    @ApiModelProperty("司机状态（0-下班，1-上班）")
+    private String driverStatus;
 
     /**
      * 用户目前位置，对应表字段为：tb_driver.location
@@ -184,6 +190,14 @@ public class TbDriver {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getDriverStatus() {
+        return driverStatus;
+    }
+
+    public void setDriverStatus(String driverStatus) {
+        this.driverStatus = driverStatus;
     }
 
     public String getLocation() {

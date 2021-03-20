@@ -34,8 +34,7 @@ public class UserManagerController {
     @RequestMapping(value = "/getMobileCode",method = RequestMethod.POST)
     public Result<ResMobileCodeDto>  getMobileCode(@RequestBody ReqMobileCodeDto reqMobileCodeDto)throws RuntimeException{
         try {
-            ResMobileCodeDto resMobileCodeDto = new ResMobileCodeDto();
-            resMobileCodeDto.setCode("123323");
+            ResMobileCodeDto resMobileCodeDto = userManagerService.getMobileCode(reqMobileCodeDto);
             return ResultHelper.success(resMobileCodeDto);
         }catch (Exception e) {
             if (e instanceof BaseException) {
@@ -160,6 +159,26 @@ public class UserManagerController {
                 throw (BaseException) e;
             } else {
                 throw new SystemException("乘客注销账号失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    /**
+     * @Description:司机账号登录
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "7-司机账号登录")
+    @RequestMapping(value = "/loginDriver",method = RequestMethod.POST)
+    public Result<String> loginDriver(@RequestBody ReqDriverLoginDto reqDriverLoginDto)throws RuntimeException{
+        try {
+            userManagerService.loginDriver(reqDriverLoginDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("司机账号登录失败", e, "请联系管理员！");
             }
         }
     }
