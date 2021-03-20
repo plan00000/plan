@@ -1,10 +1,13 @@
 package com.plan.demo.user.service;
 
 import com.plan.demo.base.dao.TbDriverDao;
+import com.plan.demo.base.dao.TbOrderDao;
 import com.plan.demo.base.dao.TbPassengerDao;
 import com.plan.demo.base.entity.TbDriver;
+import com.plan.demo.base.entity.TbOrder;
 import com.plan.demo.base.entity.TbPassenger;
 import com.plan.demo.user.dto.*;
+import com.plan.frame.cache.DictinaryCache;
 import com.plan.frame.exception.SystemException;
 import com.plan.frame.helper.BeanHelper;
 import com.plan.frame.helper.ThreadLocalHelper;
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -38,6 +42,8 @@ public class UserManagerService {
     private TbPassengerDao tbPassengerDao;
     @Autowired
     private TbDriverDao tbDriverDao;
+    @Autowired
+    private TbOrderDao tbOrderDao;
 
     /**
      * 用户登录-生成token
@@ -197,6 +203,52 @@ public class UserManagerService {
         tbDriver.setUpdateTime(new Date());
         tbDriverDao.insert(tbDriver);
     }
+
+    /**
+     * 司机首页信息
+     * @return
+     * @throws Exception
+     */
+    public ResDriverFirstPageResultDto getDriverFirstPageInfo()throws Exception{
+        ResDriverFirstPageResultDto resDriverFirstPageResultDto = new ResDriverFirstPageResultDto();
+        String driverId = ThreadLocalHelper.getUser().getId();
+        TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(driverId);
+        resDriverFirstPageResultDto.setId(driverId);
+        resDriverFirstPageResultDto.setWorkYears(tbDriver.getWorkAge());
+
+        TbOrder tbOrderQuery = new TbOrder();
+        tbOrderQuery.setDriveId(driverId);
+        tbOrderQuery.setOrderStatus("4");
+        List<TbOrder> completeTbOrderList = tbOrderDao.selectByEntitySelective(tbOrderQuery);
+        if(CommonUtil.isNotEmpty(completeTbOrderList)){
+            int orderNum = completeTbOrderList.size();
+            resDriverFirstPageResultDto.setCompleteOrderNum(String.valueOf(orderNum));
+        }else{
+            resDriverFirstPageResultDto.setCompleteOrderNum("0");
+        }
+        //未完成订单
+        tbOrderQuery.setOrderStatus("2");
+        List<TbOrder> ljwTbOrderList = tbOrderDao.selectByEntitySelective(tbOrderQuery);
+        List<ResDriverFirstPageOderDto >resDriverFirstPageOderDtoList = new ArrayList<>();
+        if(CommonUtil.isNotEmpty(ljwTbOrderList)){
+            for(TbOrder tbOrder:ljwTbOrderList){
+                ResDriverFirstPageOderDto resDriverFirstPageOderDto = new ResDriverFirstPageOderDto();
+                resDriverFirstPageOderDto.setOrderId(tbOrder.getId());
+                resDriverFirstPageOderDto.setOrderRealType(tbOrder.getOrderRealType());
+                resDriverFirstPageOderDto.setOrderType(DictinaryCache.getCache().getDictCnName("order_type",tbOrder.getOrderType()));
+                if(StringUtil.equalsString(tbOrder.getOrderRealType(),"0")){
+                    resDriverFirstPageOderDto.setShowOrderInfo("您有一个新的包车订单");
+                }else{
+                    resDriverFirstPageOderDto.setShowOrderInfo("您有一个新的拼车订单");
+                }
+                resDriverFirstPageOderDtoList.add(resDriverFirstPageOderDto);
+            }
+        }
+        resDriverFirstPageResultDto.setOrderList(resDriverFirstPageOderDtoList);
+        return resDriverFirstPageResultDto;
+    }
+
+
 
 
 
