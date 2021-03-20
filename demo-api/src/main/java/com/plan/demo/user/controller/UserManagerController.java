@@ -183,6 +183,26 @@ public class UserManagerController {
         }
     }
 
+    /**
+     * @Description:司机账号登录
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "8-司机上下班")
+    @RequestMapping(value = "/driverCommuting",method = RequestMethod.POST)
+    public Result<String> driverCommuting(@RequestBody ReqDriverCommutingDto reqDriverCommutingDto)throws RuntimeException{
+        try {
+            userManagerService.driverCommuting(reqDriverCommutingDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("司机上下班失败", e, "请联系管理员！");
+            }
+        }
+    }
+
 
 
 

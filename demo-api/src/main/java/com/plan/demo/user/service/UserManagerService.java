@@ -291,6 +291,18 @@ public class UserManagerService {
         }
     }
 
+    /**
+     * 司机更改上下班
+     * @param reqDriverCommutingDto
+     * @throws Exception
+     */
+    public void driverCommuting(ReqDriverCommutingDto reqDriverCommutingDto)throws Exception{
+        String driverId = ThreadLocalHelper.getUser().getId();
+        TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(driverId);
+        tbDriver.setDriverStatus(reqDriverCommutingDto.getDriverStatus());
+        tbDriverDao.update(tbDriver);
+    }
+
 
 
 
