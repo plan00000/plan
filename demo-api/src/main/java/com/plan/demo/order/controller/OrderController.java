@@ -34,10 +34,10 @@ public class OrderController {
      */
     @ApiOperation(value = "1-订单添加")
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
-    public Result<String> addOrder(@RequestBody ReqAddOrderDto reqAddOrderDto)throws RuntimeException{
+    public Result<ResAddOrderDto> addOrder(@RequestBody ReqAddOrderDto reqAddOrderDto)throws RuntimeException{
         try {
-            orderService.addOrder(reqAddOrderDto);
-            return ResultHelper.success();
+            ResAddOrderDto resAddOrderDto = orderService.addOrder(reqAddOrderDto);
+            return ResultHelper.success(resAddOrderDto);
         }catch (Exception e) {
             if (e instanceof BaseException) {
                 throw (BaseException) e;

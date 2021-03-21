@@ -109,6 +109,7 @@ public class UserManagerService {
         String key = DigestUtils.md5DigestAsHex(token.getBytes());
         //放入缓存
         redisUtil.set(key,userInfoDto,3L, TimeUnit.HOURS);
+        resTokenDto.setId(userInfoDto.getId());
         return resTokenDto;
     }
 

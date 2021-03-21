@@ -49,7 +49,7 @@ public class OrderService {
      * @param reqAddOrderDto
      * @throws Exception
      */
-    public void addOrder(ReqAddOrderDto reqAddOrderDto)throws Exception{
+    public ResAddOrderDto addOrder(ReqAddOrderDto reqAddOrderDto)throws Exception{
         //1.如果是预约单则预约时间要大于当前时间一个小时以上；
         if(StringUtil.equalsString(reqAddOrderDto.getOrderRealType(),"1")){
             Date orderBespeakTime = DateUtil.str2Date(reqAddOrderDto.getOrderBespeakTime(),"yyyy-MM-dd HH:mm:ss");
@@ -70,11 +70,16 @@ public class OrderService {
             }
         }
         TbOrder tbOrder = new TbOrder();
-        BeanHelper.copyBeanValue(reqAddOrderDto,tbOrder);
+        if(CommonUtil.isEmpty(reqAddOrderDto.getUserId())){
+            tbOrder.setUserId(ThreadLocalHelper.getUser().getId());
+        }
         tbOrder.setId(CommonUtil.getUUID());
         tbOrder.setCreateTime(new Date());
         tbOrder.setOrderStatus("1");
         tbOrderDao.insert(tbOrder);
+        ResAddOrderDto resAddOrderDto = new ResAddOrderDto();
+        resAddOrderDto.setId(tbOrder.getId());
+        return resAddOrderDto;
     }
 
     /**

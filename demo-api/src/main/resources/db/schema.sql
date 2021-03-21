@@ -244,3 +244,23 @@ CREATE TABLE `tb_dictionary` (
   `update_time`datetime DEFAULT null COMMENT '更新时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id' ,
+  `role_id` bigint(20) DEFAULT NULL COMMENT '角色id',
+  `username` varchar(40) DEFAULT '' COMMENT '用户名',
+  `realname` varchar(20) NOT NULL DEFAULT '' COMMENT '真实名',
+  `headimgurl` varchar(200) NOT NULL DEFAULT '' COMMENT '头像',
+  `password` varchar(50) NOT NULL DEFAULT '' COMMENT '密码',
+  `salt` varchar(64) NOT NULL DEFAULT '' COMMENT '密码盐',
+  `mobileno` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号',
+  `state` smallint(6) DEFAULT '0' COMMENT '状态',
+  `user_type` smallint(6) DEFAULT '0' COMMENT '用户类别',
+  `createdate` datetime  DEFAULT NULL COMMENT '创建时间',
+  `login_times` int(11) NOT NULL DEFAULT '0' COMMENT '登录次数',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `logindate` datetime DEFAULT NULL COMMENT '登录时间',
+  `lastlogindate` datetime DEFAULT NULL COMMENT '最新登录时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_roleId` (`role_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
