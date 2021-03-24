@@ -135,7 +135,7 @@ public class OrderController {
      * @throws RuntimeException
      */
     @ApiOperation(value = "6-获取乘客与司机的距离")
-    @RequestMapping(value = "/getPassengerDriverDistance",method = RequestMethod.GET)
+    @RequestMapping(value = "/getPassengerDriverDistance",method = RequestMethod.POST)
     public Result<String> getPassengerDriverDistance(@RequestBody ReqOrderDto reqOrderDto)throws RuntimeException{
         try {
             String distance = orderService.getPassengerDriverDistance(reqOrderDto);
@@ -155,7 +155,7 @@ public class OrderController {
      * @throws RuntimeException
      */
     @ApiOperation(value = "7-获取司机端订单详细信息")
-    @RequestMapping(value = "/getDriverOrderInfo",method = RequestMethod.GET)
+    @RequestMapping(value = "/getDriverOrderInfo",method = RequestMethod.POST)
     public Result<ResDriverOrderInfoDto> getDriverOrderInfo(@RequestBody ReqOrderDto reqOrderDto)throws RuntimeException{
         try {
             ResDriverOrderInfoDto resDriverOrderInfoDto = orderService.getDriverOrderInfo(reqOrderDto);
@@ -205,6 +205,36 @@ public class OrderController {
                 throw (BaseException) e;
             } else {
                 throw new SystemException("获取司机历史完成订单失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    @ApiOperation(value = "10-司机完成订单")
+    @RequestMapping(value = "/completeOrder",method = RequestMethod.POST)
+    public Result<String> completeOrder(@RequestBody ReqOrderDto reqOrderDto)throws RuntimeException{
+        try {
+               orderService.completeOrder(reqOrderDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("司机完成订单失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    @ApiOperation(value = "11-修改订单下个状态。（临时使用）")
+    @RequestMapping(value = "/nexOrderStatus",method = RequestMethod.POST)
+    public Result<String> nexOrderStatus(@RequestBody ReqOrderNextStatusDto reqOrderNextStatusDto)throws RuntimeException{
+        try {
+            orderService.nexOrderStatus(reqOrderNextStatusDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("修改订单下个状态失败", e, "请联系管理员！");
             }
         }
     }

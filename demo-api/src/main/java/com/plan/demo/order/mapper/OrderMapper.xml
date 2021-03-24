@@ -13,5 +13,10 @@
     select a.id as line_id,concat(a.start_address,'-',a.end_address) as line_name
     from tb_line a
   </select>
+
+  <select id="findMaxId" resultType="java.lang.Long">
+    select max(id) as id
+    from tb_order
+  </select>
   
 </mapper>

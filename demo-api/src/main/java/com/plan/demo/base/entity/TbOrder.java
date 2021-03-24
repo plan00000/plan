@@ -5,14 +5,14 @@ import java.util.Date;
 
 /**
  * @table tb_order - 
- * @time 2021-03-16 22:33:15
+ * @time 2021-03-23 20:21:44
  */
 public class TbOrder {
     /**
      * 订单表id，对应表字段为：tb_order.id
      */
     @ApiModelProperty("订单表id")
-    private String id;
+    private Long id;
 
     /**
      * 下单时间，对应表字段为：tb_order.order_time
@@ -66,7 +66,7 @@ public class TbOrder {
      * 司机id，对应表字段为：tb_order.drive_id
      */
     @ApiModelProperty("司机id")
-    private String driveId;
+    private Long driveId;
 
     /**
      * 订单类型:0-包车，1-拼车，对应表字段为：tb_order.order_type
@@ -87,22 +87,22 @@ public class TbOrder {
     private Date orderBespeakTime;
 
     /**
-     * 订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成，对应表字段为：tb_order.order_status
+     * 订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成，5-订单超时，对应表字段为：tb_order.order_status
      */
-    @ApiModelProperty("订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成")
+    @ApiModelProperty("订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成，5-订单超时")
     private String orderStatus;
 
     /**
-     * 订单派单时间，对应表字段为：tb_order.order_receive_time
+     * 派单时间，对应表字段为：tb_order.order_receive_time
      */
-    @ApiModelProperty("订单派单时间")
+    @ApiModelProperty("派单时间")
     private Date orderReceiveTime;
 
     /**
      * 关联用户id，对应表字段为：tb_order.user_id
      */
     @ApiModelProperty("关联用户id")
-    private String userId;
+    private Long userId;
 
     /**
      * 乘客人数，对应表字段为：tb_order.order_user_num
@@ -114,7 +114,7 @@ public class TbOrder {
      * ，对应表字段为：tb_order.line_id
      */
     @ApiModelProperty("")
-    private String lineId;
+    private Long lineId;
 
     /**
      * ，对应表字段为：tb_order.remark
@@ -140,11 +140,11 @@ public class TbOrder {
     @ApiModelProperty("更新时间")
     private Date updateTime;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -212,11 +212,11 @@ public class TbOrder {
         this.orderEndLat = orderEndLat;
     }
 
-    public String getDriveId() {
+    public Long getDriveId() {
         return driveId;
     }
 
-    public void setDriveId(String driveId) {
+    public void setDriveId(Long driveId) {
         this.driveId = driveId;
     }
 
@@ -260,11 +260,11 @@ public class TbOrder {
         this.orderReceiveTime = orderReceiveTime;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -276,11 +276,11 @@ public class TbOrder {
         this.orderUserNum = orderUserNum;
     }
 
-    public String getLineId() {
+    public Long getLineId() {
         return lineId;
     }
 
-    public void setLineId(String lineId) {
+    public void setLineId(Long lineId) {
         this.lineId = lineId;
     }
 

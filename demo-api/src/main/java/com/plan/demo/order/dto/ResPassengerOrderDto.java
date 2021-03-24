@@ -16,7 +16,7 @@ import java.util.Date;
 @ApiModel(description = "乘客订单列表信息dto")
 public class ResPassengerOrderDto {
     @ApiModelProperty("订单表id")
-    private String id;
+    private long id;
     @ApiModelProperty("下单时间")
     @DateConvert(format = "yyyy-MM-dd HH:mm:ss")
     private String orderTime;

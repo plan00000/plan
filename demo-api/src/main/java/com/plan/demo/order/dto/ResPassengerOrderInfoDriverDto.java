@@ -13,7 +13,7 @@ import lombok.Setter;
 @ApiModel(description = "乘客订单信息-司机相关信息dto")
 public class ResPassengerOrderInfoDriverDto {
     @ApiModelProperty("司机id")
-    private String id;
+    private long id;
     @ApiModelProperty("手机号码")
     private String mobileno;
     @ApiModelProperty("车牌号")

@@ -10,5 +10,6 @@ import org.apache.ibatis.annotations.Param;
  */
 @MyBatisPrimaryDao
 public interface UserManagerMapper {
-
+    Long findDriverMaxId();
+    Long findPassengerMaxId();
 }

@@ -39,13 +39,13 @@ public class ReqAddOrderDto {
     private String orderRealType;
 
     @ApiModelProperty("关联用户id")
-    private String userId;
+    private long userId;
 
     @ApiModelProperty("乘客人数")
     private String orderUserNum;
 
     @ApiModelProperty("所属线路")
-    private String lineId;
+    private long lineId;
 
     @ApiModelProperty("预约时间(当订单为预约单时预约时间不能为空)格式：yyyy-MM-dd HH:mm:ss")
     private String orderBespeakTime;

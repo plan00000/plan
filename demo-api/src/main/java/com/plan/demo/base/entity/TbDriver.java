@@ -5,14 +5,14 @@ import java.util.Date;
 
 /**
  * @table tb_driver - 
- * @time 2021-03-20 23:53:42
+ * @time 2021-03-23 19:57:09
  */
 public class TbDriver {
     /**
      * ，对应表字段为：tb_driver.id
      */
     @ApiModelProperty("")
-    private String id;
+    private Long id;
 
     /**
      * 性别：1-男生，2-女生，对应表字段为：tb_driver.sex
@@ -128,11 +128,11 @@ public class TbDriver {
     @ApiModelProperty("更新时间")
     private Date updateTime;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

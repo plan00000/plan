@@ -17,5 +17,5 @@ public class ResTokenDto {
     @ApiModelProperty("token过期时间")
     private String tokenDate;
     @ApiModelProperty("乘客id或司机id")
-    private String id;
+    private long id;
 }

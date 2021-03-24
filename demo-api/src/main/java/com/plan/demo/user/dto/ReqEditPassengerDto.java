@@ -13,7 +13,7 @@ import lombok.Setter;
 @ApiModel(description = "修改乘客信息dto")
 public class ReqEditPassengerDto {
     @ApiModelProperty("乘客id")
-    private String id;
+    private long id;
     @ApiModelProperty("性别：1-男生，2-女生")
     private String sex;
     @ApiModelProperty("用户名称")

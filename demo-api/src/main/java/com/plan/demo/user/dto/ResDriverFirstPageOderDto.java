@@ -18,7 +18,7 @@ import lombok.Setter;
 public class ResDriverFirstPageOderDto {
 
     @ApiModelProperty("乘客id")
-    private String orderId;
+    private long orderId;
 
     @ApiModelProperty("订单类型:0-包车，1-拼车")
     private String orderType;

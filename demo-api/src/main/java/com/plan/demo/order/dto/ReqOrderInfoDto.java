@@ -13,5 +13,5 @@ import lombok.Setter;
 @ApiModel(description = "乘客订单详情")
 public class ReqOrderInfoDto {
     @ApiModelProperty("订单表id")
-    private String id;
+    private long id;
 }

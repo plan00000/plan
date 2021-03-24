@@ -13,7 +13,7 @@ import lombok.Setter;
 @ApiModel(description = "获取用户信息")
 public class ResPassengerDto {
     @ApiModelProperty("用户id")
-    private String id;
+    private long id;
     @ApiModelProperty("用户名称")
     private String userName;
     @ApiModelProperty("手机号码")

@@ -16,7 +16,7 @@ import java.util.Date;
 @ApiModel(description = "获取司机或乘客订单列表详细信息dto")
 public class ResCompleteOrderDto {
     @ApiModelProperty("订单表id")
-    private String id;
+    private long id;
     private String orderTypeInfo;
     @ApiModelProperty("下单时间")
     private String orderTime;

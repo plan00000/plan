@@ -3,7 +3,7 @@
 <mapper namespace="com.plan.demo.base.dao.TbEvaluateDao" >
   
   <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbEvaluate" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="driver_id" property="driverId" jdbcType="VARCHAR" />
     <result column="order_id" property="orderId" jdbcType="VARCHAR" />
@@ -25,7 +25,7 @@
       order_id, order_no, order_star, 
       order_service, order_evaluate, create_time, 
       update_time)
-    VALUES (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{driverId,jdbcType=VARCHAR}, 
+    VALUES (#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{driverId,jdbcType=VARCHAR}, 
       #{orderId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{orderStar,jdbcType=VARCHAR}, 
       #{orderService,jdbcType=VARCHAR}, #{orderEvaluate,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
@@ -37,7 +37,7 @@
       order_no, order_star, order_service, 
       order_evaluate, create_time, 
       update_time)
-    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
+    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=BIGINT}, 
       #{item.userId,jdbcType=VARCHAR}, #{item.driverId,jdbcType=VARCHAR}, #{item.orderId,jdbcType=VARCHAR}, 
       #{item.orderNo,jdbcType=VARCHAR}, #{item.orderStar,jdbcType=VARCHAR}, #{item.orderService,jdbcType=VARCHAR}, 
       #{item.orderEvaluate,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
@@ -80,7 +80,7 @@
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=VARCHAR},
@@ -123,7 +123,7 @@
       order_evaluate = #{orderEvaluate,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </update>
   
   <update id="updateSelective" parameterType="com.plan.demo.base.entity.TbEvaluate" >
@@ -157,19 +157,19 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </update>
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     DELETE FROM tb_evaluate
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </delete>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_evaluate
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </select>
   
   <select id="selectByEntitySelective" parameterType="com.plan.demo.base.entity.TbEvaluate" resultMap="BaseResultMap" >
@@ -178,7 +178,7 @@
     FROM tb_evaluate
     <where >
       <if test="id != null" >
-         AND id = #{id,jdbcType=VARCHAR}
+         AND id = #{id,jdbcType=BIGINT}
       </if>
       <if test="userId != null" >
          AND user_id = #{userId,jdbcType=VARCHAR}

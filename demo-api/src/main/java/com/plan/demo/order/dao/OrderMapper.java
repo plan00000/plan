@@ -16,4 +16,5 @@ import java.util.List;
 public interface OrderMapper {
     List<ValueObject> findNowOrderList(ReqOrderRealTypeDto reqOrderRealTypeDto);
     List<ValueObject> findLineList();
+    Long findMaxId();
 }

@@ -16,9 +16,9 @@ public interface TbPassengerDao {
 
     int updateSelective(TbPassenger entity);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
-    TbPassenger selectByPrimaryKey(String id);
+    TbPassenger selectByPrimaryKey(Long id);
 
     List<TbPassenger> selectByEntitySelective(TbPassenger entity);
 }

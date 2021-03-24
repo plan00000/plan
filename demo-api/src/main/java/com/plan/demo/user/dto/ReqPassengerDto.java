@@ -13,5 +13,5 @@ import lombok.Setter;
 @ApiModel(description = "乘客请求dto")
 public class ReqPassengerDto {
     @ApiModelProperty("乘客id")
-    private String id;
+    private long id;
 }

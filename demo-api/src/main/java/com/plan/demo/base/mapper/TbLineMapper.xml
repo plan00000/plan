@@ -3,7 +3,7 @@
 <mapper namespace="com.plan.demo.base.dao.TbLineDao" >
   
   <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbLine" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="start_address" property="startAddress" jdbcType="VARCHAR" />
     <result column="end_address" property="endAddress" jdbcType="VARCHAR" />
     <result column="start_lon" property="startLon" jdbcType="VARCHAR" />
@@ -24,7 +24,7 @@
       start_lon, start_lat, end_lon, 
       end_lat, create_time, update_time
       )
-    VALUES (#{id,jdbcType=VARCHAR}, #{startAddress,jdbcType=VARCHAR}, #{endAddress,jdbcType=VARCHAR}, 
+    VALUES (#{id,jdbcType=BIGINT}, #{startAddress,jdbcType=VARCHAR}, #{endAddress,jdbcType=VARCHAR}, 
       #{startLon,jdbcType=VARCHAR}, #{startLat,jdbcType=VARCHAR}, #{endLon,jdbcType=VARCHAR}, 
       #{endLat,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
@@ -35,7 +35,7 @@
       start_address, end_address, start_lon, 
       start_lat, end_lon, end_lat, 
       create_time, update_time)
-    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
+    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=BIGINT}, 
       #{item.startAddress,jdbcType=VARCHAR}, #{item.endAddress,jdbcType=VARCHAR}, #{item.startLon,jdbcType=VARCHAR}, 
       #{item.startLat,jdbcType=VARCHAR}, #{item.endLon,jdbcType=VARCHAR}, #{item.endLat,jdbcType=VARCHAR}, 
       #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
@@ -74,7 +74,7 @@
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="startAddress != null" >
         #{startAddress,jdbcType=VARCHAR},
@@ -113,7 +113,7 @@
       end_lat = #{endLat,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </update>
   
   <update id="updateSelective" parameterType="com.plan.demo.base.entity.TbLine" >
@@ -144,19 +144,19 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </update>
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     DELETE FROM tb_line
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </delete>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_line
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </select>
   
   <select id="selectByEntitySelective" parameterType="com.plan.demo.base.entity.TbLine" resultMap="BaseResultMap" >
@@ -165,7 +165,7 @@
     FROM tb_line
     <where >
       <if test="id != null" >
-         AND id = #{id,jdbcType=VARCHAR}
+         AND id = #{id,jdbcType=BIGINT}
       </if>
       <if test="startAddress != null" >
          AND start_address = #{startAddress,jdbcType=VARCHAR}

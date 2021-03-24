@@ -16,9 +16,9 @@ public interface TbDriverDao {
 
     int updateSelective(TbDriver entity);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
-    TbDriver selectByPrimaryKey(String id);
+    TbDriver selectByPrimaryKey(Long id);
 
     List<TbDriver> selectByEntitySelective(TbDriver entity);
 }

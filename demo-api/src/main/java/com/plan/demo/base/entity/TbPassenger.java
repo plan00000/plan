@@ -5,19 +5,19 @@ import java.util.Date;
 
 /**
  * @table tb_passenger - 
- * @time 2021-03-16 22:33:15
+ * @time 2021-03-23 19:57:09
  */
 public class TbPassenger {
     /**
      * ，对应表字段为：tb_passenger.id
      */
     @ApiModelProperty("")
-    private String id;
+    private Long id;
 
     /**
-     * 性别sex：1-男生，2-女生，对应表字段为：tb_passenger.sex
+     * 性别：1-男生，2-女生，对应表字段为：tb_passenger.sex
      */
-    @ApiModelProperty("性别sex：1-男生，2-女生")
+    @ApiModelProperty("性别：1-男生，2-女生")
     private String sex;
 
     /**
@@ -33,9 +33,9 @@ public class TbPassenger {
     private String mobileno;
 
     /**
-     * 用户状态state： 0-禁用,1-启用,2-删除，对应表字段为：tb_passenger.state
+     * 状态 0-禁用,1-启用,2-删除，对应表字段为：tb_passenger.state
      */
-    @ApiModelProperty("用户状态state： 0-禁用,1-启用,2-删除")
+    @ApiModelProperty("状态 0-禁用,1-启用,2-删除")
     private String state;
 
     /**
@@ -80,11 +80,11 @@ public class TbPassenger {
     @ApiModelProperty("备注")
     private String remark;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

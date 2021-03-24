@@ -13,7 +13,7 @@ import lombok.Setter;
 @ApiModel(description = "线路信息dto")
 public class ResOrderLineDto {
     @ApiModelProperty("线路id")
-    private String lineId;
+    private long lineId;
     @ApiModelProperty("线路信息")
     private String lineName;
 }

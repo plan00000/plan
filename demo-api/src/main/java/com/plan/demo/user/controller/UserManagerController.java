@@ -49,7 +49,7 @@ public class UserManagerController {
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "2-登录成功后,系统获取token")
+    @ApiOperation(value = "2-乘客获取系统token")
     @RequestMapping(value = "/getToken",method = RequestMethod.POST)
     public Result<ResTokenDto>  getToken(@RequestBody ReqMobileCodeDto reqMobileCodeDto)throws RuntimeException{
         try {
@@ -170,10 +170,10 @@ public class UserManagerController {
      */
     @ApiOperation(value = "7-司机账号登录")
     @RequestMapping(value = "/loginDriver",method = RequestMethod.POST)
-    public Result<String> loginDriver(@RequestBody ReqDriverLoginDto reqDriverLoginDto)throws RuntimeException{
+    public Result<ResTokenDto> loginDriver(@RequestBody ReqDriverLoginDto reqDriverLoginDto)throws RuntimeException{
         try {
-            userManagerService.loginDriver(reqDriverLoginDto);
-            return ResultHelper.success();
+            ResTokenDto resTokenDto =userManagerService.loginDriver(reqDriverLoginDto);
+            return ResultHelper.success(resTokenDto);
         }catch (Exception e) {
             if (e instanceof BaseException) {
                 throw (BaseException) e;
@@ -184,11 +184,31 @@ public class UserManagerController {
     }
 
     /**
-     * @Description:司机账号登录
+     * @Description:司机首页信息
      * @param
      * @throws RuntimeException
      */
-    @ApiOperation(value = "8-司机上下班")
+    @ApiOperation(value = "8-司机首页信息")
+    @RequestMapping(value = "/getDriverFirstPageInfo",method = RequestMethod.GET)
+    public Result<ResDriverFirstPageResultDto> getDriverFirstPageInfo()throws RuntimeException{
+        try {
+            userManagerService.getDriverFirstPageInfo();
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("司机首页信息失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    /**
+     * @Description:司机上下班
+     * @param
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "9-司机上下班")
     @RequestMapping(value = "/driverCommuting",method = RequestMethod.POST)
     public Result<String> driverCommuting(@RequestBody ReqDriverCommutingDto reqDriverCommutingDto)throws RuntimeException{
         try {

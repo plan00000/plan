@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class UserInfoDto {
     @ApiModelProperty("id")
-    private String id;
+    private long id;
     @ApiModelProperty("用户名")
     private String userName;
     @ApiModelProperty("性别：1-男生，2-女生")

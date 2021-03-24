@@ -5,14 +5,14 @@ import java.util.Date;
 
 /**
  * @table tb_evaluate - 
- * @time 2021-03-16 22:33:15
+ * @time 2021-03-23 19:57:09
  */
 public class TbEvaluate {
     /**
      * 主键id，对应表字段为：tb_evaluate.id
      */
     @ApiModelProperty("主键id")
-    private String id;
+    private Long id;
 
     /**
      * 用户id，对应表字段为：tb_evaluate.user_id
@@ -68,11 +68,11 @@ public class TbEvaluate {
     @ApiModelProperty("更新时间")
     private Date updateTime;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

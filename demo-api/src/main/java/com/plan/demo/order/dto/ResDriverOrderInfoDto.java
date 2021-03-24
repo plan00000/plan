@@ -15,7 +15,7 @@ import java.util.Date;
 @ApiModel(description = "获取司机订单详细信息dto")
 public class ResDriverOrderInfoDto {
     @ApiModelProperty("订单表id")
-    private String id;
+    private long id;
 
     @ApiModelProperty("下单时间")
     private Date orderTime;
@@ -51,4 +51,7 @@ public class ResDriverOrderInfoDto {
     private String lon;
     @ApiModelProperty("订单类型(例：两人包车)")
     private String orderTypeInfo;
+
+    @ApiModelProperty("订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成,5-订单超时")
+    private String orderStatus;
 }

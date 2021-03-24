@@ -16,9 +16,9 @@ public interface TbLineDao {
 
     int updateSelective(TbLine entity);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
-    TbLine selectByPrimaryKey(String id);
+    TbLine selectByPrimaryKey(Long id);
 
     List<TbLine> selectByEntitySelective(TbLine entity);
 }

@@ -13,7 +13,7 @@ import lombok.Setter;
 @ApiModel(description = "获取乘客实时订单dto")
 public class ReqOrderRealTypeDto {
     @ApiModelProperty("用户id")
-    private String userId;
+    private long userId;
     @ApiModelProperty("订单种类：0-实时单，1-预约单")
     private String orderRealType;
 }

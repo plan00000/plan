@@ -6,7 +6,7 @@ import java.util.List;
 
 @MyBatisPrimaryDao
 public interface TbOrderDao {
-    void insert(TbOrder entity);
+    long insert(TbOrder entity);
 
     void insertBatch(List<TbOrder> entities);
 
@@ -16,9 +16,9 @@ public interface TbOrderDao {
 
     int updateSelective(TbOrder entity);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
-    TbOrder selectByPrimaryKey(String id);
+    TbOrder selectByPrimaryKey(Long id);
 
     List<TbOrder> selectByEntitySelective(TbOrder entity);
 }

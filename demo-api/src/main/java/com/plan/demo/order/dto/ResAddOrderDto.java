@@ -11,5 +11,5 @@ import lombok.Setter;
 @Setter
 public class ResAddOrderDto {
     @ApiModelProperty("id")
-    private String id;
+    private long id;
 }

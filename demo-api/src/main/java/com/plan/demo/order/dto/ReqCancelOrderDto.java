@@ -13,7 +13,7 @@ import lombok.Setter;
 @ApiModel(description = "取消订单dto")
 public class ReqCancelOrderDto {
     @ApiModelProperty("订单表id")
-    private String id;
+    private long id;
     @ApiModelProperty("取消原因")
     private String cancelReason;
 }

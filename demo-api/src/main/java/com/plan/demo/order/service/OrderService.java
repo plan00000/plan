@@ -21,6 +21,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -64,18 +65,19 @@ public class OrderService {
             ReqOrderRealTypeDto reqOrderRealTypeDto = new ReqOrderRealTypeDto();
             reqOrderRealTypeDto.setUserId(ThreadLocalHelper.getUser().getId());
             reqOrderRealTypeDto.setOrderRealType("0");
-            List<ValueObject> nowOrderVoList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
+            /**List<ValueObject> nowOrderVoList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
             if(CommonUtil.isNotEmpty(nowOrderVoList)){
                 throw new SystemException("新增订单失败","已存在一个实时订单，不能从复下单","请耐心等待司机");
-            }
+            }*/
         }
         TbOrder tbOrder = new TbOrder();
-        if(CommonUtil.isEmpty(reqAddOrderDto.getUserId())){
-            tbOrder.setUserId(ThreadLocalHelper.getUser().getId());
-        }
-        tbOrder.setId(CommonUtil.getUUID());
+        BeanHelper.copyBeanValue(reqAddOrderDto,tbOrder);
+        tbOrder.setUserId(ThreadLocalHelper.getUser().getId());
+        tbOrder.setOrderTime(new Date());
         tbOrder.setCreateTime(new Date());
         tbOrder.setOrderStatus("1");
+        Long id = orderMapper.findMaxId();
+        tbOrder.setId(id+1);
         tbOrderDao.insert(tbOrder);
         ResAddOrderDto resAddOrderDto = new ResAddOrderDto();
         resAddOrderDto.setId(tbOrder.getId());
@@ -86,10 +88,9 @@ public class OrderService {
      * 获取用户订单信息
      */
     public ResPassengerOrderResultDto getPassengerOrderList(){
-//        UserInfoDto userInfoDto = ThreadLocalHelper.getUser();
+        UserInfoDto userInfoDto = ThreadLocalHelper.getUser();
         ReqOrderRealTypeDto reqOrderRealTypeDto = new ReqOrderRealTypeDto();
-//        reqOrderRealTypeDto.setUserId(userInfoDto.getId());
-        reqOrderRealTypeDto.setUserId("1");
+        reqOrderRealTypeDto.setUserId(userInfoDto.getId());
         List<ValueObject> valueObjectList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
         ResPassengerOrderResultDto resPassengerOrderResultDto = new ResPassengerOrderResultDto();
         if(CommonUtil.isNotEmpty(valueObjectList)){
@@ -233,7 +234,7 @@ public class OrderService {
     public ResCompleteOrderResultDto getPassengerCompleteOrderList()throws Exception{
         ResCompleteOrderResultDto resCompleteOrderResultDto = new ResCompleteOrderResultDto();
         logger.error("用户id："+ThreadLocalHelper.getUser().getId()+",用户名："+ThreadLocalHelper.getUser().getUserName());
-        String passengerId = ThreadLocalHelper.getUser().getId();
+        long passengerId = ThreadLocalHelper.getUser().getId();
 
         TbOrder tbOrderQuery = new TbOrder();
         tbOrderQuery.setOrderStatus("4");
@@ -268,7 +269,7 @@ public class OrderService {
     public ResCompleteOrderResultDto getDriverCompleteOrderList()throws Exception{
         ResCompleteOrderResultDto resCompleteOrderResultDto = new ResCompleteOrderResultDto();
         logger.error("用户id："+ThreadLocalHelper.getUser().getId()+",用户名："+ThreadLocalHelper.getUser().getUserName());
-        String driverId = ThreadLocalHelper.getUser().getId();
+        long driverId = ThreadLocalHelper.getUser().getId();
 
         TbOrder tbOrderQuery = new TbOrder();
         tbOrderQuery.setOrderStatus("4");
@@ -293,5 +294,56 @@ public class OrderService {
         }
 
         return resCompleteOrderResultDto;
+    }
+
+    /**
+     * 司机完成订单
+     * @param reqOrderDto
+     * @throws Exception
+     */
+    public void completeOrder(ReqOrderDto reqOrderDto)throws Exception{
+        TbOrder tbOrder = tbOrderDao.selectByPrimaryKey(reqOrderDto.getId());
+        if(CommonUtil.isEmpty(tbOrder)){
+            throw new SystemException("司机完成订单失败","不存在该订单","请联系管理员处理");
+        }
+        tbOrder.setOrderStatus("4");
+        tbOrderDao.update(tbOrder);
+    }
+
+    /**
+     * 修改订单状态
+     * @param reqOrderNextStatusDto
+     * @throws Exception
+     */
+    public void nexOrderStatus(ReqOrderNextStatusDto reqOrderNextStatusDto) throws Exception{
+        TbOrder tbOrder = tbOrderDao.selectByPrimaryKey(reqOrderNextStatusDto.getId());
+        if(StringUtil.equalsString(reqOrderNextStatusDto.getStatus(),"0"));{
+            tbOrder.setOrderStatus("0");
+            tbOrder.setCancelReason("司机太慢了");
+            tbOrder.setUpdateTime(new Date());
+        }
+        if(StringUtil.equalsString(reqOrderNextStatusDto.getStatus(),"2")){
+            //司机已接单
+            tbOrder.setOrderStatus("2");
+            tbOrder.setDriveId(15L);
+            tbOrder.setUpdateTime(new Date());
+        }
+        if(StringUtil.equalsString(reqOrderNextStatusDto.getStatus(),"3")){
+            //行程开始
+            tbOrder.setOrderStatus("3");
+            tbOrder.setOrderReceiveTime(new Date());
+            tbOrder.setUpdateTime(new Date());
+        }
+        if(StringUtil.equalsString(reqOrderNextStatusDto.getStatus(),"4")){
+            //行程结束
+            tbOrder.setOrderStatus("4");
+            tbOrder.setUpdateTime(new Date());
+        }
+        if(StringUtil.equalsString(reqOrderNextStatusDto.getStatus(),"5")){
+            //行程超时
+            tbOrder.setOrderStatus("5");
+            tbOrder.setUpdateTime(new Date());
+        }
+        tbOrderDao.updateSelective(tbOrder);
     }
 }

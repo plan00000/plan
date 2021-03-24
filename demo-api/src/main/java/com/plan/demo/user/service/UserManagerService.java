@@ -6,6 +6,7 @@ import com.plan.demo.base.dao.TbPassengerDao;
 import com.plan.demo.base.entity.TbDriver;
 import com.plan.demo.base.entity.TbOrder;
 import com.plan.demo.base.entity.TbPassenger;
+import com.plan.demo.user.dao.UserManagerMapper;
 import com.plan.demo.user.dto.*;
 import com.plan.frame.cache.DictinaryCache;
 import com.plan.frame.exception.SystemException;
@@ -44,6 +45,8 @@ public class UserManagerService {
     private TbDriverDao tbDriverDao;
     @Autowired
     private TbOrderDao tbOrderDao;
+    @Autowired
+    private UserManagerMapper userManagerMapper;
 
     /**
      * 获取随机码
@@ -52,8 +55,27 @@ public class UserManagerService {
      * @throws Exception
      */
     public ResMobileCodeDto getMobileCode(ReqMobileCodeDto reqMobileCodeDto)throws Exception{
+        if(CommonUtil.isEmpty(reqMobileCodeDto.getMobileno())){
+            throw new SystemException("","手机号不能为空","");
+        }
+        //先判断手机号是否有注册过
+        TbPassenger tbPassengerQuery = new TbPassenger();
+        tbPassengerQuery.setMobileno(reqMobileCodeDto.getMobileno());
+        List<TbPassenger> tbPassengers = tbPassengerDao.selectByEntitySelective(tbPassengerQuery);
+        if(CommonUtil.isEmpty(tbPassengers)){
+            //未注册，则默认注册新的
+            TbPassenger tbPassenger = new TbPassenger();
+            Long id = userManagerMapper.findPassengerMaxId();
+            tbPassenger.setMobileno(reqMobileCodeDto.getMobileno());
+            tbPassenger.setUserName("新用户"+reqMobileCodeDto.getMobileno());
+            tbPassenger.setId(id+1);
+            tbPassenger.setState("1");
+            tbPassenger.setCreateTime(new Date());
+            tbPassenger.setUpdateTime(new Date());
+            tbPassengerDao.insert(tbPassenger);
+        }
         int code = (int)(Math.random()*8998)+1000+1;
-        redisUtil.set(reqMobileCodeDto.getMobileno(),String.valueOf(code),5L, TimeUnit.SECONDS);
+        redisUtil.set(reqMobileCodeDto.getMobileno(),String.valueOf(code),300L, TimeUnit.SECONDS);
         ResMobileCodeDto resMobileCodeDto = new ResMobileCodeDto();
         resMobileCodeDto.setCode(String.valueOf(code));
         return resMobileCodeDto;
@@ -66,7 +88,23 @@ public class UserManagerService {
      * @throws Exception
      */
     public ResTokenDto getToken(ReqMobileCodeDto reqMobileCodeDto)throws Exception{
+        //判断手机号是否存在
+        TbPassenger tbPassengerQuery1 = new TbPassenger();
+        tbPassengerQuery1.setMobileno(reqMobileCodeDto.getMobileno());
+        List<TbPassenger> tbPassengerList1 = tbPassengerDao.selectByEntitySelective(tbPassengerQuery1);
+        if(CommonUtil.isEmpty(tbPassengerList1)){
+            throw new SystemException("获取token失败","该手机号为注册","");
+        }
         ResTokenDto resTokenDto = new ResTokenDto();
+        //判断验证码是否对
+        String code = (String) redisUtil.get(reqMobileCodeDto.getMobileno());
+        if(CommonUtil.isNotEmpty(code)) {
+            if (!StringUtil.equalsString(reqMobileCodeDto.getCode(), code)) {
+                throw new SystemException("获取token失败", "验证码过期或输入不正确", "请输入正确验证码");
+            }
+        }else{
+            throw new SystemException("获取token失败", "验证码已过期", "请输入正确验证码");
+        }
         //判断是乘客还是司机
         UserInfoDto userInfoDto = new UserInfoDto();
         if(StringUtil.equalsString(reqMobileCodeDto.getUserType(),"0")) {
@@ -200,13 +238,14 @@ public class UserManagerService {
         tbPassengerDao.update(tbPassenger);
     }
 
+
     /**
      * 司机注册
      * @param reqDriverRegisterDto
      * @throws Exception
      */
     public void registerDriver(ReqDriverRegisterDto reqDriverRegisterDto) throws Exception{
-        if(CommonUtil.isNotEmpty(reqDriverRegisterDto.getPassword())){
+        if(CommonUtil.isEmpty(reqDriverRegisterDto.getPassword())){
             throw new SystemException("司机注册失败","密码为空","请联系管理员处理");
         }
         //ljw在判断手机号是否注册过，注册过了就不让wpr注册
@@ -216,8 +255,10 @@ public class UserManagerService {
         TbDriver tbDriver = new TbDriver();
         //对密码进行md5加密
         BeanHelper.copyBeanValue(reqDriverRegisterDto,tbDriver);
-        tbDriver.setId(CommonUtil.getUUID());
         tbDriver.setPassword(DigestUtils.md5DigestAsHex(tbDriver.getPassword().getBytes()));
+        long id = userManagerMapper.findDriverMaxId();
+        tbDriver.setId(id+1);
+        tbDriver.setDriverStatus("0");
         tbDriver.setCreateTime(new Date());
         tbDriver.setUpdateTime(new Date());
         tbDriverDao.insert(tbDriver);
@@ -230,10 +271,11 @@ public class UserManagerService {
      */
     public ResDriverFirstPageResultDto getDriverFirstPageInfo()throws Exception{
         ResDriverFirstPageResultDto resDriverFirstPageResultDto = new ResDriverFirstPageResultDto();
-        String driverId = ThreadLocalHelper.getUser().getId();
+        long driverId = ThreadLocalHelper.getUser().getId();
         TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(driverId);
         resDriverFirstPageResultDto.setId(driverId);
         resDriverFirstPageResultDto.setWorkYears(tbDriver.getWorkAge());
+        resDriverFirstPageResultDto.setDriverStatus(tbDriver.getDriverStatus());
 
         TbOrder tbOrderQuery = new TbOrder();
         tbOrderQuery.setDriveId(driverId);
@@ -270,11 +312,11 @@ public class UserManagerService {
     /**
      * 司机登录
      * 拉拉拉拉德玛西亚万岁万岁
-     *还是去掉不实现，跟乘客端一样采用手机验证码登录，后面要改在说
+     *
      * @param reqDriverLoginDto
      * @throws Exception
      */
-    public void loginDriver(ReqDriverLoginDto reqDriverLoginDto) throws Exception{
+    public ResTokenDto loginDriver(ReqDriverLoginDto reqDriverLoginDto) throws Exception{
         if(CommonUtil.isEmpty(reqDriverLoginDto.getMobileno())||CommonUtil.isEmpty(reqDriverLoginDto.getPassword())){
             throw new SystemException("司机登录失败","账号或手机不能为空","请检查");
         }
@@ -290,15 +332,38 @@ public class UserManagerService {
         if(!ljwPasswordCheck){
             throw new SystemException("司机登录失败","密码不正确","请重新输入");
         }
+        ResTokenDto resTokenDto = new ResTokenDto();
+        UserInfoDto userInfoDto = new UserInfoDto();
+        userInfoDto.setId(tbDriver.getId());
+        userInfoDto.setUserName(tbDriver.getUserName());
+        userInfoDto.setSex(tbDriver.getSex());
+        userInfoDto.setMobileno(tbDriver.getMobileno());
+        //生成token
+        //token过期时间
+        if(CommonUtil.isEmpty(tokenExp)){
+            tokenExp = "60";
+        }
+        //由于修改配置过于麻烦所有临时修改此处1.8*60 约等于 2*50
+        Long tokenExpTime = 2*50*1000*Long.parseLong(tokenExp);
+        Long tokenDate = System.currentTimeMillis()+tokenExpTime;
+        String token = JwtUtil.getToken(tbDriver.getMobileno(),tokenDate);
+        resTokenDto.setToken(token);
+        resTokenDto.setTokenDate(DateUtil.date2Str(new Date(tokenDate),"yyyy-MM-dd HH:mm:ss"));
+        //对token进行加密
+        String key = DigestUtils.md5DigestAsHex(token.getBytes());
+        //放入缓存
+        redisUtil.set(key,userInfoDto,3L, TimeUnit.HOURS);
+        resTokenDto.setId(userInfoDto.getId());
+        return resTokenDto;
     }
 
     /**
-     * 司机更改上下班
+     * 司机更改上下班及听单状态
      * @param reqDriverCommutingDto
      * @throws Exception
      */
     public void driverCommuting(ReqDriverCommutingDto reqDriverCommutingDto)throws Exception{
-        String driverId = ThreadLocalHelper.getUser().getId();
+        long driverId = ThreadLocalHelper.getUser().getId();
         TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(driverId);
         tbDriver.setDriverStatus(reqDriverCommutingDto.getDriverStatus());
         tbDriverDao.update(tbDriver);

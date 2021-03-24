@@ -13,7 +13,7 @@ import lombok.Setter;
 @ApiModel(description = "修改司机所在位置请求dto")
 public class ReqDriverLocationDto {
     @ApiModelProperty("司机id")
-    private String id;
+    private long id;
     @ApiModelProperty("用户目前位置")
     private String location;
     @ApiModelProperty("用户所在位置经纬度--纬度")

@@ -20,13 +20,16 @@ import java.util.List;
 public class ResDriverFirstPageResultDto {
 
     @ApiModelProperty("乘客id")
-    private String id;
+    private long id;
 
     @ApiModelProperty("工龄")
     private String workYears;
 
     @ApiModelProperty("完成订单量")
     private String completeOrderNum;
+
+    @ApiModelProperty("司机状态（0-下班，1-上班）")
+    private String driverStatus;
 
     @ApiModelProperty("司机订单列表信息")
     private List<ResDriverFirstPageOderDto> orderList;

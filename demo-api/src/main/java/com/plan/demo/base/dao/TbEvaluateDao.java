@@ -16,9 +16,9 @@ public interface TbEvaluateDao {
 
     int updateSelective(TbEvaluate entity);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
-    TbEvaluate selectByPrimaryKey(String id);
+    TbEvaluate selectByPrimaryKey(Long id);
 
     List<TbEvaluate> selectByEntitySelective(TbEvaluate entity);
 }

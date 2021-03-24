@@ -3,7 +3,7 @@
 <mapper namespace="com.plan.demo.base.dao.TbPassengerDao" >
   
   <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbPassenger" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="mobileno" property="mobileno" jdbcType="VARCHAR" />
@@ -27,7 +27,7 @@
       mobileno, state, location, 
       lat, lon, id_card, create_time, 
       update_time, remark)
-    VALUES (#{id,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+    VALUES (#{id,jdbcType=BIGINT}, #{sex,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{mobileno,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
       #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
@@ -39,7 +39,7 @@
       state, location, lat, 
       lon, id_card, create_time, 
       update_time, remark)
-    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
+    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=BIGINT}, 
       #{item.sex,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, #{item.mobileno,jdbcType=VARCHAR}, 
       #{item.state,jdbcType=VARCHAR}, #{item.location,jdbcType=VARCHAR}, #{item.lat,jdbcType=VARCHAR}, 
       #{item.lon,jdbcType=VARCHAR}, #{item.idCard,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
@@ -88,7 +88,7 @@
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="sex != null" >
         #{sex,jdbcType=VARCHAR},
@@ -139,7 +139,7 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR}
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </update>
   
   <update id="updateSelective" parameterType="com.plan.demo.base.entity.TbPassenger" >
@@ -179,19 +179,19 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </update>
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     DELETE FROM tb_passenger
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </delete>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_passenger
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </select>
   
   <select id="selectByEntitySelective" parameterType="com.plan.demo.base.entity.TbPassenger" resultMap="BaseResultMap" >
@@ -200,7 +200,7 @@
     FROM tb_passenger
     <where >
       <if test="id != null" >
-         AND id = #{id,jdbcType=VARCHAR}
+         AND id = #{id,jdbcType=BIGINT}
       </if>
       <if test="sex != null" >
          AND sex = #{sex,jdbcType=VARCHAR}

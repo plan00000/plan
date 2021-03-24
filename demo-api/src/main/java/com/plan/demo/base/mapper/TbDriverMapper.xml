@@ -3,7 +3,7 @@
 <mapper namespace="com.plan.demo.base.dao.TbDriverDao" >
   
   <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbDriver" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="VARCHAR" />
     <result column="work_age" property="workAge" jdbcType="VARCHAR" />
@@ -39,7 +39,7 @@
       id_card, car_no, car_color, 
       car_mark, driver_star, driver_no, 
       create_time, update_time)
-    VALUES (#{id,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, 
+    VALUES (#{id,jdbcType=BIGINT}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, 
       #{workAge,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{mobileno,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{driverStatus,jdbcType=VARCHAR}, 
       #{location,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, 
@@ -57,7 +57,7 @@
       car_no, car_color, car_mark, 
       driver_star, driver_no, create_time, 
       update_time)
-    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=VARCHAR}, 
+    VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=BIGINT}, 
       #{item.sex,jdbcType=VARCHAR}, #{item.age,jdbcType=VARCHAR}, #{item.workAge,jdbcType=VARCHAR}, 
       #{item.password,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, #{item.mobileno,jdbcType=VARCHAR}, 
       #{item.state,jdbcType=VARCHAR}, #{item.driverStatus,jdbcType=VARCHAR}, #{item.location,jdbcType=VARCHAR}, 
@@ -133,7 +133,7 @@
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="sex != null" >
         #{sex,jdbcType=VARCHAR},
@@ -216,7 +216,7 @@
       driver_no = #{driverNo,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </update>
   
   <update id="updateSelective" parameterType="com.plan.demo.base.entity.TbDriver" >
@@ -280,19 +280,19 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </update>
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     DELETE FROM tb_driver
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </delete>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     SELECT 
     <include refid="BaseColumnList" />
     FROM tb_driver
-    WHERE id = #{id,jdbcType=VARCHAR}
+    WHERE id = #{id,jdbcType=BIGINT}
   </select>
   
   <select id="selectByEntitySelective" parameterType="com.plan.demo.base.entity.TbDriver" resultMap="BaseResultMap" >
@@ -301,7 +301,7 @@
     FROM tb_driver
     <where >
       <if test="id != null" >
-         AND id = #{id,jdbcType=VARCHAR}
+         AND id = #{id,jdbcType=BIGINT}
       </if>
       <if test="sex != null" >
          AND sex = #{sex,jdbcType=VARCHAR}
