@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_evaluate - 
- * @time 2021-03-23 19:57:09
+ * @time 2021-03-26 21:04:04
  */
 public class TbEvaluate {
     /**
@@ -18,19 +18,19 @@ public class TbEvaluate {
      * 用户id，对应表字段为：tb_evaluate.user_id
      */
     @ApiModelProperty("用户id")
-    private String userId;
+    private Long userId;
 
     /**
      * 司机id，对应表字段为：tb_evaluate.driver_id
      */
     @ApiModelProperty("司机id")
-    private String driverId;
+    private Long driverId;
 
     /**
      * 订单id，对应表字段为：tb_evaluate.order_id
      */
     @ApiModelProperty("订单id")
-    private String orderId;
+    private Long orderId;
 
     /**
      * 订单表id，对应表字段为：tb_evaluate.order_no
@@ -76,27 +76,27 @@ public class TbEvaluate {
         this.id = id;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getDriverId() {
+    public Long getDriverId() {
         return driverId;
     }
 
-    public void setDriverId(String driverId) {
+    public void setDriverId(Long driverId) {
         this.driverId = driverId;
     }
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 

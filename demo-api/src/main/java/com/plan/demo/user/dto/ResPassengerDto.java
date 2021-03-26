@@ -18,6 +18,13 @@ public class ResPassengerDto {
     private String userName;
     @ApiModelProperty("手机号码")
     private String mobileno;
+
+    @ApiModelProperty("性别：1-男生，2-女生")
+    private String sex;
+
+    @ApiModelProperty("身份证号")
+    private String idCard;
+
     @ApiModelProperty("用户目前位置")
     private String location;
     @ApiModelProperty("用户所在位置经纬度--纬度")

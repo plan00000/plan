@@ -244,11 +244,28 @@ public class UserManagerController {
         }
     }
 
+
+
     @ApiOperation(value = "12-修改司机详细信息")
-    @RequestMapping(value = "/editDriverInfo",method = RequestMethod.GET)
+    @RequestMapping(value = "/editDriverInfo",method = RequestMethod.POST)
     public Result<ResDriverInfoDto> editDriverInfo(@RequestBody ReqEditDriverDto reqEditDriverDto)throws RuntimeException{
         try {
             userManagerService.editDriver(reqEditDriverDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("修改司机详细信息失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    @ApiOperation(value = "13-司机注销接口")
+    @RequestMapping(value = "/deleteDriver",method = RequestMethod.POST)
+    public Result<String> deleteDriver(@RequestBody ReqDriverDto reqDriverDto)throws RuntimeException{
+        try {
+            userManagerService.deleteDriver(reqDriverDto);
             return ResultHelper.success();
         }catch (Exception e) {
             if (e instanceof BaseException) {

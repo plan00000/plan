@@ -21,14 +21,15 @@
     <result column="car_mark" property="carMark" jdbcType="VARCHAR" />
     <result column="driver_star" property="driverStar" jdbcType="VARCHAR" />
     <result column="driver_no" property="driverNo" jdbcType="VARCHAR" />
+    <result column="driver_seats" property="driverSeats" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   
   <sql id="BaseColumnList" >
     id, sex, age, work_age, password, user_name, mobileno, state, driver_status, location, 
-    lat, lon, id_card, car_no, car_color, car_mark, driver_star, driver_no, create_time, 
-    update_time
+    lat, lon, id_card, car_no, car_color, car_mark, driver_star, driver_no, driver_seats, 
+    create_time, update_time
   </sql>
   
   <insert id="insert" parameterType="com.plan.demo.base.entity.TbDriver" >
@@ -38,14 +39,16 @@
       location, lat, lon, 
       id_card, car_no, car_color, 
       car_mark, driver_star, driver_no, 
-      create_time, update_time)
+      driver_seats, create_time, update_time
+      )
     VALUES (#{id,jdbcType=BIGINT}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, 
       #{workAge,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{mobileno,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{driverStatus,jdbcType=VARCHAR}, 
       #{location,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, 
       #{idCard,jdbcType=VARCHAR}, #{carNo,jdbcType=VARCHAR}, #{carColor,jdbcType=VARCHAR}, 
       #{carMark,jdbcType=VARCHAR}, #{driverStar,jdbcType=VARCHAR}, #{driverNo,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{driverSeats,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   
   <insert id="insertBatch" parameterType="java.util.List" >
@@ -55,16 +58,16 @@
       state, driver_status, location, 
       lat, lon, id_card, 
       car_no, car_color, car_mark, 
-      driver_star, driver_no, create_time, 
-      update_time)
+      driver_star, driver_no, driver_seats, 
+      create_time, update_time)
     VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=BIGINT}, 
       #{item.sex,jdbcType=VARCHAR}, #{item.age,jdbcType=VARCHAR}, #{item.workAge,jdbcType=VARCHAR}, 
       #{item.password,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, #{item.mobileno,jdbcType=VARCHAR}, 
       #{item.state,jdbcType=VARCHAR}, #{item.driverStatus,jdbcType=VARCHAR}, #{item.location,jdbcType=VARCHAR}, 
       #{item.lat,jdbcType=VARCHAR}, #{item.lon,jdbcType=VARCHAR}, #{item.idCard,jdbcType=VARCHAR}, 
       #{item.carNo,jdbcType=VARCHAR}, #{item.carColor,jdbcType=VARCHAR}, #{item.carMark,jdbcType=VARCHAR}, 
-      #{item.driverStar,jdbcType=VARCHAR}, #{item.driverNo,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
-      #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
+      #{item.driverStar,jdbcType=VARCHAR}, #{item.driverNo,jdbcType=VARCHAR}, #{item.driverSeats,jdbcType=BIGINT}, 
+      #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
   </insert>
   
   <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbDriver" >
@@ -123,6 +126,9 @@
       </if>
       <if test="driverNo != null" >
         driver_no,
+      </if>
+      <if test="driverSeats != null" >
+        driver_seats,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -186,6 +192,9 @@
       <if test="driverNo != null" >
         #{driverNo,jdbcType=VARCHAR},
       </if>
+      <if test="driverSeats != null" >
+        #{driverSeats,jdbcType=BIGINT},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -214,6 +223,7 @@
       car_mark = #{carMark,jdbcType=VARCHAR},
       driver_star = #{driverStar,jdbcType=VARCHAR},
       driver_no = #{driverNo,jdbcType=VARCHAR},
+      driver_seats = #{driverSeats,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     WHERE id = #{id,jdbcType=BIGINT}
@@ -272,6 +282,9 @@
       </if>
       <if test="driverNo != null" >
         driver_no = #{driverNo,jdbcType=VARCHAR},
+      </if>
+      <if test="driverSeats != null" >
+        driver_seats = #{driverSeats,jdbcType=BIGINT},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -353,6 +366,9 @@
       </if>
       <if test="driverNo != null" >
          AND driver_no = #{driverNo,jdbcType=VARCHAR}
+      </if>
+      <if test="driverSeats != null" >
+         AND driver_seats = #{driverSeats,jdbcType=BIGINT}
       </if>
       <if test="createTime != null" >
          AND create_time = #{createTime,jdbcType=TIMESTAMP}

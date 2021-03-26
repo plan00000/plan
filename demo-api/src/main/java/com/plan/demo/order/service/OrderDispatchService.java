@@ -27,7 +27,7 @@ public class OrderDispatchService {
     @Autowired
     private OrderMapper orderMapper;
 
-    @Scheduled(cron = "0 */1 * * ?")
+//    @Scheduled(cron = "0 */1 * * ?")
     public void orderDispatch(){
         TbOrder tbOrderQuery = new TbOrder();
         tbOrderQuery.setOrderStatus("1");

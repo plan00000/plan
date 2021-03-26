@@ -18,6 +18,10 @@
     select max(id) as id
     from tb_order
   </select>
+  <select id="findTbEvaluateMaxId" resultType="java.lang.Long">
+    select max(id) as id
+    from tb_evaluate
+  </select>
   
   <select id="findFreeDriverList" resultType="vo">
     select * from tb_driver a where a.driver_status = '1'

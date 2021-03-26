@@ -239,7 +239,30 @@ public class OrderController {
         }
     }
 
-    @ApiOperation(value = "12-修改订单下个状态。（临时使用）")
+    /**
+     *
+     * @param
+     * @return 乘客订单评价
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "12-乘客订单评价")
+    @RequestMapping(value = "/orderEvaluation",method = RequestMethod.GET)
+    public Result<String> orderEvaluation(ReqOrderEvaluationDto reqOrderEvaluationDto)throws RuntimeException{
+        try {
+              orderService.orderEvaluation(reqOrderEvaluationDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("乘客订单评价失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+
+
+    @ApiOperation(value = "13-修改订单下个状态。（临时使用）")
     @RequestMapping(value = "/nexOrderStatus",method = RequestMethod.POST)
     public Result<String> nexOrderStatus(@RequestBody ReqOrderNextStatusDto reqOrderNextStatusDto)throws RuntimeException{
         try {
@@ -250,6 +273,21 @@ public class OrderController {
                 throw (BaseException) e;
             } else {
                 throw new SystemException("修改订单下个状态失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    @ApiOperation(value = "13-乘客司机完成订单详细信息")
+    @RequestMapping(value = "/completeOrderInfo",method = RequestMethod.POST)
+    public Result<ResCompleteOrderInfoDto> completeOrderInfo(@RequestBody ReqOrderDto reqOrderDto)throws RuntimeException{
+        try {
+            ResCompleteOrderInfoDto  resCompleteOrderInfoDto=orderService.completeOrderInfo(reqOrderDto);
+            return ResultHelper.success(resCompleteOrderInfoDto);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("乘客司机完成订单详细信息", e, "请联系管理员！");
             }
         }
     }

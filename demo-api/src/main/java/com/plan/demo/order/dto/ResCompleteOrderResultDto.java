@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ApiModel(description = "获取乘客或司机订单列表返回dto")
+@ApiModel(description = "获取乘客或司机完成订单列表返回dto")
 public class ResCompleteOrderResultDto {
     @ApiModelProperty("订单列表")
     private List<ResCompleteOrderDto> completeOrderDtoList;

@@ -200,6 +200,12 @@ public class UserManagerService {
         if(CommonUtil.isNotEmpty(reqEditPassengerDto.getLon())){
             tbPassenger.setLon(reqEditPassengerDto.getLon());
         }
+        if(CommonUtil.isNotEmpty(reqEditPassengerDto.getIdCard())){
+            tbPassenger.setIdCard(reqEditPassengerDto.getIdCard());
+        }
+        if(CommonUtil.isNotEmpty(reqEditPassengerDto.getMobileno())){
+            tbPassenger.setMobileno(reqEditPassengerDto.getMobileno());
+        }
         tbPassengerDao.update(tbPassenger);
 
     }
@@ -401,7 +407,22 @@ public class UserManagerService {
         tbDriverDao.update(tbDriver);
     }
 
-
+    /**
+     * 司机注销
+     * @param reqDriverDto
+     * @throws Exception
+     */
+    public void deleteDriver(ReqDriverDto reqDriverDto) throws Exception{
+        TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(reqDriverDto.getId());
+        if(CommonUtil.isEmpty(tbDriver)){
+            throw new SystemException("司机注销失败","不存在该司机","请重新刷新页面");
+        }
+        tbDriver.setMobileno("");
+        tbDriver.setState("2");
+        tbDriver.setDriverStatus("0");
+        tbDriver.setCarNo("");
+        tbDriverDao.update(tbDriver);
+    }
 
 
 

@@ -18,4 +18,5 @@ public interface OrderMapper {
     List<ValueObject> findLineList();
     Long findMaxId();
     List<ValueObject> findFreeDriverList();
+    long findTbEvaluateMaxId();
 }

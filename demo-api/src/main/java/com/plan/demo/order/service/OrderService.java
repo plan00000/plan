@@ -1,9 +1,11 @@
 package com.plan.demo.order.service;
 
 import com.plan.demo.base.dao.TbDriverDao;
+import com.plan.demo.base.dao.TbEvaluateDao;
 import com.plan.demo.base.dao.TbOrderDao;
 import com.plan.demo.base.dao.TbPassengerDao;
 import com.plan.demo.base.entity.TbDriver;
+import com.plan.demo.base.entity.TbEvaluate;
 import com.plan.demo.base.entity.TbOrder;
 import com.plan.demo.base.entity.TbPassenger;
 import com.plan.demo.order.dao.OrderMapper;
@@ -44,6 +46,8 @@ public class OrderService {
     private TbDriverDao tbDriverDao;
     @Autowired
     private TbPassengerDao tbPassengerDao;
+    @Autowired
+    private TbEvaluateDao tbEvaluateDao;
 
     /**
      * 新增订单
@@ -310,16 +314,37 @@ public class OrderService {
         tbOrderDao.update(tbOrder);
     }
 
+    /**
+     * 司机接乘客（行程开始）
+     * @param reqOrderDto
+     * @throws Exception
+     */
     public void driverPickUpPassenger(ReqOrderDto reqOrderDto) throws Exception{
         TbOrder tbOrder = tbOrderDao.selectByPrimaryKey(reqOrderDto.getId());
         if(CommonUtil.isEmpty(tbOrder)){
             throw new SystemException("司机完成订单失败","不存在该订单","请联系管理员处理");
         }
-        if(StringUtil.equalsString(tbOrder.getOrderStatus(),"2")){
+        if(!StringUtil.equalsString(tbOrder.getOrderStatus(),"2")){
             throw new SystemException("司机完成订单失败","该订单状态已变化","请重新刷新订单");
         }
         tbOrder.setOrderStatus("3");
         tbOrderDao.update(tbOrder);
+    }
+
+    /**
+     * 订单评价
+     * @param reqOrderEvaluationDto
+     * @throws Exception
+     */
+    public void orderEvaluation(ReqOrderEvaluationDto reqOrderEvaluationDto)throws Exception{
+        TbOrder tbOrder = tbOrderDao.selectByPrimaryKey(reqOrderEvaluationDto.getId());
+        TbEvaluate tbEvaluate = new TbEvaluate();
+        long id = orderMapper.findTbEvaluateMaxId();
+        BeanHelper.copyBeanValue(reqOrderEvaluationDto,tbEvaluate);
+        tbEvaluate.setId(id+1);
+//        tbEvaluate.setDriverId(tbOrder.getDriveId());
+        tbEvaluate.setCreateTime(new Date());
+
     }
 
     /**
@@ -357,5 +382,30 @@ public class OrderService {
             tbOrder.setUpdateTime(new Date());
         }
         tbOrderDao.updateSelective(tbOrder);
+    }
+
+    /**
+     *
+     * @param reqOrderDto
+     * @return
+     * @throws Exception
+     */
+    public ResCompleteOrderInfoDto completeOrderInfo(ReqOrderDto reqOrderDto)throws Exception{
+        TbOrder tbOrder = tbOrderDao.selectByPrimaryKey(reqOrderDto.getId());
+        if(CommonUtil.isEmpty(tbOrder)){
+            throw new SystemException("获取完成订单详细信息失败","订单不存在","请重新刷新");
+        }
+        ResCompleteOrderInfoDto resCompleteOrderInfoDto = new ResCompleteOrderInfoDto();
+        BeanHelper.copyBeanValue(reqOrderDto,resCompleteOrderInfoDto);
+        TbEvaluate tbEvaluateQuery = new TbEvaluate();
+        tbEvaluateQuery.setOrderId(tbOrder.getId());
+        List<TbEvaluate> tbEvaluateList = tbEvaluateDao.selectByEntitySelective(tbEvaluateQuery);
+        if(CommonUtil.isNotEmpty(tbEvaluateList)){
+            TbEvaluate tbEvaluate = tbEvaluateList.get(0);
+            resCompleteOrderInfoDto.setOrderStar(tbEvaluate.getOrderStar());
+            resCompleteOrderInfoDto.setOrderEvaluate(tbEvaluate.getOrderEvaluate());
+            resCompleteOrderInfoDto.setOrderService(tbEvaluate.getOrderService());
+        }
+        return resCompleteOrderInfoDto;
     }
 }

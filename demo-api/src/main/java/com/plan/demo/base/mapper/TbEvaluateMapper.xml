@@ -4,9 +4,9 @@
   
   <resultMap id="BaseResultMap" type="com.plan.demo.base.entity.TbEvaluate" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="user_id" property="userId" jdbcType="VARCHAR" />
-    <result column="driver_id" property="driverId" jdbcType="VARCHAR" />
-    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="driver_id" property="driverId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
     <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
     <result column="order_star" property="orderStar" jdbcType="VARCHAR" />
     <result column="order_service" property="orderService" jdbcType="VARCHAR" />
@@ -25,8 +25,8 @@
       order_id, order_no, order_star, 
       order_service, order_evaluate, create_time, 
       update_time)
-    VALUES (#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{driverId,jdbcType=VARCHAR}, 
-      #{orderId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{orderStar,jdbcType=VARCHAR}, 
+    VALUES (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{driverId,jdbcType=BIGINT}, 
+      #{orderId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{orderStar,jdbcType=VARCHAR}, 
       #{orderService,jdbcType=VARCHAR}, #{orderEvaluate,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -38,7 +38,7 @@
       order_evaluate, create_time, 
       update_time)
     VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=BIGINT}, 
-      #{item.userId,jdbcType=VARCHAR}, #{item.driverId,jdbcType=VARCHAR}, #{item.orderId,jdbcType=VARCHAR}, 
+      #{item.userId,jdbcType=BIGINT}, #{item.driverId,jdbcType=BIGINT}, #{item.orderId,jdbcType=BIGINT}, 
       #{item.orderNo,jdbcType=VARCHAR}, #{item.orderStar,jdbcType=VARCHAR}, #{item.orderService,jdbcType=VARCHAR}, 
       #{item.orderEvaluate,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
       #{item.updateTime,jdbcType=TIMESTAMP}) </foreach>
@@ -83,13 +83,13 @@
         #{id,jdbcType=BIGINT},
       </if>
       <if test="userId != null" >
-        #{userId,jdbcType=VARCHAR},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="driverId != null" >
-        #{driverId,jdbcType=VARCHAR},
+        #{driverId,jdbcType=BIGINT},
       </if>
       <if test="orderId != null" >
-        #{orderId,jdbcType=VARCHAR},
+        #{orderId,jdbcType=BIGINT},
       </if>
       <if test="orderNo != null" >
         #{orderNo,jdbcType=VARCHAR},
@@ -114,9 +114,9 @@
   
   <update id="update" parameterType="com.plan.demo.base.entity.TbEvaluate" >
     UPDATE tb_evaluate
-    SET user_id = #{userId,jdbcType=VARCHAR},
-      driver_id = #{driverId,jdbcType=VARCHAR},
-      order_id = #{orderId,jdbcType=VARCHAR},
+    SET user_id = #{userId,jdbcType=BIGINT},
+      driver_id = #{driverId,jdbcType=BIGINT},
+      order_id = #{orderId,jdbcType=BIGINT},
       order_no = #{orderNo,jdbcType=VARCHAR},
       order_star = #{orderStar,jdbcType=VARCHAR},
       order_service = #{orderService,jdbcType=VARCHAR},
@@ -130,13 +130,13 @@
     UPDATE tb_evaluate
     <set >
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=VARCHAR},
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="driverId != null" >
-        driver_id = #{driverId,jdbcType=VARCHAR},
+        driver_id = #{driverId,jdbcType=BIGINT},
       </if>
       <if test="orderId != null" >
-        order_id = #{orderId,jdbcType=VARCHAR},
+        order_id = #{orderId,jdbcType=BIGINT},
       </if>
       <if test="orderNo != null" >
         order_no = #{orderNo,jdbcType=VARCHAR},
@@ -181,13 +181,13 @@
          AND id = #{id,jdbcType=BIGINT}
       </if>
       <if test="userId != null" >
-         AND user_id = #{userId,jdbcType=VARCHAR}
+         AND user_id = #{userId,jdbcType=BIGINT}
       </if>
       <if test="driverId != null" >
-         AND driver_id = #{driverId,jdbcType=VARCHAR}
+         AND driver_id = #{driverId,jdbcType=BIGINT}
       </if>
       <if test="orderId != null" >
-         AND order_id = #{orderId,jdbcType=VARCHAR}
+         AND order_id = #{orderId,jdbcType=BIGINT}
       </if>
       <if test="orderNo != null" >
          AND order_no = #{orderNo,jdbcType=VARCHAR}

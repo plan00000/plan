@@ -18,6 +18,13 @@ public class ReqEditPassengerDto {
     private String sex;
     @ApiModelProperty("用户名称")
     private String userName;
+
+    @ApiModelProperty("手机号码")
+    private String mobileno;
+
+    @ApiModelProperty("身份证号")
+    private String idCard;
+
     @ApiModelProperty("用户目前位置")
     private String location;
 

@@ -1,5 +1,6 @@
 package com.plan.demo.order.dto;
 
+import com.plan.frame.entity.DateConvert;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -18,7 +19,8 @@ public class ResDriverOrderInfoDto {
     private long id;
 
     @ApiModelProperty("下单时间")
-    private Date orderTime;
+    @DateConvert(format = "yyyy-MM-dd HH:mm:ss")
+    private String orderTime;
 
     @ApiModelProperty("订单起点")
     private String orderStartAddress;

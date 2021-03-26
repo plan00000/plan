@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_driver - 
- * @time 2021-03-23 19:57:09
+ * @time 2021-03-27 01:06:02
  */
 public class TbDriver {
     /**
@@ -115,6 +115,12 @@ public class TbDriver {
      */
     @ApiModelProperty("驾驶证号")
     private String driverNo;
+
+    /**
+     * 座位数，对应表字段为：tb_driver.driver_seats
+     */
+    @ApiModelProperty("座位数")
+    private Long driverSeats;
 
     /**
      * 创建时间，对应表字段为：tb_driver.create_time
@@ -270,6 +276,14 @@ public class TbDriver {
 
     public void setDriverNo(String driverNo) {
         this.driverNo = driverNo;
+    }
+
+    public Long getDriverSeats() {
+        return driverSeats;
+    }
+
+    public void setDriverSeats(Long driverSeats) {
+        this.driverSeats = driverSeats;
     }
 
     public Date getCreateTime() {
