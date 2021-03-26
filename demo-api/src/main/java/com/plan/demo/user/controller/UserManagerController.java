@@ -192,8 +192,8 @@ public class UserManagerController {
     @RequestMapping(value = "/getDriverFirstPageInfo",method = RequestMethod.GET)
     public Result<ResDriverFirstPageResultDto> getDriverFirstPageInfo()throws RuntimeException{
         try {
-            userManagerService.getDriverFirstPageInfo();
-            return ResultHelper.success();
+            ResDriverFirstPageResultDto resDriverFirstPageResultDto=userManagerService.getDriverFirstPageInfo();
+            return ResultHelper.success(resDriverFirstPageResultDto);
         }catch (Exception e) {
             if (e instanceof BaseException) {
                 throw (BaseException) e;
@@ -219,6 +219,42 @@ public class UserManagerController {
                 throw (BaseException) e;
             } else {
                 throw new SystemException("司机上下班失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    /**
+     *
+     * @param
+     * @return
+     * @throws RuntimeException
+     */
+    @ApiOperation(value = "11-获取司机详细信息")
+    @RequestMapping(value = "/getDriverInfo",method = RequestMethod.GET)
+    public Result<ResDriverInfoDto> getDriverInfo()throws RuntimeException{
+        try {
+            ResDriverInfoDto resDriverInfoDto =userManagerService.getDriverInfo();
+            return ResultHelper.success(resDriverInfoDto);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("获取司机详细信息失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+    @ApiOperation(value = "12-修改司机详细信息")
+    @RequestMapping(value = "/editDriverInfo",method = RequestMethod.GET)
+    public Result<ResDriverInfoDto> editDriverInfo(@RequestBody ReqEditDriverDto reqEditDriverDto)throws RuntimeException{
+        try {
+            userManagerService.editDriver(reqEditDriverDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("修改司机详细信息失败", e, "请联系管理员！");
             }
         }
     }

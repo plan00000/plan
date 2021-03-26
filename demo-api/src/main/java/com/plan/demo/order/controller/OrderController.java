@@ -224,7 +224,22 @@ public class OrderController {
         }
     }
 
-    @ApiOperation(value = "11-修改订单下个状态。（临时使用）")
+    @ApiOperation(value = "11-司机去接乘客（行程开始）")
+    @RequestMapping(value = "/driverPickUpPassenger",method = RequestMethod.POST)
+    public Result<String> driverPickUpPassenger(@RequestBody ReqOrderDto reqOrderDto)throws RuntimeException{
+        try {
+            orderService.driverPickUpPassenger(reqOrderDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("司机接到乘客", e, "请联系管理员！");
+            }
+        }
+    }
+
+    @ApiOperation(value = "12-修改订单下个状态。（临时使用）")
     @RequestMapping(value = "/nexOrderStatus",method = RequestMethod.POST)
     public Result<String> nexOrderStatus(@RequestBody ReqOrderNextStatusDto reqOrderNextStatusDto)throws RuntimeException{
         try {
@@ -238,6 +253,8 @@ public class OrderController {
             }
         }
     }
+
+
 
 
 

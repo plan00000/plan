@@ -310,6 +310,18 @@ public class OrderService {
         tbOrderDao.update(tbOrder);
     }
 
+    public void driverPickUpPassenger(ReqOrderDto reqOrderDto) throws Exception{
+        TbOrder tbOrder = tbOrderDao.selectByPrimaryKey(reqOrderDto.getId());
+        if(CommonUtil.isEmpty(tbOrder)){
+            throw new SystemException("司机完成订单失败","不存在该订单","请联系管理员处理");
+        }
+        if(StringUtil.equalsString(tbOrder.getOrderStatus(),"2")){
+            throw new SystemException("司机完成订单失败","该订单状态已变化","请重新刷新订单");
+        }
+        tbOrder.setOrderStatus("3");
+        tbOrderDao.update(tbOrder);
+    }
+
     /**
      * 修改订单状态
      * @param reqOrderNextStatusDto

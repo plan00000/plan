@@ -69,7 +69,7 @@
       <!--<columnOverride column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />-->
       <!--<columnOverride column="DEAL_RESULT" javaType="java.lang.String" jdbcType="VARCHAR" />-->
     <!--</table>-->
-    <table schema="cjc" tableName="tb_driver"></table>
+    <table schema="cjc" tableName="tb_order%"></table>
 
   </context>
 </generatorConfiguration>

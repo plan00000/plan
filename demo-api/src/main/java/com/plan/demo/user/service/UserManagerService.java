@@ -6,6 +6,7 @@ import com.plan.demo.base.dao.TbPassengerDao;
 import com.plan.demo.base.entity.TbDriver;
 import com.plan.demo.base.entity.TbOrder;
 import com.plan.demo.base.entity.TbPassenger;
+import com.plan.demo.order.dto.ResDriverOrderInfoDto;
 import com.plan.demo.user.dao.UserManagerMapper;
 import com.plan.demo.user.dto.*;
 import com.plan.frame.cache.DictinaryCache;
@@ -328,10 +329,10 @@ public class UserManagerService {
         }
         TbDriver tbDriver = tbDriverList.get(0);
         //密码
-        Boolean ljwPasswordCheck =StringUtil.equalsString(tbDriver.getPassword(),DigestUtils.md5DigestAsHex(reqDriverLoginDto.getPassword().getBytes()));
+        /*Boolean ljwPasswordCheck =StringUtil.equalsString(tbDriver.getPassword(),DigestUtils.md5DigestAsHex(reqDriverLoginDto.getPassword().getBytes()));
         if(!ljwPasswordCheck){
             throw new SystemException("司机登录失败","密码不正确","请重新输入");
-        }
+        }*/
         ResTokenDto resTokenDto = new ResTokenDto();
         UserInfoDto userInfoDto = new UserInfoDto();
         userInfoDto.setId(tbDriver.getId());
@@ -366,6 +367,37 @@ public class UserManagerService {
         long driverId = ThreadLocalHelper.getUser().getId();
         TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(driverId);
         tbDriver.setDriverStatus(reqDriverCommutingDto.getDriverStatus());
+        tbDriverDao.update(tbDriver);
+    }
+
+    /**
+     * 获取司机详细信息
+     * @return
+     * @throws Exception
+     */
+    public ResDriverInfoDto getDriverInfo()throws Exception{
+        long driverId = ThreadLocalHelper.getUser().getId();
+        TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(driverId);
+        if(CommonUtil.isEmpty(tbDriver)){
+            throw new SystemException("获取司机详细信息失败","没有该司机","");
+        }
+        ResDriverInfoDto resDriverInfoDto = new ResDriverInfoDto();
+        BeanHelper.copyBeanValue(tbDriver,resDriverInfoDto);
+        return resDriverInfoDto;
+    }
+
+    /**
+     * 修改司机信息
+     * @param reqEditDriverDto
+     * @throws Exception
+     */
+    public void editDriver(ReqEditDriverDto reqEditDriverDto)throws Exception{
+        long driverId = ThreadLocalHelper.getUser().getId();
+        TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(driverId);
+        if(CommonUtil.isEmpty(tbDriver)){
+            throw new SystemException("获取司机详细信息失败","没有该司机","");
+        }
+        BeanHelper.copyBeanValue(reqEditDriverDto,driverId);
         tbDriverDao.update(tbDriver);
     }
 
