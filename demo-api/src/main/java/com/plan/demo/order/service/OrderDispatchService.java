@@ -35,18 +35,18 @@ public class OrderDispatchService {
         List<TbOrder> dfpTbOrderList = tbOrderDao.selectByEntitySelective(tbOrderQuery);
         //2.查询所有空闲的司机,放到对应司机空闲池里
         List<ValueObject> freeDriverVoList = orderMapper.findFreeDriverList();
-        List<DriverDto> driverDtoList =null;
+        List<DriverDto> driverDtoList = null;
+
         if(CommonUtil.isNotEmpty(freeDriverVoList)){
             driverDtoList = BeanHelper.voListToBeanList(freeDriverVoList,DriverDto.class);
         }
-        Map<String,DriverDto> freeDriverMap = new HashMap<>();
-        if(CommonUtil.isNotEmpty(driverDtoList)){
 
-        }
         if(CommonUtil.isNotEmpty(dfpTbOrderList)){
             //2.开始分配每个订单
             for(TbOrder tbOrder:dfpTbOrderList){
+                if(CommonUtil.isNotEmpty(driverDtoList)){
 
+                }
 
             }
 
