@@ -17,4 +17,5 @@ public interface OrderMapper {
     List<ValueObject> findNowOrderList(ReqOrderRealTypeDto reqOrderRealTypeDto);
     List<ValueObject> findLineList();
     Long findMaxId();
+    List<ValueObject> findFreeDriverList();
 }
