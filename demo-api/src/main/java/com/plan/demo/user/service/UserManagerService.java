@@ -403,7 +403,7 @@ public class UserManagerService {
         if(CommonUtil.isEmpty(tbDriver)){
             throw new SystemException("获取司机详细信息失败","没有该司机","");
         }
-        BeanHelper.copyBeanValue(reqEditDriverDto,driverId);
+        BeanHelper.copyBeanValue(reqEditDriverDto,tbDriver);
         tbDriverDao.update(tbDriver);
     }
 

@@ -28,4 +28,7 @@ public class ResCompleteOrderDto {
 
     @ApiModelProperty("订单结束点")
     private String orderEndAddress;
+
+    @ApiModelProperty("订单状态:0-已取消，1-派单中，2-司机已接单，3-行程开始，4-行程已完成，5-订单超时")
+    private String orderStatus;
 }

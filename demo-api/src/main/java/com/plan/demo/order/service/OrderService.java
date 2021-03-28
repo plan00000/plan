@@ -257,6 +257,7 @@ public class OrderService {
                 }
                 resCompleteOrderDto.setOrderStartAddress(tbOrder.getOrderStartAddress());
                 resCompleteOrderDto.setOrderEndAddress(tbOrder.getOrderEndAddress());
+                resCompleteOrderDto.setOrderStatus(tbOrder.getOrderStatus());
                 completeOrderDtoList.add(resCompleteOrderDto);
             }
             resCompleteOrderResultDto.setCompleteOrderDtoList(completeOrderDtoList);

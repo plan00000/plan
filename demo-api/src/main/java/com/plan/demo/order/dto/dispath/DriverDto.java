@@ -23,6 +23,9 @@ public class DriverDto {
     @ApiModelProperty("司机状态（0-下班，1-上班）")
     private String driverStatus;
 
+    @ApiModelProperty("司机评分级：几颗星最高5个星1代表一个星")
+    private String driverStar;
+
     @ApiModelProperty("用户目前位置")
     private String location;
 

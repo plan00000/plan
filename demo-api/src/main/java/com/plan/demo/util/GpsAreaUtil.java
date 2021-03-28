@@ -30,7 +30,7 @@ public class GpsAreaUtil {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         DecimalFormat format = new DecimalFormat("0.00");
         //logger.info("两点间距离：{" + format.format(EARTH_RADIUS * c) + "米}");
-        return Double.parseDouble(format.format(EARTH_RADIUS * c/1000));
+        return Double.parseDouble(format.format(EARTH_RADIUS * c));
     }
 
     //判断点是否在多边形内
