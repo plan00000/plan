@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by ljw on 2021/3/24 0024.
+ * Created by wpr on 2021/3/24 0024.
  */
 @Service
 public class OrderDispatchService {
@@ -30,7 +30,7 @@ public class OrderDispatchService {
     @Autowired
     private OrderMapper orderMapper;
 
-    @Scheduled(cron = "0 */1 * * ?")
+//    @Scheduled(cron = "0 */1 * * ?")
     public void orderDispatch(){
         TbOrder tbOrderQuery = new TbOrder();
         tbOrderQuery.setOrderStatus("1");

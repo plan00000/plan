@@ -23,7 +23,6 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -130,10 +129,12 @@ public class OrderService {
                 throw new SystemException("取消订单失败","已过取消订单时间","请您耐心等待司机");
             }
         }else{
-            Date orderReceiveTimeFiveMinutes = DateUtils.addMinutes(tbOrder.getOrderReceiveTime(),5);
-            Date nowDate = new Date();
-            if(nowDate.before(orderReceiveTimeFiveMinutes)){
-                throw new SystemException("取消订单失败","已过取消订单时间","请您耐心等待司机");
+            if(CommonUtil.isNotEmpty(tbOrder.getOrderReceiveTime())) {
+                Date orderReceiveTimeFiveMinutes = DateUtils.addMinutes(tbOrder.getOrderReceiveTime(), 5);
+                Date nowDate = new Date();
+                if (nowDate.before(orderReceiveTimeFiveMinutes)) {
+                    throw new SystemException("取消订单失败", "已过取消订单时间", "请您耐心等待司机");
+                }
             }
         }
         tbOrder.setCancelReason(reqCancelOrderDto.getCancelReason());

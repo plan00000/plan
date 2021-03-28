@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 /**
- * @Created by linzhihua
+ * @Created by ljw
  * @Description
  * @ClassName GpsAreaUtil
  * @Date 2020/11/25 8:54
