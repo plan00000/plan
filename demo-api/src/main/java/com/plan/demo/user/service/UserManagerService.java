@@ -177,9 +177,12 @@ public class UserManagerService {
      * @throws Exception
      */
     public void editPassengerInfo(ReqEditPassengerDto reqEditPassengerDto)throws Exception{
-        if(CommonUtil.isEmpty(reqEditPassengerDto.getId())){
+
+        /*if(CommonUtil.isEmpty(reqEditPassengerDto.getId())){
             throw new SystemException("更新失败","乘客id不能为空","请联系管理员处理");
-        }
+        }*/
+        reqEditPassengerDto.setId(ThreadLocalHelper.getUser().getId());
+
         TbPassenger tbPassenger = tbPassengerDao.selectByPrimaryKey(reqEditPassengerDto.getId());
         if(CommonUtil.isEmpty(tbPassenger)){
             throw new SystemException("更新失败","不存在该乘客信息","请刷新页面");
