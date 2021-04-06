@@ -28,5 +28,7 @@ public class ReqDriverRegisterDto {
     private String carMark;
     @ApiModelProperty("驾驶证号")
     private String driverNo;
+    @ApiModelProperty("座位数")
+    private Long driverSeats;
 
 }

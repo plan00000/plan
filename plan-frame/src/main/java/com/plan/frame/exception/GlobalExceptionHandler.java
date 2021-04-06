@@ -52,7 +52,8 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
         }
         String url = httpServletRequest.getRequestURI();
         /** 对异常信息进行数据库保存*/
-        String exceptionId = exceptionRecordService.createExceptionRecord(ex,url);
+//        String exceptionId = exceptionRecordService.createExceptionRecord(ex,url);
+        String exceptionId = "";
 
         Result result = new Result();
         if(ex instanceof ConditionException){//应用异常
