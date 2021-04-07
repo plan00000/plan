@@ -73,6 +73,29 @@ public class OrderService {
                 throw new SystemException("新增订单失败","已存在一个实时订单，不能从复下单","请耐心等待司机");
             }*/
         }
+        String orderStartLon = reqAddOrderDto.getOrderStartLon().replace("Optional(","");
+        orderStartLon.replace(")","");
+        orderStartLon = orderStartLon.replace("-","");
+
+        String orderStartLat = reqAddOrderDto.getOrderStartLat();
+        orderStartLat = orderStartLat.replace("Optional(","");
+        orderStartLat = orderStartLat.replace(")","");
+        orderStartLat = orderStartLat.replace("-","");
+
+        String orderEndLon = reqAddOrderDto.getOrderEndLon();
+        orderEndLon = orderEndLon.replace("Optional(","");
+        orderEndLon = orderEndLon.replace(")","");
+        orderEndLon = orderEndLon.replace("-","");
+
+        String orderEndLat = reqAddOrderDto.getOrderEndLat();
+        orderEndLat = orderEndLat.replace("Optional(","");
+        orderEndLat = orderEndLat.replace(")","");
+        orderEndLat = orderEndLat.replace("-","");
+
+        reqAddOrderDto.setOrderStartLat(orderStartLat);
+        reqAddOrderDto.setOrderStartLon(orderStartLon);
+        reqAddOrderDto.setOrderEndLon(orderEndLon);
+        reqAddOrderDto.setOrderEndLat(orderEndLat);
         TbOrder tbOrder = new TbOrder();
         BeanHelper.copyBeanValue(reqAddOrderDto,tbOrder);
         tbOrder.setUserId(ThreadLocalHelper.getUser().getId());

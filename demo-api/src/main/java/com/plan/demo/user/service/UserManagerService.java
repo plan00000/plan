@@ -268,6 +268,8 @@ public class UserManagerService {
         long id = userManagerMapper.findDriverMaxId();
         tbDriver.setId(id+1);
         tbDriver.setDriverStatus("0");
+        tbDriver.setDriverStar("4.5");
+        tbDriver.setWorkAge("1");
         tbDriver.setCreateTime(new Date());
         tbDriver.setUpdateTime(new Date());
         tbDriverDao.insert(tbDriver);
