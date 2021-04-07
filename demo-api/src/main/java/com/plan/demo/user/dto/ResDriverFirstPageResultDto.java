@@ -31,6 +31,9 @@ public class ResDriverFirstPageResultDto {
     @ApiModelProperty("司机状态（0-下班，1-上班）")
     private String driverStatus;
 
+    @ApiModelProperty("是否绑定：0-未绑定，1-绑定")
+    private String binding;
+
     @ApiModelProperty("司机订单列表信息")
     private List<ResDriverFirstPageOderDto> orderList;
 

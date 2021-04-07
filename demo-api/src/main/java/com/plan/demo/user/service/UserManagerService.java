@@ -284,6 +284,11 @@ public class UserManagerService {
         ResDriverFirstPageResultDto resDriverFirstPageResultDto = new ResDriverFirstPageResultDto();
         long driverId = ThreadLocalHelper.getUser().getId();
         TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(driverId);
+        if(CommonUtil.isEmpty(tbDriver.getCarNo())){
+            resDriverFirstPageResultDto.setBinding("0");
+        }else{
+            resDriverFirstPageResultDto.setBinding("1");
+        }
         resDriverFirstPageResultDto.setId(driverId);
         resDriverFirstPageResultDto.setWorkYears(tbDriver.getWorkAge());
         resDriverFirstPageResultDto.setDriverStatus(tbDriver.getDriverStatus());
