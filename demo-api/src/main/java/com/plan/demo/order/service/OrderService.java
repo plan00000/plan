@@ -74,7 +74,7 @@ public class OrderService {
         }
 
         String orderStartLon = reqAddOrderDto.getOrderStartLon().replace("Optional(","");
-        orderStartLon.replace(")","");
+        orderStartLon = orderStartLon.replace(")","");
         orderStartLon = orderStartLon.replace("-","");
 
         String orderStartLat = reqAddOrderDto.getOrderStartLat();
