@@ -15,7 +15,7 @@
   <select id="findHotListList" resultType="vo" parameterType="vo">
     select a.id as line_id,concat(a.start_address,'-',a.end_address) as line_name,
     a.start_address,a.end_address,a.start_lon,a.start_lat,a.end_lon,a.end_lat
-    from tb_line a
+    from tb_line a limit 0,6
   </select>
 
   <select id="findMaxId" resultType="java.lang.Long">
