@@ -454,10 +454,8 @@ public class UserManagerService {
         List<ValueObject> valueObjectList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
         String hasOrderFlag ="0";
         if(CommonUtil.isNotEmpty(valueObjectList)){
-            ValueObject orderVo = valueObjectList.get(0);
-            TbOrder tbOrder = new TbOrder();
-            BeanHelper.voToBean(orderVo,tbOrder);
-            resPassengerFirstPageResultDto.setTbOrder(tbOrder);
+            List<TbOrder> tbOrderList = BeanHelper.voListToBeanList(valueObjectList,TbOrder.class);
+            resPassengerFirstPageResultDto.setTbOrderList(tbOrderList);
             hasOrderFlag ="1";
         }
         resPassengerFirstPageResultDto.setHasOrderFlag(hasOrderFlag);

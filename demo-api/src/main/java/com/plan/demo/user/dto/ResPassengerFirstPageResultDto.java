@@ -17,7 +17,7 @@ public class ResPassengerFirstPageResultDto {
     @ApiModelProperty("是否有订单：0-没有，1-有")
     private String hasOrderFlag;
     @ApiModelProperty("乘客进行中的订单")
-    private TbOrder tbOrder;
+    private List<TbOrder> tbOrderList;
     @ApiModelProperty("热门线路列表")
     private List<ResOrderLineDto> hotLineList;
 }
