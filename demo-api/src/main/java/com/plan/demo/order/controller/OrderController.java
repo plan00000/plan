@@ -266,7 +266,7 @@ public class OrderController {
     @RequestMapping(value = "/nexOrderStatus",method = RequestMethod.POST)
     public Result<String> nexOrderStatus(@RequestBody ReqOrderNextStatusDto reqOrderNextStatusDto)throws RuntimeException{
         try {
-            orderService.nexOrderStatus(reqOrderNextStatusDto);
+//            orderService.nexOrderStatus(reqOrderNextStatusDto);
             return ResultHelper.success();
         }catch (Exception e) {
             if (e instanceof BaseException) {

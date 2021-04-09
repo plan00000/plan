@@ -63,16 +63,16 @@ public class OrderService {
                 throw new SystemException("新增订单失败","预约时间不能小于一个小时","请重新选择预约时间");
             }
         }
-        //2.如果订单是实时订单，判断是否存在另一个实时订单
-        if(StringUtil.equalsString(reqAddOrderDto.getOrderRealType(),"0")){
-            ReqOrderRealTypeDto reqOrderRealTypeDto = new ReqOrderRealTypeDto();
-            reqOrderRealTypeDto.setUserId(ThreadLocalHelper.getUser().getId());
-            reqOrderRealTypeDto.setOrderRealType("0");
-            /**List<ValueObject> nowOrderVoList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
-            if(CommonUtil.isNotEmpty(nowOrderVoList)){
-                throw new SystemException("新增订单失败","已存在一个实时订单，不能从复下单","请耐心等待司机");
-            }*/
+        //2.如果有存在进行中的订单，则不能从复下单
+
+        ReqOrderRealTypeDto reqOrderRealTypeDto = new ReqOrderRealTypeDto();
+        reqOrderRealTypeDto.setUserId(ThreadLocalHelper.getUser().getId());
+        reqOrderRealTypeDto.setOrderRealType("0");
+        List<ValueObject> nowOrderVoList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
+        if(CommonUtil.isNotEmpty(nowOrderVoList)){
+            throw new SystemException("新增订单失败","已存在一个订单，不能从复下单","请耐心等待司机");
         }
+
         String orderStartLon = reqAddOrderDto.getOrderStartLon().replace("Optional(","");
         orderStartLon.replace(")","");
         orderStartLon = orderStartLon.replace("-","");
@@ -96,6 +96,7 @@ public class OrderService {
         reqAddOrderDto.setOrderStartLon(orderStartLon);
         reqAddOrderDto.setOrderEndLon(orderEndLon);
         reqAddOrderDto.setOrderEndLat(orderEndLat);
+
         TbOrder tbOrder = new TbOrder();
         BeanHelper.copyBeanValue(reqAddOrderDto,tbOrder);
         tbOrder.setUserId(ThreadLocalHelper.getUser().getId());

@@ -276,6 +276,21 @@ public class UserManagerController {
         }
     }
 
+    @ApiOperation(value = "14-获取乘客首页信息")
+    @RequestMapping(value = "/getPassengerFirstPageInfo",method = RequestMethod.GET)
+    public Result<ResPassengerFirstPageResultDto> getPassengerFirstPageInfo()throws RuntimeException{
+        try {
+            ResPassengerFirstPageResultDto resPassengerFirstPageResultDto=userManagerService.getPassengerFirstPageInfo();
+            return ResultHelper.success(resPassengerFirstPageResultDto);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("乘客首页信息失败", e, "请联系管理员！");
+            }
+        }
+    }
+
 
 
 

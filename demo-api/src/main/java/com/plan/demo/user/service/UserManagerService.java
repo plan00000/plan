@@ -6,14 +6,19 @@ import com.plan.demo.base.dao.TbPassengerDao;
 import com.plan.demo.base.entity.TbDriver;
 import com.plan.demo.base.entity.TbOrder;
 import com.plan.demo.base.entity.TbPassenger;
+import com.plan.demo.order.dao.OrderMapper;
+import com.plan.demo.order.dto.ReqOrderRealTypeDto;
+import com.plan.demo.order.dto.ResOrderLineDto;
 import com.plan.demo.user.dao.UserManagerMapper;
 import com.plan.demo.user.dto.*;
 import com.plan.frame.cache.DictinaryCache;
+import com.plan.frame.entity.ValueObject;
 import com.plan.frame.exception.SystemException;
 import com.plan.frame.helper.BeanHelper;
 import com.plan.frame.helper.ThreadLocalHelper;
 import com.plan.frame.system.dto.login.userInfo.UserInfoDto;
 import com.plan.frame.util.*;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -47,6 +52,8 @@ public class UserManagerService {
     private TbOrderDao tbOrderDao;
     @Autowired
     private UserManagerMapper userManagerMapper;
+    @Autowired
+    private OrderMapper orderMapper;
 
     /**
      * 获取随机码
@@ -304,8 +311,10 @@ public class UserManagerService {
             resDriverFirstPageResultDto.setCompleteOrderNum("0");
         }
         //未完成订单
-        tbOrderQuery.setOrderStatus("2");
-        List<TbOrder> ljwTbOrderList = tbOrderDao.selectByEntitySelective(tbOrderQuery);
+        ReqDriverDto reqDriverDto =new ReqDriverDto();
+        reqDriverDto.setId(driverId);
+        List<ValueObject> ljwTbOrderVoList = orderMapper.getNowDriverOrderList(reqDriverDto);
+        List<TbOrder> ljwTbOrderList = BeanHelper.voListToBeanList(ljwTbOrderVoList,TbOrder.class);
         List<ResDriverFirstPageOderDto >resDriverFirstPageOderDtoList = new ArrayList<>();
         if(CommonUtil.isNotEmpty(ljwTbOrderList)){
             for(TbOrder tbOrder:ljwTbOrderList){
@@ -430,6 +439,36 @@ public class UserManagerService {
         tbDriver.setDriverStatus("0");
         tbDriver.setCarNo("");
         tbDriverDao.update(tbDriver);
+    }
+
+    /**
+     * 获取乘客首页信息
+     * @return
+     * @throws Exception
+     */
+    public ResPassengerFirstPageResultDto getPassengerFirstPageInfo()throws Exception{
+        ResPassengerFirstPageResultDto resPassengerFirstPageResultDto = new ResPassengerFirstPageResultDto();
+        long passengerId = ThreadLocalHelper.getUser().getId();
+        ReqOrderRealTypeDto reqOrderRealTypeDto = new ReqOrderRealTypeDto();
+        reqOrderRealTypeDto.setUserId(passengerId);
+        List<ValueObject> valueObjectList = orderMapper.findNowOrderList(reqOrderRealTypeDto);
+        String hasOrderFlag ="0";
+        if(CommonUtil.isNotEmpty(valueObjectList)){
+            ValueObject orderVo = valueObjectList.get(0);
+            TbOrder tbOrder = new TbOrder();
+            BeanHelper.voToBean(orderVo,tbOrder);
+            resPassengerFirstPageResultDto.setTbOrder(tbOrder);
+            hasOrderFlag ="1";
+        }
+        resPassengerFirstPageResultDto.setHasOrderFlag(hasOrderFlag);
+
+        List<ValueObject> lineVoList = orderMapper.findHotListList();
+        List<ResOrderLineDto> resLineDtoList = new ArrayList<>();
+        if(CommonUtil.isNotEmpty(lineVoList)){
+            resLineDtoList=BeanHelper.voListToBeanList(lineVoList,ResOrderLineDto.class);
+        }
+        resPassengerFirstPageResultDto.setHotLineList(resLineDtoList);
+        return resPassengerFirstPageResultDto;
     }
 
 

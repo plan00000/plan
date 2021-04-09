@@ -5,11 +5,14 @@
     select * from tb_order a
     where a.user_id = #{userId}
     and a.order_status in('1','2','3')
-    <if test="orderRealType != null" >
-      and a.order_real_type = #{orderRealType}
-    </if>
   </select>
   <select id="findLineList" resultType="vo" parameterType="vo">
+    select a.id as line_id,concat(a.start_address,'-',a.end_address) as line_name,
+    a.start_address,a.end_address,a.start_lon,a.start_lat,a.end_lon,a.end_lat
+    from tb_line a
+  </select>
+
+  <select id="findHotListList" resultType="vo" parameterType="vo">
     select a.id as line_id,concat(a.start_address,'-',a.end_address) as line_name,
     a.start_address,a.end_address,a.start_lon,a.start_lat,a.end_lon,a.end_lat
     from tb_line a
@@ -27,6 +30,14 @@
   <select id="findFreeDriverList" resultType="vo">
     select * from tb_driver a where a.driver_status = '1'
     and not exists(select 1 from tb_order b where a.id = b.drive_id and b.order_status in ('2','3'))
+  </select>
+
+  <select id="getNowDriverOrderList" resultType="vo" parameterType="com.plan.demo.user.dto.ReqDriverDto">
+    select * from tb_order a where a.order_status in ('2','3') and a.drive_id = #{id}
+  </select>
+
+  <select id="getNowPassengerOrderList" resultType="vo" parameterType="com.plan.demo.user.dto.ReqPassengerDto">
+    select * from tb_
   </select>
   
 </mapper>
