@@ -297,7 +297,8 @@ public class UserManagerService {
             resDriverFirstPageResultDto.setBinding("1");
         }
         resDriverFirstPageResultDto.setId(driverId);
-        resDriverFirstPageResultDto.setWorkYears(tbDriver.getWorkAge());
+        int workAge = DateUtil.getDateInterval(tbDriver.getCreateTime(),new Date());
+        resDriverFirstPageResultDto.setWorkYears(String.valueOf(workAge));
         resDriverFirstPageResultDto.setDriverStatus(tbDriver.getDriverStatus());
 
         TbOrder tbOrderQuery = new TbOrder();
@@ -322,7 +323,7 @@ public class UserManagerService {
                 resDriverFirstPageOderDto.setOrderId(tbOrder.getId());
                 resDriverFirstPageOderDto.setOrderRealType(tbOrder.getOrderRealType());
                 resDriverFirstPageOderDto.setOrderType(DictinaryCache.getCache().getDictCnName("order_type",tbOrder.getOrderType()));
-                if(StringUtil.equalsString(tbOrder.getOrderRealType(),"0")){
+                if(StringUtil.equalsString(tbOrder.getOrderRealType(),"1")){
                     resDriverFirstPageOderDto.setShowOrderInfo("您有一个新的包车订单");
                 }else{
                     resDriverFirstPageOderDto.setShowOrderInfo("您有一个新的拼车订单");

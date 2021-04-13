@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @table tb_passenger - 
- * @time 2021-03-23 19:57:09
+ * @time 2021-04-14 01:45:51
  */
 public class TbPassenger {
     /**
@@ -79,6 +79,18 @@ public class TbPassenger {
      */
     @ApiModelProperty("备注")
     private String remark;
+
+    /**
+     * 紧急联系人，对应表字段为：tb_passenger.contact_name
+     */
+    @ApiModelProperty("紧急联系人")
+    private String contactName;
+
+    /**
+     * 紧急联系人电话，对应表字段为：tb_passenger.contact_phone
+     */
+    @ApiModelProperty("紧急联系人电话")
+    private String contactPhone;
 
     public Long getId() {
         return id;
@@ -174,5 +186,21 @@ public class TbPassenger {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 }

@@ -15,22 +15,26 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="BaseColumnList" >
     id, sex, user_name, mobileno, state, location, lat, lon, id_card, create_time, update_time, 
-    remark
+    remark, contact_name, contact_phone
   </sql>
   
   <insert id="insert" parameterType="com.plan.demo.base.entity.TbPassenger" >
     INSERT INTO tb_passenger (id, sex, user_name, 
       mobileno, state, location, 
       lat, lon, id_card, create_time, 
-      update_time, remark)
+      update_time, remark, contact_name, 
+      contact_phone)
     VALUES (#{id,jdbcType=BIGINT}, #{sex,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{mobileno,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
       #{lat,jdbcType=VARCHAR}, #{lon,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, 
+      #{contactPhone,jdbcType=VARCHAR})
   </insert>
   
   <insert id="insertBatch" parameterType="java.util.List" >
@@ -38,12 +42,14 @@
       sex, user_name, mobileno, 
       state, location, lat, 
       lon, id_card, create_time, 
-      update_time, remark)
+      update_time, remark, contact_name, 
+      contact_phone)
     VALUES <foreach collection="list" item="item" index="index" separator=","> (#{item.id,jdbcType=BIGINT}, 
       #{item.sex,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, #{item.mobileno,jdbcType=VARCHAR}, 
       #{item.state,jdbcType=VARCHAR}, #{item.location,jdbcType=VARCHAR}, #{item.lat,jdbcType=VARCHAR}, 
       #{item.lon,jdbcType=VARCHAR}, #{item.idCard,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
-      #{item.updateTime,jdbcType=TIMESTAMP}, #{item.remark,jdbcType=VARCHAR}) </foreach>
+      #{item.updateTime,jdbcType=TIMESTAMP}, #{item.remark,jdbcType=VARCHAR}, #{item.contactName,jdbcType=VARCHAR}, 
+      #{item.contactPhone,jdbcType=VARCHAR}) </foreach>
   </insert>
   
   <insert id="insertSelective" parameterType="com.plan.demo.base.entity.TbPassenger" >
@@ -85,6 +91,12 @@
       <if test="remark != null" >
         remark,
       </if>
+      <if test="contactName != null" >
+        contact_name,
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone,
+      </if>
     </trim>
     <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -123,6 +135,12 @@
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="contactName != null" >
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   
@@ -138,7 +156,9 @@
       id_card = #{idCard,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR}
     WHERE id = #{id,jdbcType=BIGINT}
   </update>
   
@@ -177,6 +197,12 @@
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null" >
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
       </if>
     </set>
     WHERE id = #{id,jdbcType=BIGINT}
@@ -234,6 +260,12 @@
       </if>
       <if test="remark != null" >
          AND remark = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="contactName != null" >
+         AND contact_name = #{contactName,jdbcType=VARCHAR}
+      </if>
+      <if test="contactPhone != null" >
+         AND contact_phone = #{contactPhone,jdbcType=VARCHAR}
       </if>
     </where>
   </select>
