@@ -470,6 +470,39 @@ public class UserManagerService {
         return resPassengerFirstPageResultDto;
     }
 
+    /**
+     * 获取乘客是否已添加紧急联系人
+     * @return
+     */
+    public ResContactPersonDto getContactPerson(){
+        UserInfoDto userInfoDto = ThreadLocalHelper.getUser();
+        TbPassenger tbPassenger = tbPassengerDao.selectByPrimaryKey(userInfoDto.getId());
+        if(CommonUtil.isEmpty(tbPassenger)){
+            throw new SystemException("不存在该乘客","乘客id为"+ThreadLocalHelper.getUser().getId(),"");
+        }
+        ResContactPersonDto resContactPersonDto = new ResContactPersonDto();
+        if(CommonUtil.isNotEmpty(tbPassenger.getContactName())){
+            resContactPersonDto.setHasFlag("1");
+            resContactPersonDto.setContactName(tbPassenger.getContactName());
+            resContactPersonDto.setContactPhone(tbPassenger.getContactPhone());
+        }else{
+            resContactPersonDto.setHasFlag("0");
+        }
+        return resContactPersonDto;
+    }
+
+    /**
+     * 添加积极联系人
+     * @param reqContactPersonDto
+     * @throws Exception
+     */
+    public void addContactPerson(ReqContactPersonDto reqContactPersonDto)throws Exception{
+        TbPassenger tbPassenger = tbPassengerDao.selectByPrimaryKey(ThreadLocalHelper.getUser().getId());
+        tbPassenger.setContactName(reqContactPersonDto.getContactName());
+        tbPassenger.setContactPhone(reqContactPersonDto.getContactPhone());
+        tbPassengerDao.update(tbPassenger);
+    }
+
 
 
 

@@ -291,6 +291,37 @@ public class UserManagerController {
         }
     }
 
+    @ApiOperation(value = "15-获取乘客是否已添加紧急联系人")
+    @RequestMapping(value = "/getContactPerson",method = RequestMethod.GET)
+    public Result<ResContactPersonDto> getContactPerson()throws RuntimeException{
+        try {
+            ResContactPersonDto resContactPersonDto = userManagerService.getContactPerson();
+            return ResultHelper.success(resContactPersonDto);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("获取乘客是否已添加紧急联系人", e, "请联系管理员！");
+            }
+        }
+    }
+
+    @ApiOperation(value = "16-乘客添加紧急联系人")
+    @RequestMapping(value = "/addContactPerson",method = RequestMethod.GET)
+    public Result<String> addContactPerson(@RequestBody ReqContactPersonDto reqContactPersonDto)throws RuntimeException{
+        try {
+            userManagerService.addContactPerson(reqContactPersonDto);
+            return ResultHelper.success();
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("乘客添加紧急联系人失败", e, "请联系管理员！");
+            }
+        }
+    }
+
+
 
 
 
