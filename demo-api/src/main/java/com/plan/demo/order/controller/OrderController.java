@@ -246,8 +246,8 @@ public class OrderController {
      * @throws RuntimeException
      */
     @ApiOperation(value = "12-乘客订单评价")
-    @RequestMapping(value = "/orderEvaluation",method = RequestMethod.GET)
-    public Result<String> orderEvaluation(ReqOrderEvaluationDto reqOrderEvaluationDto)throws RuntimeException{
+    @RequestMapping(value = "/orderEvaluation",method = RequestMethod.POST)
+    public Result<String> orderEvaluation(@RequestBody ReqOrderEvaluationDto reqOrderEvaluationDto)throws RuntimeException{
         try {
               orderService.orderEvaluation(reqOrderEvaluationDto);
             return ResultHelper.success();
@@ -266,7 +266,7 @@ public class OrderController {
     @RequestMapping(value = "/nexOrderStatus",method = RequestMethod.POST)
     public Result<String> nexOrderStatus(@RequestBody ReqOrderNextStatusDto reqOrderNextStatusDto)throws RuntimeException{
         try {
-//            orderService.nexOrderStatus(reqOrderNextStatusDto);
+            orderService.nexOrderStatus(reqOrderNextStatusDto);
             return ResultHelper.success();
         }catch (Exception e) {
             if (e instanceof BaseException) {
@@ -277,7 +277,7 @@ public class OrderController {
         }
     }
 
-    @ApiOperation(value = "13-乘客司机完成订单详细信息")
+    @ApiOperation(value = "14-乘客司机完成订单详细信息")
     @RequestMapping(value = "/completeOrderInfo",method = RequestMethod.POST)
     public Result<ResCompleteOrderInfoDto> completeOrderInfo(@RequestBody ReqOrderDto reqOrderDto)throws RuntimeException{
         try {

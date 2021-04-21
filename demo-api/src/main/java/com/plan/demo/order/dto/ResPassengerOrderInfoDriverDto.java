@@ -23,5 +23,14 @@ public class ResPassengerOrderInfoDriverDto {
     @ApiModelProperty("车辆品牌")
     private String carMark;
     @ApiModelProperty("司机评分级：几颗星最高5个星1代表一个星")
-    private String driveStar;
+    private String driverStar;
+
+    @ApiModelProperty("用户所在位置经纬度--纬度")
+    private String lat;
+
+    @ApiModelProperty("用户所在位置经纬度--经度")
+    private String lon;
+
+    @ApiModelProperty("用户名称")
+    private String userName;
 }

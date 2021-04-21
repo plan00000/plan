@@ -7,6 +7,7 @@ import com.plan.demo.base.entity.TbDriver;
 import com.plan.demo.base.entity.TbOrder;
 import com.plan.demo.base.entity.TbPassenger;
 import com.plan.demo.order.dao.OrderMapper;
+import com.plan.demo.order.dto.ReqOrderDto;
 import com.plan.demo.order.dto.ReqOrderRealTypeDto;
 import com.plan.demo.order.dto.ResOrderLineDto;
 import com.plan.demo.user.dao.UserManagerMapper;
@@ -18,7 +19,6 @@ import com.plan.frame.helper.BeanHelper;
 import com.plan.frame.helper.ThreadLocalHelper;
 import com.plan.frame.system.dto.login.userInfo.UserInfoDto;
 import com.plan.frame.util.*;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -323,7 +323,7 @@ public class UserManagerService {
                 resDriverFirstPageOderDto.setOrderId(tbOrder.getId());
                 resDriverFirstPageOderDto.setOrderRealType(tbOrder.getOrderRealType());
                 resDriverFirstPageOderDto.setOrderType(DictinaryCache.getCache().getDictCnName("order_type",tbOrder.getOrderType()));
-                if(StringUtil.equalsString(tbOrder.getOrderRealType(),"1")){
+                if(StringUtil.equalsString(tbOrder.getOrderType(),"0")){
                     resDriverFirstPageOderDto.setShowOrderInfo("您有一个新的包车订单");
                 }else{
                     resDriverFirstPageOderDto.setShowOrderInfo("您有一个新的拼车订单");
@@ -474,8 +474,11 @@ public class UserManagerService {
      * 获取乘客是否已添加紧急联系人
      * @return
      */
-    public ResContactPersonDto getContactPerson(){
+    public ResContactPersonDto getContactPerson()throws Exception{
         UserInfoDto userInfoDto = ThreadLocalHelper.getUser();
+        if(CommonUtil.isEmpty(userInfoDto)){
+            throw new SystemException("获取用户信息失败","该用户未登录","请进行登录");
+        }
         TbPassenger tbPassenger = tbPassengerDao.selectByPrimaryKey(userInfoDto.getId());
         if(CommonUtil.isEmpty(tbPassenger)){
             throw new SystemException("不存在该乘客","乘客id为"+ThreadLocalHelper.getUser().getId(),"");
@@ -492,7 +495,7 @@ public class UserManagerService {
     }
 
     /**
-     * 添加积极联系人
+     * 添加紧急联系人
      * @param reqContactPersonDto
      * @throws Exception
      */
@@ -501,6 +504,24 @@ public class UserManagerService {
         tbPassenger.setContactName(reqContactPersonDto.getContactName());
         tbPassenger.setContactPhone(reqContactPersonDto.getContactPhone());
         tbPassengerDao.update(tbPassenger);
+    }
+
+    /**
+     * 乘客端获取司机实时位置
+     * @param reqOrderDto
+     * @return
+     */
+    public ResDriverLocationDto getDriverLocationByDriverId(ReqOrderDto reqOrderDto){
+        ResDriverLocationDto resDriverLocationDto  = new ResDriverLocationDto();
+        TbOrder tbOrder = tbOrderDao.selectByPrimaryKey(reqOrderDto.getId());
+        if(CommonUtil.isNotEmpty(tbOrder)){
+            TbDriver tbDriver = tbDriverDao.selectByPrimaryKey(tbOrder.getDriveId());
+            resDriverLocationDto.setId(tbDriver.getId());
+            resDriverLocationDto.setLocation(tbDriver.getLocation());
+            resDriverLocationDto.setLat(tbDriver.getLat());
+            resDriverLocationDto.setLon(tbDriver.getLon());
+        }
+        return resDriverLocationDto;
     }
 
 

@@ -204,6 +204,19 @@ public class OrderService {
             }
             resPassengerOrderInfoDto.setResPassengerOrderInfoDriverDto(resPassengerOrderInfoDriverDto);
         }
+        //获取订单的订单评价
+        TbEvaluate tbEvaluateQuery = new TbEvaluate();
+        tbEvaluateQuery.setOrderId(tbOrder.getId());
+        List<TbEvaluate> tbEvaluateList = tbEvaluateDao.selectByEntitySelective(tbEvaluateQuery);
+        if(CommonUtil.isNotEmpty(tbEvaluateList)){
+            resPassengerOrderInfoDto.setOrderHasEvaluateFlag("1");
+            TbEvaluate tbEvaluate = tbEvaluateList.get(0);
+            resPassengerOrderInfoDto.setOrderStar(tbEvaluate.getOrderStar());
+            resPassengerOrderInfoDto.setOrderEvaluate(tbEvaluate.getOrderEvaluate());
+            resPassengerOrderInfoDto.setOrderService(tbEvaluate.getOrderService());
+        }else{
+            resPassengerOrderInfoDto.setOrderHasEvaluateFlag("0");
+        }
         return resPassengerOrderInfoDto;
     }
 
@@ -368,9 +381,10 @@ public class OrderService {
         long id = orderMapper.findTbEvaluateMaxId();
         BeanHelper.copyBeanValue(reqOrderEvaluationDto,tbEvaluate);
         tbEvaluate.setId(id+1);
-//        tbEvaluate.setDriverId(tbOrder.getDriveId());
+        tbEvaluate.setDriverId(tbOrder.getDriveId());
+        tbEvaluate.setOrderId(reqOrderEvaluationDto.getId());
         tbEvaluate.setCreateTime(new Date());
-
+        tbEvaluateDao.insert(tbEvaluate);
     }
 
     /**
@@ -388,7 +402,7 @@ public class OrderService {
         if(StringUtil.equalsString(reqOrderNextStatusDto.getStatus(),"2")){
             //司机已接单
             tbOrder.setOrderStatus("2");
-            tbOrder.setDriveId(15L);
+            tbOrder.setDriveId(35L);
             tbOrder.setUpdateTime(new Date());
         }
         if(StringUtil.equalsString(reqOrderNextStatusDto.getStatus(),"3")){

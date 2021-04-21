@@ -1,5 +1,6 @@
 package com.plan.demo.user.controller;
 
+import com.plan.demo.order.dto.ReqOrderDto;
 import com.plan.demo.user.dto.*;
 import com.plan.demo.user.service.UserManagerService;
 import com.plan.frame.entity.Result;
@@ -9,12 +10,10 @@ import com.plan.frame.helper.ResultHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import springfox.documentation.annotations.ApiIgnore;
 
 
 /**
@@ -307,7 +306,7 @@ public class UserManagerController {
     }
 
     @ApiOperation(value = "16-乘客添加紧急联系人")
-    @RequestMapping(value = "/addContactPerson",method = RequestMethod.GET)
+    @RequestMapping(value = "/addContactPerson",method = RequestMethod.POST)
     public Result<String> addContactPerson(@RequestBody ReqContactPersonDto reqContactPersonDto)throws RuntimeException{
         try {
             userManagerService.addContactPerson(reqContactPersonDto);
@@ -320,6 +319,22 @@ public class UserManagerController {
             }
         }
     }
+
+    @ApiOperation(value = "17-乘客端订单获取司机实时位置")
+    @RequestMapping(value = "/getDriverLocationByOrderId",method = RequestMethod.POST)
+    public Result<ResDriverLocationDto> getDriverLocationByDriverId(@RequestBody ReqOrderDto reqOrderDto)throws RuntimeException{
+        try {
+            ResDriverLocationDto resDriverLocationDTo =userManagerService.getDriverLocationByDriverId(reqOrderDto);
+            return ResultHelper.success(resDriverLocationDTo);
+        }catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw (BaseException) e;
+            } else {
+                throw new SystemException("乘客端订单获取司机实时位置失败", e, "请联系管理员！");
+            }
+        }
+    }
+
 
 
 
